@@ -1,0 +1,33 @@
+<h1>Nouvel utilisateur</h1>
+
+#{ifErrors}
+<p>
+    Errors in form
+</p>
+<ul>
+    #{errors}
+    <li>${error}</li>
+    #{/errors}
+</ul>
+#{/ifErrors}
+
+#{form @save(), id:'register-form', enctype:'multipart/form-data' }
+
+#{field 'user.idBooster'}
+<p>
+    <label>&{field.name}</label>
+    <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="${field.errorClass}">
+    <span class="error">${field.error}</span>
+</p>
+#{/}
+
+#{field 'user.profile'}
+<p>
+    <label>&{field.name}</label>
+    <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="${field.errorClass}">
+    <span class="error">${field.error}</span>
+</p>
+#{/}
+
+<input type="submit" value="Enregistrer">
+#{/form}

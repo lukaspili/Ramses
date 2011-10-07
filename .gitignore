@@ -1,0 +1,15 @@
+.classpath
+.project
+.settings
+bin/
+target/
+gen/
+
+*.iml
+.idea
+
+test-result/
+tmp/
+modules/
+lib/
+out/
