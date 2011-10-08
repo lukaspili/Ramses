@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <!-- iPhone, iPad and Android specific settings -->
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1;">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <title>#{get 'applicationName' /} #{get 'applicationVersion' /} - #{get 'pageTitle' /}</title>
+
+    <link rel="apple-touch-icon" href="@{'/public/images/iOS_icon.png'}">
+
+    <link rel="stylesheet" type="text/css" href="@{'/public/css/all.css'}" media="screen">
+
+    <link rel="stylesheet" type="text/css" href="@{'/public/css/theme/theme_light.css'}" media="screen">
+    <link rel="stylesheet" type="text/css" href="@{'/public/css/theme/theme_navy.css'}" media="screen">
+
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="@{'/public/css/ie6.css'}" media="screen"/><![endif]-->
+    <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="@{'/public/css/ie.css'}" media="screen"/><![endif]-->
+
+    <!-- Load JQuery -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+    <!-- Load JQuery UI -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+
+    <!-- Load Interface Plugins -->
+    <script type="text/javascript" src="@{'/public/js/uniform/jquery.uniform.js'}"></script>
+
+    <script type="text/javascript" src="@{'/public/js/iPhone/jquery.iphoneui.js'}"></script>
+    <script type="text/javascript" src="@{'/public/js/uitotop/js/jquery.ui.totop.js'}"></script>
+
+    <!-- This file configures the various jQuery plugins for Adminica. Contains links to help pages for each plugin. -->
+    <script type="text/javascript" src="@{'/public/js/adminica/adminica_ui.js'}"></script>
+
+
+</head>
+<body>
+<div id="wrapper">
+<div id="topbar" class="clearfix">
+    <a href="index.html" class="logo"><span>Adminica Pro II</span></a>
+
+    <div class="user_box round_all">
+        <img src="images/profile.jpg'}" width="55" alt="Profile Pic"/>
+
+        <h2>Administrator</h2>
+
+        <h3><a class="text_shadow" href="#">John Smith</a></h3>
+        <ul>
+            <li><a href="#">profile</a><span class="divider">|</span></li>
+            <li><a href="#">settings</a><span class="divider">|</span></li>
+            <li><a href="login.html">logout</a></li>
+        </ul>
+    </div>
+    <!-- #user_box -->
+</div>
+<!-- #topbar -->
+
+<div id="sidebar">
+    <div class="cog">+</div>
+
+    <a href="index.php" class="logo"><span>Adminica Pro II</span></a>
+
+    <div class="user_box round_all clearfix">
+        <img src="@{'/public/images/profile.jpg'}" width="55" alt="Profile Pic"/>
+
+        <h2>Administrator</h2>
+
+        <h3><a class="text_shadow" href="#">John Smith</a></h3>
+        <ul>
+            <li><a href="#">settings</a><span class="divider">|</span></li>
+            <li><a href="login.php">logout</a></li>
+        </ul>
+    </div>
+    <!-- #user_box -->
+
+    <ul id="accordion" class="round_all">
+        <li><a href="index.php" class="top_level"><img src="images/icons/small/grey/home.png'}'}"/>Home</a>
+            <ul class="drawer">
+                <li><a href="#">Activity</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Tasks</a></li>
+            </ul>
+        </li>
+        <li><a href="#" class="top_level"><img src="@{'/public/images/icons/small/grey/mail.png'}"/>Mailbox</a>
+            <ul class="drawer">
+                <li><a href="#">Inbox</a></li>
+                <li><a href="#">Sent Items</a></li>
+                <li><a href="#">Drafts</a></li>
+                <li><a href="#">Trash</a></li>
+            </ul>
+        </li>
+        <li><a href="#" class="top_level"><img src="@{'/public/images/icons/small/grey/documents.png'}"/>Documents</a>
+            <ul class="drawer">
+                <li><a href="#">Create New</a></li>
+                <li><a href="#">View All</a></li>
+                <li><a href="#">Upload/Download</a></li>
+            </ul>
+        </li>
+        <li><a href="#" class="top_level"><img src="@{'/public/images/icons/small/grey/users.png'}"/>Members</a>
+            <ul class="drawer">
+                <li><a href="#">Add New</a></li>
+                <li><a href="#">Edit/Delete</a></li>
+                <li><a href="#">Search Profiles</a></li>
+            </ul>
+        </li>
+        <li><a href="#" onClick="parent.location='http://www.tricycle.ie'" class="top_level"><img
+                src="@{'/public/images/icons/small/grey/graph.png'}"/>Statistics</a>
+        </li>
+        <li><a href="#" class="top_level"><img src="@{'/public/images/icons/small/grey/cog_2.png'}"/>Settings</a>
+            <ul class="drawer">
+                <li><a href="#">Account</a></li>
+                <li><a href="#">System</a></li>
+            </ul>
+        </li>
+    </ul>
+    <form id="search_side"><input class="round_all" type="text" value="Search Adminica..." onclick="value=''"></form>
+    <ul id="side_links" class="text_shadow round_all">
+        <li><a href="http://www.tricycle.ie/adminica/index.php/docs/">Online Documentation</a>
+        <li><a href="#">Expert Forum</a></li>
+        <li><a href="#">Product Wiki</a></li>
+        <li><a href="#">Latest Company News</a></li>
+    </ul>
+</div>
+<!-- #sidebar -->
+
+
+<div id="main_container" class="main_container container_16 clearfix">
+
+<div id="nav_top" class="clearfix round_top">
+    <ul class="clearfix round_all">
+        <li class="current"><a href="dashboard_sorter.html"><img src="@{'/public/images/icons/small/white/laptop.png'}"/>Dashboard</a></li>
+
+        <li><a href="#"><img src="@{'/public/images/icons/small/grey/frames.png'}"/>Layout</a>
+            <ul class="dropdown">
+                <li><a href="layout.html">16 Grid - 960.gs</a></li>
+                <li><a href="text.html">Text & Typography</a></li>
+                <li><a class="has_slide" href="#">Layout Width</a>
+                    <ul class="slideout">
+                        <li><a href="css/theme/switcher1.php?style=../layout_fixed.css">Fixed</a></li>
+                        <li><a href="css/theme/switcher1.php?style=switcher.css">Fluid</a></li>
+                    </ul>
+                </li>
+                <li><a class="has_slide" href="#">Layout Position</a>
+                    <ul class="slideout">
+                        <li><a href="css/theme/switcher2.php?style=switcher.css">Side</a></li>
+                        <li><a href="css/theme/switcher2.php?style=../layout_top.css">Top</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="#"><img src="@{'/public/images/icons/small/grey/coverflow.png'}"/>Boxes</a>
+            <ul class="dropdown">
+                <li><a class="has_slide" href="#">Tab Boxes</a>
+                    <ul class="slideout">
+                        <li><a href="tabs.html">Horizontal Tabs</a></li>
+                        <li><a href="tabs.html">Vertical Tabs</a></li>
+                    </ul>
+                </li>
+                <li><a href="accordions.html">Accordions Boxes</a></li>
+                <li><a href="wizard.html">Step by Step Wizard</a></li>
+                <li><a href="code.html">Code View</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><img src="@{'/public/images/icons/small/grey/create_write.png'}"/>Forms</a>
+            <ul class="dropdown">
+                <li><a href="forms.html">Input & Validation</a></li>
+                <li><a class="has_slide" href="#">Date</a>
+                    <ul class="slideout">
+                        <li><a href="forms.html">Date Field</a></li>
+                        <li><a href="forms.html">Inline Picker</a></li>
+                    </ul>
+                </li>
+                <li><a class="has_slide" href="#">Sliders</a>
+                    <ul class="slideout">
+                        <li><a href="forms.html">Horizontal Slider</a></li>
+                        <li><a href="forms.html">Vertical Slider</a></li>
+                        <li><a href="forms.html">Range Slider</a></li>
+                        <li><a href="forms.html">Progress Bar</a></li>
+                    </ul>
+                </li>
+                <li><a href="buttons.html">Buttons</a></li>
+                <li><a href="editor.html">WYSIWYG Editor</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><img src="@{'/public/images/icons/small/grey/images.png'}"/>Gallery</a>
+            <ul class="dropdown">
+                <li><a href="gallery.html">Fancybox Gallery</a></li>
+                <li><a href="gallery_sortable.html">Sortable Gallery</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><img src="@{'/public/images/icons/small/grey/blocks_images.png'}"/>Tables</a>
+            <ul class="dropdown dropdown_left">
+                <li><a href="tables.html">DataTables</a></li>
+                <li><a href="tables_static.html">Regular Tables</a></li>
+            </ul>
+        </li>
+        <li><a href="#"><img src="@{'/public/images/icons/small/grey/plane_suitcase.png'}"/>Organize</a>
+            <ul class="dropdown dropdown_left">
+                <li><a href="files.html"><img src="@{'/public/images/icons/small/grey/Folder.png'}"/>Files</a></li>
+                <li><a href="contacts.html"><img src="@{'/public/images/icons/small/grey/Users.png'}"/>Contacts</a></li>
+            </ul>
+        </li>
+        <li><a href="calendar.html"><img src="@{'/public/images/icons/small/grey/month_calendar.png'}"/>Calendar</a></li>
+        <li><a href="charts.html"><img src="@{'/public/images/icons/small/grey/graph.png'}"/>Charts</a></li>
+        <li><a href="login.html"><img src="@{'/public/images/icons/small/grey/locked_2.png'}"/>Login</a></li>
+    </ul>
+</div>
+<!-- #nav_top -->
+
+<div class="flat_area grid_16">
+    <h2>Form elements and controls</h2>
+
+    <p>Check out the Application like <a href="#">navigation</a>. Resize to see the liquid layout in action. Expand/Collapse and sort boxes. Try out
+        the WYSIWYGs.</p>
+</div>
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour">Form Elements</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block">
+            <form>
+                <label>Small input form</label>
+                <input title="This field has an HTML5 autofocus property" type="text" class="small required" autofocus>
+
+                <label>Medium input form</label>
+                <input title="This is a tool tip" type="text" class="medium">
+
+                <label>Long input form</label>
+                <input title="A tooltip can be set on any object by giving it a title property" type="text" class="large">
+
+                <label>Regular Text Area</label>
+                <textarea></textarea>
+
+                <button class="button_colour round_all"><img height="24" width="24" alt="Bended Arrow Right"
+                                                             src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>Submit</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour">Form Elements</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block">
+            <form>
+                <label>Modal Popup</label>
+                <button id="opener" class="skin_colour round_all"><img width="24" height="24" alt="Speech Bubble 2"
+                                                                       src="@{'/public/images/icons/small/white/speech_bubble_2.png'}"><span>Open Dialog</span>
+                </button>
+                <div id="dialog" title="Popup Dialog">
+                    <p>
+                        This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with
+                        the 'x' icon.
+
+                    </p>
+                </div>
+
+                <label>Radio Buttons</label>
+
+                <div class="input_group">
+                    <input type="radio" name="radio" value="option 1" checked>First option<br>
+                    <input type="radio" name="radio" value="option 2">Second option<br>
+                    <input type="radio" name="radio" value="option 3">Third option
+                </div>
+
+                <label>Check Boxes</label>
+
+                <div class="input_group">
+                    <input type="checkbox" name="option" value="option 1">First option<br>
+                    <input type="checkbox" name="option" value="option 2">Second option<br>
+                    <input type="checkbox" name="option" value="option 3">Third option
+                </div>
+
+                <label>Select Menu</label>
+
+                <div class="input_group">
+                    <select>
+                        <option value="apples">
+                            Apples
+                        </option>
+                        <option value="oranges">
+                            Oranges
+                        </option>
+                        <option value="bananas">
+                            Bananas
+                        </option>
+                    </select>
+                </div>
+
+                <label>Please Upload a File</label>
+
+                <div class="input_group">
+                    <input type="file">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour ">Alert Boxes</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block">
+            <p>These alerts can have any of the 400+ icons. Click to dismiss and they'll fade away!</p>
+
+            <div class="alert alert_blue">
+                <img height="24" width="24" src="@{'/public/images/icons/small/white/alert_2.png'}">
+                This is a <strong>blue</strong> Alert!
+            </div>
+            <div class="alert alert_green">
+                <img height="24" width="24" src="@{'/public/images/icons/small/white/alert.png'}">
+                This is a <strong>green</strong> Alert!
+            </div>
+            <div class="alert alert_red">
+                <img height="24" width="24" src="@{'/public/images/icons/small/white/alarm_bell.png'}">
+                This is a <strong>red</strong> Alert!
+            </div>
+            <div class="alert alert_orange">
+                <img height="24" width="24" src="@{'/public/images/icons/small/white/alarm_clock.png'}">
+                This is an <strong>orange</strong> Alert!
+            </div>
+            <div class="alert alert_black">
+                <img height="24" width="24" src="@{'/public/images/icons/small/white/locked_2.png'}">
+                This is a <strong>black</strong> Alert!
+            </div>
+            <div class="alert alert_navy">
+                <img height="24" width="24" src="@{'/public/images/icons/small/white/cog_3.png'}">
+                This is a <strong>navy</strong> Alert!
+            </div>
+            <div class="alert alert_grey">
+                <img height="24" width="24" src="@{'/public/images/icons/small/grey/speech_bubble_2.png'}">
+                This is a <strong>grey</strong> Alert!
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour">More Elements
+        <small>(jQuery UI, themeroller compatible)</small>
+    </h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block">
+            <form>
+
+                <label>Inline Date Picker</label>
+
+                <div class="datepicker"></div>
+
+                <label>Date Field</label>
+                <input type="text" class="datepicker">
+
+                <label>Slider Control</label>
+
+                <div class="slider"></div>
+
+                <label>Range Slider Control</label>
+
+                <div class="slider_range"></div>
+
+                <label>Progress Bar</label>
+
+                <div id="progressbar"></div>
+
+                <button class="button_colour"><img height="24" width="24" alt="Bended Arrow Right"
+                                                   src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>Submit</span></button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour round_all">HTML5 Elements
+        <small>(Not available on every browser)</small>
+    </h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle toggle_closed">&nbsp;</a>
+
+    <div class="toggle_container" style="display:none;">
+        <div class="block">
+            <form>
+                <label>HTML5 Number box</label>
+                <input type="number"
+                       min="0"
+                       max="10"
+                       step="2"
+                       value="6">
+
+                <label>HTML5 native slider</label>
+                <input type="range"
+                       min="0"
+                       max="10"
+                       step="2"
+                       value="6">
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour ">Form Validation</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block">
+            <form>
+                <label>This input cannot be empty</label>
+                <input id="notempty" type="text" class="medium">
+
+                <label>This input has to be an email address</label>
+                <input id="realemail" type="text" class="medium">
+
+                <label>Enter atleast 30 characters</label>
+                <textarea id="atleast" style="height:auto"/></textarea>
+                <button class="button_colour"><img height="24" width="24" alt="Bended Arrow Right"
+                                                   src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>Submit</span></button>
+            </form>
+
+            <script type="text/javascript">
+                var notempty = new LiveValidation('notempty');
+                notempty.add(Validate.Presence);
+
+                var realemail = new LiveValidation('realemail');
+                realemail.add(Validate.Email);
+
+                var atleast = new LiveValidation('atleast');
+                atleast.add(Validate.Length, { minimum: 30 });
+
+            </script>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div id="loading_overlay">
+    <div class="loading_message round_bottom">Loading...</div>
+</div>
+
+<script type="text/javascript" src="@{'/public/js/livevalidation/livevalidation_standalone.js'}"></script>
+<script type="text/javascript" src="@{'/public/js/tipsy/jquery.tipsy.js'}"></script>
+
+<script type="text/javascript">
+
+
+    // Tipsy Top Config (more info found at http://onehackoranother.com/projects/jquery/tipsy/)
+    $('[title]').not("div").tipsy({
+        fade: true,     // fade tooltips in/out?
+        fallback: '',    // fallback text to use when no tooltip text
+        gravity: 's',    // gravity
+        opacity: 1,    // opacity of tooltip
+        title: 'title',  // attribute/callback containing tooltip text
+        trigger: 'hover' // how tooltip is triggered - hover | focus | manual
+    });
+
+    // Tipsy Side Config
+    $('input[title]').tipsy({
+        trigger: 'focus',
+        offset:'5',
+        gravity: 'w'
+    });
+
+    // Live Validation
+    var notempty = new LiveValidation('notempty');
+    notempty.add(Validate.Presence);
+
+    var realemail = new LiveValidation('realemail');
+    realemail.add(Validate.Email);
+
+    var atleast = new LiveValidation('atleast');
+    atleast.add(Validate.Length, { minimum: 30 });
+
+</script>
+</body>
+</html>
