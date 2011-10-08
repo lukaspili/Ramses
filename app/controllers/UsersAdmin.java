@@ -2,7 +2,7 @@ package controllers;
 
 import models.user.Profile;
 import models.user.User;
-import play.mvc.With;
+import play.mvc.Before;
 import service.ProfileService;
 import service.UserService;
 
@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-@With(Auth.class)
 public class UsersAdmin extends AbstractController {
 
     @Inject

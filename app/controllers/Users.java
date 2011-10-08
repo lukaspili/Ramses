@@ -8,7 +8,6 @@ import service.UserService;
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-@With(Auth.class)
 public class Users extends Controller {
 
     @Inject
