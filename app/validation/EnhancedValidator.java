@@ -1,11 +1,15 @@
 package validation;
 
 import exceptions.CoreException;
+import org.apache.commons.lang3.StringUtils;
 import play.classloading.enhancers.LocalvariablesNamesEnhancer;
 import play.data.validation.Validation;
 import play.mvc.Scope;
 
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -13,23 +17,31 @@ import java.util.List;
 public class EnhancedValidator {
 
     private Validation validation;
-    private Scope.RenderArgs renderArgs;
+    private Scope.Params params;
 
     private Object object;
     private String objectName;
 
-    public EnhancedValidator(Validation validation, Scope.RenderArgs renderArgs) {
-        this.validation = validation;
-        this.renderArgs = renderArgs;
+    public EnhancedValidator(Validation validation, Scope.Params params) {
+        this.validation = checkNotNull(validation);
+        this.params = checkNotNull(params);
     }
 
-    public EnhancedValidator forObject(Object object) {
+    public EnhancedValidator validate(Object object) {
+
         this.object = object;
         this.objectName = getLocalName(object);
+
+        checkArguments();
+
+        validation.valid(object);
+
         return this;
     }
 
     public EnhancedValidator require(String... attributes) {
+
+        checkArguments();
 
         for (String attribute : attributes) {
 
@@ -48,11 +60,15 @@ public class EnhancedValidator {
 
     public boolean hasErrors() {
 
+        checkArguments();
+
         if (validation.errorsMap().isEmpty()) {
             return false;
         }
 
-        renderArgs.put(objectName, object);
+        params.flash();
+        validation.keep();
+
         return true;
     }
 
@@ -127,5 +143,10 @@ public class EnhancedValidator {
             return names.get(0);
         }
         return "";
+    }
+
+    private void checkArguments() {
+        checkNotNull(object);
+        checkArgument(StringUtils.isNotBlank(objectName), "Object name for %s is required", object);
     }
 }

@@ -1,10 +1,13 @@
 package controllers;
 
-import com.google.inject.Inject;
+import models.user.Profile;
 import models.user.User;
-import play.data.validation.Valid;
 import play.mvc.With;
+import service.ProfileService;
 import service.UserService;
+
+import javax.inject.Inject;
+import java.util.List;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -13,16 +16,20 @@ import service.UserService;
 public class UsersAdmin extends AbstractController {
 
     @Inject
-    private static UserService userService = new UserService();
+    static UserService userService;
+
+    @Inject
+    static ProfileService profileService;
 
     public static void create() {
-        render();
+        List<Profile> profiles = profileService.getProfilesList();
+        render(profiles);
     }
 
-    public static void save(@Valid User user) throws Exception {
+    public static void save(User user) throws Exception {
 
-        if (validator().forObject(user).require("idBooster", "profile").hasErrors()) {
-            render("UsersAdmin/create.html");
+        if (validator().validate(user).require("idBooster", "profile").hasErrors()) {
+            create();
         }
 
         userService.save(user);

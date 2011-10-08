@@ -1,10 +1,7 @@
 package controllers;
 
 import play.mvc.Controller;
-import play.mvc.Util;
 import validation.EnhancedValidator;
-
-import javax.validation.Valid;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -12,7 +9,7 @@ import javax.validation.Valid;
 public abstract class AbstractController extends Controller {
 
     protected static EnhancedValidator validator() {
-        return new EnhancedValidator(validation, renderArgs);
+        return new EnhancedValidator(validation, params);
     }
 
     protected static void flashInfo(String message) {
