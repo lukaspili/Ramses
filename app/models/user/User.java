@@ -1,7 +1,6 @@
 package models.user;
 
 import play.data.validation.Email;
-import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
