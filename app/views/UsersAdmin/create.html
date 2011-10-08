@@ -1,3 +1,6 @@
+#{extends 'template/template.html' /}
+#{set title:'Home' /}
+
 <h1>Nouvel utilisateur</h1>
 
 #{ifErrors}
@@ -15,16 +18,16 @@
 
 #{field 'user.idBooster'}
 <p>
-    <label>&{field.name}</label>
-    <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="${field.errorClass}">
+    <label for="${field.id}">&{field.name}</label>
+    <input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="${field.errorClass}">
     <span class="error">${field.error}</span>
 </p>
 #{/}
 
 #{field 'user.profile'}
 <p>
-    <label>&{field.name}</label>
-    <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="${field.errorClass}">
+    <label for="${field.id}">&{field.name}</label>
+    #{select field.name, items:profiles, valueProperty:'value', labelProperty:'label', id:field.id, value:flash[field.name] /}
     <span class="error">${field.error}</span>
 </p>
 #{/}
