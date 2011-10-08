@@ -12,7 +12,7 @@ public class Auth extends Secure.Security {
 
     private static final String CURRENT_USER = "user";
 
-    public static final String GUEST = "user";
+    public static final String GUEST_PROFILE = "guest_profile";
 
     @Before
     public static void checkUser() {

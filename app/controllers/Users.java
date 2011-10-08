@@ -14,11 +14,12 @@ public class Users extends Controller {
     @Inject
     private static UserService userService = new UserService();
 
-    @Check()
+    @Check(Auth.GUEST_PROFILE)
     public static void login() {
-
+        render();
     }
 
+    @Check(Auth.GUEST_PROFILE)
     public static void authenticate() {
 
     }
