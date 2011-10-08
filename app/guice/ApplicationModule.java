@@ -2,6 +2,7 @@ package guice;
 
 import com.google.inject.AbstractModule;
 import models.user.User;
+import service.ProfileService;
 import service.UserService;
 
 /**
@@ -13,5 +14,6 @@ public class ApplicationModule extends AbstractModule {
     protected void configure() {
 
         bind(UserService.class);
+        bind(ProfileService.class);
     }
 }
