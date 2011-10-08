@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.helper.PageHelper;
 import models.user.Profile;
 import models.user.User;
 import play.mvc.Before;
@@ -15,12 +16,22 @@ import java.util.List;
 public class UsersAdmin extends AbstractController {
 
     @Inject
-    static UserService userService;
+    private static UserService userService;
 
     @Inject
-    static ProfileService profileService;
+    private static ProfileService profileService;
+
+    private static PageHelper pageHelper;
+
+    @Before
+    public static void before() {
+        pageHelper = new PageHelper("usersadmin", renderArgs);
+    }
 
     public static void create() {
+
+        pageHelper.title("createuser");
+
         List<Profile> profiles = profileService.getProfilesList();
         render(profiles);
     }
