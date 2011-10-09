@@ -1,7 +1,8 @@
 package models.user;
 
-import play.data.validation.Email;
+import play.data.validation.CheckWith;
 import play.db.jpa.Model;
+import validation.check.NumericCheck;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,7 +14,7 @@ import javax.persistence.Enumerated;
 @Entity
 public class User extends Model {
 
-    @Email
+    @CheckWith(NumericCheck.class)
     public String idBooster;
 
     public String firstName;
