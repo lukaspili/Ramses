@@ -1,5 +1,7 @@
 package models.user;
 
+import play.i18n.Messages;
+
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
@@ -11,6 +13,6 @@ public enum Profile {
     }
 
     public String getLabel() {
-        return "profile." + super.toString().toLowerCase();
+        return Messages.get("profile." + super.toString().toLowerCase());
     }
 }
