@@ -1,36 +1,85 @@
 #{extends 'template/template.html' /}
-#{set title:'Home' /}
 
-<h1>Nouvel utilisateur</h1>
+<div class="flat_area grid_16">
+    <h2>${page_title}</h2>
+    #{include 'helpers/flash_box.html' /}
+</div>
 
-#{ifErrors}
-<p>
-    Errors in form
-</p>
-<ul>
-    #{errors}
-    <li>${error}</li>
-    #{/errors}
-</ul>
-#{/ifErrors}
+<div class="box grid_10 round_all">
+    <h2 class="box_head grad_colour">Formulaire d'ajout</h2>
 
-#{form @save(), id:'register-form', enctype:'multipart/form-data' }
+    <div class="toggle_container">
+        <div class="block">
 
-#{field 'user.idBooster'}
-<p>
-    <label for="${field.id}">&{field.name}</label>
-    <input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="${field.errorClass}">
-    <span class="error">${field.error}</span>
-</p>
-#{/}
+            #{include 'helpers/form_validation.html' /}
 
-#{field 'user.profile'}
-<p>
-    <label for="${field.id}">&{field.name}</label>
-    #{select field.name, items:profiles, valueProperty:'value', labelProperty:'label', id:field.id, value:flash[field.name] /}
-    <span class="error">${field.error}</span>
-</p>
-#{/}
+            <p>Veuillez renseigner les informations de l'utilisateur à ajouter.</p>
 
-<input type="submit" value="Enregistrer">
-#{/form}
+            #{form @save(), id:'register-form', enctype:'multipart/form-data' }
+
+            #{field 'user.idBooster'}
+            <label for="${field.id}">&{field.name}</label>
+            <input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="medium ${field.errorClass}"
+                   title="L'id booster est requis et doit être composé uniquement de caractères numériques."/>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            #{field 'user.profile'}
+            <label for="${field.id}">&{field.name}</label>
+
+            <div class="input_group">
+                #{select field.name, items:profiles, valueProperty:'value', labelProperty:'label', id:field.id, value:flash[field.name] /}
+            </div>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            #{field 'afterSubmit'}
+            <label>&{field.name}</label>
+
+            <div class="input_group">
+                <input type="radio" name="${field.name}" value="list" checked/>
+                Revenir à la liste des utilisateurs.<br/>
+
+                <input type="radio" name="${field.name}" value="form" ${(flash[field.name] == 'form').yesno('checked', '')} />
+                Rester sur le formulaire et ajouter un nouvel utilisateur.
+            </div>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            <button class="button_colour round_all">
+                <img height="24" width="24" alt="Bended Arrow Right" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+            </button>
+            #{/form}
+        </div>
+    </div>
+</div>
+
+<div class="flat_area grid_6">
+
+    <h2>Aide</h2>
+
+    <p>Procédure d'ajout d'un nouvel utilisateur à l'application.</p>
+
+    <h3>Enregistrer l'utilisateur</h3>
+
+    <p>
+        Renseignez l'id booster et le profil de l'utilisateur, puis enregistrez.
+        Un mail sera automatiquement envoyé à l'adresse idbooster@supinfo.com contenant le mot de passe temporaire.
+    </p>
+
+    <h3>Première connexion</h3>
+
+    <p>
+        Lorsque l'utilisateur va se connecter pour la première fois avec le couple idbooster / mot de passe temporaire,
+        il sera invité à saisir un nouveau mot de passe ainsi que ses informations personnelles (nom, SIRET, etc...).
+    </p>
+
+    <h3>Utilisateurs actifs / inactifs</h3>
+
+    <p>
+        Tant que l'utilisateur n'aura pas rempli la procédure de première connexion, il sera considéré comme inactif.
+        Vous pouvez à tout moment renvoyer un mail automatique de relance avec un nouveau mot de passe temporaire.
+    </p>
+
+</div>
+
