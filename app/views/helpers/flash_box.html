@@ -1,0 +1,20 @@
+#{if flash.error_box}
+<div class="alert alert_red">
+    <img height="24" width="24" src="@{'/public/images/icons/small/white/alert.png'}">
+    <strong>${flash.error_box}</strong>
+</div>
+#{/if}
+
+#{if flash.info_box}
+<div class="alert alert_navy">
+    <img height="24" width="24" src="@{'/public/images/icons/small/white/speech_bubble_2.png'}">
+    <strong>${flash.info_box}</strong>
+</div>
+#{/if}
+
+#{if flash.success_box}
+<div class="alert alert_green">
+    <img height="24" width="24" src="@{'/public/images/icons/small/white/alert_2.png'}">
+    <strong>${flash.success_box}</strong>
+</div>
+#{/if}
