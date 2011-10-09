@@ -1,13 +1,21 @@
 package controllers;
 
-import play.mvc.Controller;
+import controllers.helper.PageHelper;
+import play.mvc.Before;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public class Dashboard extends Controller {
+public class Dashboard extends AbstractController {
 
-    public static void home() {
+    private static PageHelper pageHelper;
+
+    @Before
+    public static void before() {
+        pageHelper = new PageHelper("dashboard", renderArgs);
+    }
+
+    public static void index() {
         render();
     }
 }
