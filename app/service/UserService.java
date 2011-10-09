@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.CoreException;
 import models.user.User;
 
 /**
@@ -7,7 +8,12 @@ import models.user.User;
  */
 public class UserService {
 
-    public User save(User user) {
+    public User save(User user) throws CoreException {
+
+        if (null != getByIdBooster(user.idBooster)) {
+            throw new CoreException().type(CoreException.Type.UNIQUE_CONSTRAINT_VIOLATION);
+        }
+
         user.save();
         return user;
     }
@@ -18,8 +24,8 @@ public class UserService {
         return user;
     }
 
-    public User getByEmail(String email) {
-        User user = User.find("byEmail", email).first();
+    public User getByIdBooster(String idBooser) {
+        User user = User.find("byIdBooster", idBooser).first();
         User.em().detach(user);
         return user;
     }

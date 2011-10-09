@@ -58,18 +58,26 @@ public class EnhancedValidator {
         return this;
     }
 
+    public EnhancedValidator addError(String field, String message) {
+        validation.addError(objectName + "." + field, message);
+        return this;
+    }
+
     public boolean hasErrors() {
 
         checkArguments();
 
-        if (validation.errorsMap().isEmpty()) {
+        if (!validation.hasErrors()) {
             return false;
         }
 
+        save();
+        return true;
+    }
+
+    public void save() {
         params.flash();
         validation.keep();
-
-        return true;
     }
 
 
