@@ -14,11 +14,13 @@ public class PageHelper {
     public PageHelper(String pageName, Scope.RenderArgs renderArgs) {
         this.pageName = pageName;
         this.renderArgs = renderArgs;
+
+        renderArgs.put("page_title", Messages.get(pageName));
     }
 
     public void title(String... titles) {
 
-        String title = Messages.get(pageName);
+        String title = String.valueOf(renderArgs.get("page_title"));
 
         for (String t : titles) {
             title += " - " + Messages.get(pageName + "." + t);
