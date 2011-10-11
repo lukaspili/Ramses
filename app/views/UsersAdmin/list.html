@@ -1,0 +1,61 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+    <h2>${page_title}</h2>
+
+    #{include 'helpers/flash_box.html' /}
+
+    #{a @create()}
+    <button class="button_colour round_all" style="float: right;">
+        <img height="24" width="24" alt="&{'usersadmin.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'usersadmin.create'}</span>
+    </button>
+    #{/a}
+
+    <p>Il y'a actuellement ${users.size} utilisateur${users.pluralize()} enregistré${users.pluralize()} dans l'application, dont :</p>
+
+    <ul>
+        <li>${staCount} &{'profile.sta' + (staCount > 1 ? '.many':'')}</li>
+        <li>${externeCount} &{'profile.externe' + (externeCount > 1 ? '.many':'')}</li>
+        <li>${adminCount} &{'profile.admin' + (adminCount > 1 ? '.many':'')}</li>
+    </ul>
+
+</div>
+
+<div class="box grid_16 round_all">
+    <table class="display datatable">
+        <thead>
+        <tr>
+            <th>&{'user.idBooster'}</th>
+            <th>&{'user.lastName'}</th>
+            <th>&{'user.profile'}</th>
+            <th>&{'user.activity'}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        #{list items:users, as: 'user'}
+        <tr>
+            <td>
+                #{a @Users.show(user.id)}<strong>${user.idBooster}</strong>#{/a}
+            </td>
+
+            <td>
+                #{if user.officialFullName}
+                ${user.officialFullName}
+                #{/if}
+                #{else}
+                &{'not_filled'}
+                #{/else}
+            </td>
+            <td>${user.profile.label}</td>
+            <td>&{user.active.yesno('user.activity.active', 'user.activity.inactive')}</td>
+        </tr>
+        #{/list}
+
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" src="@{'public/js/DataTables/jquery.dataTables.js'}"></script>
+<script type="text/javascript" src="@{'public/js/adminica/adminica_datatables.js'}"></script>

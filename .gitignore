@@ -13,3 +13,4 @@ tmp/
 modules/
 lib/
 out/
+db/

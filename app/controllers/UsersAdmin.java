@@ -3,9 +3,11 @@ package controllers;
 import controllers.abstracts.AppController;
 import controllers.abstracts.UtilController;
 import controllers.helper.PageHelper;
+import controllers.security.LoggedAccess;
 import exceptions.CoreException;
 import models.user.Profile;
 import models.user.User;
+import notifiers.Mails;
 import play.data.validation.Required;
 import play.mvc.Before;
 import service.ProfileService;
@@ -62,6 +64,8 @@ public class UsersAdmin extends AppController {
             throw e;
         }
 
+        Mails.register(user);
+
         flashSuccess("usersadmin.save.success", user.idBooster);
 
         if (afterSubmit.equalsIgnoreCase("form")) {
@@ -72,6 +76,15 @@ public class UsersAdmin extends AppController {
     }
 
     public static void list() {
-        render();
+
+        pageHelper.title("list");
+
+        long staCount = User.count("byProfile", Profile.STA);
+        long externeCount = User.count("byProfile", Profile.EXTERNE);
+        long adminCount = User.count("byProfile", Profile.ADMIN);
+
+        List<User> users = userService.getUsers();
+
+        render(users, staCount, externeCount, adminCount);
     }
 }

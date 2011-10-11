@@ -28,4 +28,8 @@ public class PageHelper {
 
         renderArgs.put("page_title", title);
     }
+
+    public void uniqueTitle(String title) {
+        renderArgs.put("page_title", title);
+    }
 }

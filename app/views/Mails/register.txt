@@ -1,0 +1,8 @@
+&{'mail.register.subject'}
+
+&{'mail.register.introduction'}
+&{'mail.register.url', user.idBooster} : @@{dashboard.index}
+
+&{'mail.register.password'} : ${user.password}
+
+&{'mail.register.process'}
