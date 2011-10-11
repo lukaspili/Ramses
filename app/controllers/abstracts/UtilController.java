@@ -1,6 +1,9 @@
-package controllers;
+package controllers.abstracts;
 
+import controllers.Application;
+import controllers.filters.UserFirstLoginFilter;
 import controllers.helper.PageHelper;
+import controllers.security.Auth;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -9,8 +12,8 @@ import validation.EnhancedValidator;
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-@With({Application.class, Auth.class})
-public abstract class AbstractController extends Controller {
+
+public abstract class UtilController extends Controller {
 
     protected static EnhancedValidator validator() {
         return new EnhancedValidator(validation, params);

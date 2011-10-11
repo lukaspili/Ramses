@@ -1,12 +1,15 @@
 package controllers;
 
+import controllers.abstracts.AppController;
 import controllers.helper.PageHelper;
+import controllers.security.LoggedAccess;
 import play.mvc.Before;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public class Dashboard extends AbstractController {
+@LoggedAccess
+public class Dashboard extends AppController {
 
     private static PageHelper pageHelper;
 

@@ -1,12 +1,13 @@
 package controllers;
 
+import controllers.abstracts.UtilController;
 import play.mvc.Before;
 import play.mvc.Controller;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public class Application extends Controller {
+public class Application extends UtilController {
 
     private static final String APPLICATION_NAME = "Ramses";
 

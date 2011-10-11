@@ -1,14 +1,13 @@
 package controllers;
 
-import com.google.inject.Inject;
-import play.mvc.Controller;
-import play.mvc.With;
+import controllers.abstracts.AppController;
+import controllers.abstracts.UtilController;
 import service.UserService;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public class Users extends Controller {
+public class Users extends AppController {
 
     @Inject
     private static UserService userService = new UserService();

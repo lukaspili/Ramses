@@ -1,5 +1,7 @@
 package controllers;
 
+import controllers.abstracts.AppController;
+import controllers.abstracts.UtilController;
 import controllers.helper.PageHelper;
 import exceptions.CoreException;
 import models.user.Profile;
@@ -16,7 +18,8 @@ import java.util.List;
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public class UsersAdmin extends AbstractController {
+@LoggedAccess(Profile.ADMIN)
+public class UsersAdmin extends AppController {
 
     @Inject
     private static UserService userService;
