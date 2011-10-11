@@ -1,15 +1,44 @@
+# Application
+app.name=Ramses
+
 # User
 user.idBooster=ID Booster
+user.password=Mot de passe
 user.profile=Profil
+
+user.activity.active=Actif
+user.activity.inactive=Inactif
 
 # Profile
 profile=Profil
-profile.sta=Elève STA
+profile.many=Profils
+
+profile.guest=Invité
+profile.guest.many=Invités
+
+profile.sta=STA
+profile.sta.many=STA
+
 profile.externe=Professeur externe
+profile.externe.many=Professeurs externes
+
 profile.admin=Administrateur
+profile.admin.many=Administrateurs
 
 # Dashboard
 dashboard=Dashboard
+
+# Users
+
+# Users.login
+users.login=Authentification
+users.login.submit=Connexion
+users.login.password=Mot de passe oublié ?
+users.login.remember=Connexion auto.
+users.login.authentication.failure=Identifiants incorrects
+
+# Users.logout
+users.logout=Deconnexion
 
 # UsersAdmin
 usersadmin=Gestion des utilisateurs
@@ -19,6 +48,9 @@ usersadmin.create=Nouvel utilisateur
 usersadmin.create.error.uniqueIdBooster=Cet id booster existe déjà dans l'application
 usersadmin.save.success=L'utilisateur avec l'id booster %1$s a été enregistré avec succès. Un mail contenant le mot de passe a été envoyé à %1$s@supinfo.com.
 
+# UsersAdmin.list
+usersadmin.list=Liste des utilisateurs
+
 # Form commons
 submit.save=Enregistrer
 afterSubmit=Après l'enregistrement du formulaire
@@ -27,3 +59,22 @@ afterSubmit=Après l'enregistrement du formulaire
 validation.required=Cette information est requise
 validation.email=L'email n'est pas valide
 validation.numeric=Ne doit contenir que des caractères numériques
+
+# Commons
+not_filled=Non renseigné
+
+# Mail
+#################
+
+# Mail register
+mail.register.subject=Activation de votre compte sur &{app.name}
+mail.register.introduction=Votre compte vient d'être activé sur la plateforme.
+mail.register.url=Vous pouvez vous y connecter dès à présent avec votre idbooster %s, à l'adresse
+mail.register.password=Votre mot de passe généré de manière automatique est
+mail.register.process=Lors de votre première connexion, vous devrez renseigner vos informations personnelles nécessaires à l'édition de vos contrats ainsi que redéfinir votre mot de passe.
+
+
+# Auth
+#################
+
+auth.logged.denied_for_profile=Votre profil %s ne vous permet pas d'acceder à cette page.
