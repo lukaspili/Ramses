@@ -1,5 +1,7 @@
 package models.user;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import play.data.validation.CheckWith;
 import play.db.jpa.Model;
 import validation.check.NumericCheck;
@@ -25,6 +27,44 @@ public class User extends Model {
 
     public String siret;
 
+    public boolean active;
+
     @Enumerated(EnumType.STRING)
     public Profile profile;
+
+    public String getOfficialFullName() {
+
+        if (StringUtils.isBlank(lastName)) {
+            return null;
+        }
+
+        return lastName + " " + firstName;
+    }
+
+    public String getFullName() {
+
+        if (StringUtils.isBlank(lastName)) {
+            return null;
+        }
+
+        return firstName + " " + lastName;
+    }
+
+    public String getEmail() {
+        return idBooster + "@supinfo.com";
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("idBooster", idBooster)
+                .append("firstName", firstName)
+                .append("lastName", lastName)
+                .append("password", password)
+                .append("siret", siret)
+                .append("active", active)
+                .append("profile", profile)
+                .appendSuper(super.toString())
+                .toString();
+    }
 }
