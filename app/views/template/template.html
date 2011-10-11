@@ -1,46 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
 
-    <!-- iPhone, iPad and Android specific settings -->
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1;">
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+#{include 'template/template_head.html' /}
 
-    <title>${application_name} ${application_version} - ${page_title}</title>
-
-    <link rel="apple-touch-icon" href="@{'/public/images/iOS_icon.png'}">
-
-    <link rel="stylesheet" type="text/css" href="@{'/public/css/all.css'}" media="screen">
-
-    <link rel="stylesheet" type="text/css" href="@{'/public/css/theme/theme_light.css'}" media="screen">
-    <link rel="stylesheet" type="text/css" href="@{'/public/css/theme/theme_navy.css'}" media="screen">
-
-    <!--[if IE 6]>
-    <link rel="stylesheet" type="text/css" href="@{'/public/css/ie6.css'}" media="screen"/><![endif]-->
-    <!--[if IE 7]>
-    <link rel="stylesheet" type="text/css" href="@{'/public/css/ie.css'}" media="screen"/><![endif]-->
-
-    <!-- Load JQuery -->
-    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>-->
-    <script type="text/javascript" src="@{'/public/js/jquery-1.5.2.min.js'}"></script>
-
-    <!-- Load JQuery UI -->
-    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>-->
-    <script type="text/javascript" src="@{'/public/js/jquery-ui-1.8.13.min.js'}"></script>
-
-    <!-- Load Interface Plugins -->
-    <script type="text/javascript" src="@{'/public/js/uniform/jquery.uniform.js'}"></script>
-
-    <script type="text/javascript" src="@{'/public/js/iPhone/jquery.iphoneui.js'}"></script>
-    <script type="text/javascript" src="@{'/public/js/uitotop/js/jquery.ui.totop.js'}"></script>
-
-    <!-- This file configures the various jQuery plugins for Adminica. Contains links to help pages for each plugin. -->
-    <script type="text/javascript" src="@{'/public/js/adminica/adminica_ui.js'}"></script>
-
-
-</head>
 <body>
 <div id="wrapper">
 

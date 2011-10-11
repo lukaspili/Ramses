@@ -1082,23 +1082,23 @@ span.form_tag{
 }
 
 
-#login_box .LV_validation_message {
-    position: absolute;
-    right: 2px;
-    bottom: 2px;
-    padding: 1px 3px 0;
-    border:1px solid #aaa;
-    background-color: #fff;
-    
-}
-#login_box .LV_invalid{
-	border-color:#a30617;
-	background-color:#f80e27;
-	color: #fff;
-	text-shadow:0px 1px 0px #a30617;
-}
+/*#login_box .LV_validation_message {*/
+    /*position: absolute;*/
+    /*right: 2px;*/
+    /*bottom: 2px;*/
+    /*padding: 1px 3px 0;*/
+    /*border:1px solid #aaa;*/
+    /*background-color: #fff;*/
+    /**/
+/*}*/
+/*#login_box .LV_invalid{*/
+	/*border-color:#a30617;*/
+	/*background-color:#f80e27;*/
+	/*color: #fff;*/
+	/*text-shadow:0px 1px 0px #a30617;*/
+/*}*/
 
-form .LV_validation_message {
+form .LV_validation_message, #login_box .LV_validation_message {
 	clear: both;
 	display: block;
     font-size: 11px;
@@ -1106,8 +1106,10 @@ form .LV_validation_message {
     }
 
 #login_box .LV_validation_message {
-	margin: 0;
-	}
+	margin-top: -5px;
+    margin-right: 30px;
+    text-align: right;
+    }
     
 form .LV_invalid{
 	color: #f80e27;
@@ -2146,7 +2148,7 @@ div.main_container .gallery ul li a{
 body round_all_small,
 .box .block input,
 .box .block textarea,
-#login_box .LV_validation_message,
+/*#login_box .LV_validation_message,*/
 .dataTables_wrapper .ui-widget-header select{
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;

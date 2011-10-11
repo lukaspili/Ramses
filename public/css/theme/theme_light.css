@@ -242,7 +242,7 @@ body round_all_small,
 .flat_area h2,
 .box .block input,
 .box .block textarea,
-#login_box .LV_validation_message,
+/*#login_box .LV_validation_message,*/
 .dataTables_wrapper .ui-widget-header select{
 	-webkit-border-radius: 1px;
 	-moz-border-radius: 1px;

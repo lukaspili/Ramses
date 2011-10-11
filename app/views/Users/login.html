@@ -1,9 +1,51 @@
-<h1>Connexion</h1>
+<!DOCTYPE html>
+<html>
 
-#{form @login(), id:'login-form', enctype:'multipart/form-data' }
+#{include 'template/template_head.html' /}
 
-#{field 'email'}
+<body>
 
-#{/field}
+<div id="login_box" class="round_all clearfix">
 
-#{/form}
+    #{include 'helpers/flash_box.html' /}
+
+    #{include 'helpers/form_validation.html' /}
+
+    #{form @authenticate(), id:'login-form', enctype:'multipart/form-data' }
+
+    #{field 'user.idBooster'}
+    <label class="fields"><strong>&{field.name}</strong>
+        <input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="indent round_all"
+               title="Entrez votre ID booster."/>
+    </label>
+    #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+    #{/}
+
+    #{field 'user.password'}
+    <label class="fields"><strong>&{field.name}</strong>
+        <input type="password" id="${field.id}" name="${field.name}" class="indent round_all"
+               title="Entrez votre mot de passe."/>
+    </label>
+    #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+    #{/}
+
+    <button class="button_colour round_all">
+        <img width="24" height="24" alt="Locked 2" src="@{'/public/images/icons/small/white/locked_2.png'}"><span>&{'users.login.submit'}</span>
+    </button>
+
+    <div id="bar" class="round_bottom">
+        <label><input type="checkbox">&{'users.login.remember'}</label>
+        <a href="#">&{'users.login.password'}</a>
+    </div>
+
+    #{/form}
+
+    <a href="#" id="login_logo"><span>Adminica</span></a>
+</div>
+
+<div id="loading_overlay">
+    <div class="loading_message round_bottom">Loading...</div>
+</div>
+
+</body>
+</html>
