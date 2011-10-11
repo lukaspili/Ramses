@@ -1,0 +1,22 @@
+user.User(lukas):
+  idBooster: 75054
+  password: szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ
+  profile: STA
+  active: true
+  firstName: Lukasz
+  lastName: Piliszczuk
+  siret: 092384098234
+
+user.User(toto):
+  idBooster: 1010
+  password: szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ
+  profile: STA
+  active: false
+
+user.User(sebastien):
+  idBooster: 8080
+  password: szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ
+  profile: ADMIN
+  active: true
+  firstName: Sebastien
+  lastName: Dherines
