@@ -4,6 +4,7 @@ import exceptions.CoreException;
 import models.user.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import play.db.jpa.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public class UserService {
+public class UserService extends AbstractService<User> {
 
     public User save(User user) throws CoreException {
 
@@ -24,15 +25,12 @@ public class UserService {
         user.password = RandomStringUtils.randomAlphanumeric(9);
         user.save();
 
-        return user;
+        return detach(user);
     }
 
     public User getById(long id) {
-
         User user = User.findById(id);
-        User.em().detach(user);
-
-        return user;
+        return detach(user);
     }
 
     public User getByIdBooster(String idBooser) {
@@ -40,21 +38,12 @@ public class UserService {
         checkNotNull(idBooser, "ID booster is required");
 
         User user = User.find("byIdBooster", idBooser).first();
-        User.em().detach(user);
-
-        return user;
+        return detach(user);
     }
 
     public List<User> getUsers() {
-
-        List<User> users = new ArrayList<User>();
-
-        for (User user : User.<User>findAll()) {
-            User.em().detach(user);
-            users.add(user);
-        }
-
-        return users;
+        List<User> users = User.findAll();
+        return detach(users);
     }
 
     public User getFromLogin(String idBooster, String password) {
@@ -79,7 +68,6 @@ public class UserService {
             return null;
         }
 
-        User.em().detach(user);
-        return user;
+        return detach(user);
     }
 }
