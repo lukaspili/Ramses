@@ -9,7 +9,7 @@ user.User(lukas):
 
 user.User(toto):
   idBooster: 1010
-  password: szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ
+  password: foobar
   profile: STA
   active: false
 
@@ -20,3 +20,30 @@ user.User(sebastien):
   active: true
   firstName: Sebastien
   lastName: Dherines
+
+school.Course(javab2):
+  promotion: B2
+  name: Java 2eme année
+  code: 2SUN
+  users: [lukas]
+
+school.Course(javab3):
+  promotion: B3
+  name: Java 3eme année
+  code: 3SUN
+  users: [lukas, sebastien]
+
+school.Course(oracleb1):
+  promotion: B1
+  name: Oracle 1er année
+  code: 1ORC
+
+school.Course(oracleb2):
+  promotion: B2
+  name: Oracle 2ème année
+  code: 2ORC
+
+school.Course(oracleb3):
+  promotion: B3
+  name: Oracle 3ème année
+  code: 3ORC
