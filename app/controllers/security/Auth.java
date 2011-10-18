@@ -3,6 +3,7 @@ package controllers.security;
 import controllers.Dashboard;
 import controllers.Users;
 import controllers.abstracts.UtilController;
+import controllers.helper.AuthHelper;
 import models.user.Profile;
 import models.user.User;
 import org.apache.commons.lang3.ArrayUtils;
@@ -10,10 +11,12 @@ import play.Logger;
 import play.i18n.Messages;
 import play.mvc.Before;
 import play.mvc.Util;
+import play.mvc.With;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
+@With(AuthHelper.class)
 public class Auth extends UtilController {
 
     private static final String CURRENT_USER = "user";
