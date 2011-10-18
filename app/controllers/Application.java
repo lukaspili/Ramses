@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.abstracts.UtilController;
+import controllers.security.LoggedAccess;
 import play.mvc.Before;
 import play.mvc.Controller;
 
@@ -17,5 +18,15 @@ public class Application extends UtilController {
     public static void initGlobalValues() {
         renderArgs.put("application_name", APPLICATION_NAME);
         renderArgs.put("application_version", APPLICATION_VERSION);
+    }
+
+    @LoggedAccess
+    public static void about() {
+
+    }
+
+    @LoggedAccess
+    public static void reportBug() {
+
     }
 }
