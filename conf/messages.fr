@@ -25,6 +25,22 @@ profile.externe.many=Professeurs externes
 profile.admin=Administrateur
 profile.admin.many=Administrateurs
 
+# Course
+course=Cours
+course.code=Code
+course.name=Nom
+course.promotion=&{promotion}
+course.users=Utilisateurs associés
+
+# Promotion
+promotion=Promotion
+promotion.b1=B1
+promotion.b2=B2
+promotion.b3=B3
+promotion.m1=M1
+promotion.m2=M2
+
+
 # Dashboard
 dashboard=Dashboard
 

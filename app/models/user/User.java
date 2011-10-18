@@ -1,19 +1,21 @@
 package models.user;
 
+import models.school.Course;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import play.data.validation.CheckWith;
 import play.db.jpa.Model;
 import validation.check.NumericCheck;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
 @Entity
+@Table(name = "users")
 public class User extends Model {
 
     @CheckWith(NumericCheck.class)
@@ -25,12 +27,21 @@ public class User extends Model {
 
     public String password;
 
+    public String street;
+
+    public String postalCode;
+
+    public String city;
+
     public String siret;
 
     public boolean active;
 
     @Enumerated(EnumType.STRING)
     public Profile profile;
+
+    @ManyToMany(mappedBy = "users")
+    public List<Course> courses = new ArrayList<Course>();
 
     public String getOfficialFullName() {
 
