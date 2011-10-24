@@ -15,6 +15,12 @@ public class CourseService extends AbstractService<Course> {
         return detach(courses);
     }
 
+    public List<Course> getCourses() {
+
+        List<Course> courses = Course.findAll();
+        return detach(courses);
+    }
+
     public List<Course> getCoursesWithUsers() {
 
         Query query = Course.em().createQuery("select distinct c from Course c " +

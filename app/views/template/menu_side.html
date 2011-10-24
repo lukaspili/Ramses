@@ -22,15 +22,16 @@
         <li>
             <a href="#" class="top_level"><img src="@{'/public/images/icons/small/grey/documents.png'}"/>Contrats</a>
         </li>
-        
+
         <li><a href="#" class="top_level"><img
                 src="@{'/public/images/icons/small/grey/graph.png'}"/>Statistiques</a>
         </li>
 
         <li><a href="#" class="top_level"><img src="@{'/public/images/icons/small/grey/cog_2.png'}"/>Options</a>
             <ul class="drawer">
-                <li><a href="#">Infos personnelles</a></li>
-                <li><a href="#">Mot de passe</a></li>
+                <li>#{a @Users.editPersonalInfo()}Infos personnelles#{/a}</li>
+                <li>#{a @Users.editSkills()}Compétences#{/a}</li>
+                <li>#{a @Users.editPassword()}Mot de passe#{/a}</li>
             </ul>
         </li>
 

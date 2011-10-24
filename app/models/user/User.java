@@ -41,7 +41,7 @@ public class User extends Model {
     public Profile profile;
 
     @ManyToMany(mappedBy = "users")
-    public List<Course> courses = new ArrayList<Course>();
+    public List<Course> skills;
 
     public String getOfficialFullName() {
 

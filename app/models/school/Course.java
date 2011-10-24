@@ -15,10 +15,18 @@ public class Course extends Model {
 
     public String name;
     public String code;
+    public int duration;
+
+    @ManyToOne
+    public CourseType type;
 
     @Enumerated(EnumType.STRING)
     public Promotion promotion;
 
     @ManyToMany
     public List<User> users = new ArrayList<User>();
+
+    public String getFullName() {
+        return code + " - " + name;
+    }
 }

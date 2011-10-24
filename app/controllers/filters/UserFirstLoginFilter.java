@@ -1,5 +1,6 @@
 package controllers.filters;
 
+import controllers.Dashboard;
 import controllers.security.Auth;
 import controllers.Users;
 import play.mvc.Before;
@@ -13,14 +14,8 @@ public class UserFirstLoginFilter extends Controller {
     @Before
     public static void checkFirstLogin() {
 
-        if (null != getActionAnnotation(UserFirstLoginAccess.class)) {
-            return;
+        if (null != getActionAnnotation(UserFirstLoginOnly.class) && Auth.getCurrentUser().active) {
+            Dashboard.index();
         }
-
-        if (!Auth.isLogged() || Auth.getCurrentUser().active) {
-            return;
-        }
-
-        Users.firstLogin();
     }
 }

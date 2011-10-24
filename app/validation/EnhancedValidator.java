@@ -58,8 +58,28 @@ public class EnhancedValidator {
         return this;
     }
 
+    public EnhancedValidator requireFields(String... fields) {
+        for (String field : fields) {
+            validation.required(field);
+        }
+        return this;
+    }
+
     public EnhancedValidator addError(String field, String message) {
-        validation.addError(objectName + "." + field, message);
+        addError(field, message, false);
+        return this;
+    }
+
+    public EnhancedValidator addError(String field, String message, boolean independantField) {
+
+        String key = "";
+
+        if (!independantField) {
+            key += objectName + ".";
+        }
+
+        validation.addError(key + field, message);
+
         return this;
     }
 

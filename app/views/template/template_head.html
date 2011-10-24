@@ -37,5 +37,9 @@
     <!-- This file configures the various jQuery plugins for Adminica. Contains links to help pages for each plugin. -->
     <script type="text/javascript" src="@{'/public/js/adminica/adminica_ui.js'}"></script>
 
+    #{get 'moreStyles' /}
 
+    <link rel="stylesheet" type="text/css" href="@{'/public/css/custom.css'}"/>
+
+    #{get 'moreScripts' /}
 </head>

@@ -21,11 +21,21 @@ user.User(sebastien):
   firstName: Sebastien
   lastName: Dherines
 
+school.CourseType(course-with-tp):
+  name: coursetype.coursewithtp
+  price: 37.5
+
 school.Course(javab2):
   promotion: B2
   name: Java 2eme année
   code: 2SUN
   users: [lukas]
+  duration: 40
+  type: course-with-tp
+
+school.YearCourse(javab2-2010):
+  course: javab2
+  professor: lukas
 
 school.Course(javab3):
   promotion: B3

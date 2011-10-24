@@ -1,0 +1,12 @@
+.multiselect {
+    width: 90%;
+    height: 200px;
+}
+
+.ui-multiselect ul li {
+    padding: 0;
+}
+
+.ui-multiselect input.search {
+    color: black;
+}

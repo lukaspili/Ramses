@@ -2,6 +2,7 @@ package controllers.abstracts;
 
 import controllers.Application;
 import controllers.filters.UserFirstLoginFilter;
+import controllers.helper.CollectionHelper;
 import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import play.i18n.Messages;
@@ -14,6 +15,10 @@ import validation.EnhancedValidator;
  */
 
 public abstract class UtilController extends Controller {
+
+    protected static CollectionHelper collectionHelper() {
+        return new CollectionHelper();
+    }
 
     protected static EnhancedValidator validator() {
         return new EnhancedValidator(validation, params);

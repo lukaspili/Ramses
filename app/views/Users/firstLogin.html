@@ -1,0 +1,69 @@
+#{extends 'template/template.html' /}
+#{include 'helpers/multiselect.html' /}
+
+<div class="flat_area grid_16">
+    <h2>${page_title}</h2>
+    #{include 'helpers/flash_box.html' /}
+</div>
+
+<div class="box grid_10 round_all">
+    <h2 class="box_head grad_colour">Formulaire d'activation</h2>
+
+    <div class="toggle_container">
+        <div class="block">
+
+            #{include 'helpers/form_validation.html' /}
+
+            <p>
+                Veuillez compléter vos informations et terminer l'activation.
+                Ces informations seront utilisés pour créer vos contrats et doivent donc être totalement valides.
+            </p>
+
+            #{form @completeFirstLogin(), id:'first-login-form', enctype:'multipart/form-data' }
+
+            #{include 'user_personalinfo_form.html' /}
+
+            #{include 'Users/_user_password_form.html' /}
+
+            #{field 'skills'}
+            <label for="${field.id}">&{field.name}</label>
+            #{select field.name, items:courses, valueProperty:'id', labelProperty:'fullName', id:field.id, value:'[1,2]', multiple:'multiple', class:'multiselect' /}
+            #{/}
+
+
+            <button class="button_colour round_all">
+                <img height="24" width="24" alt="Bended Arrow Right" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+            </button>
+            #{/form}
+        </div>
+    </div>
+</div>
+
+<div class="flat_area grid_6">
+
+    <h2>Aide</h2>
+
+    <p>
+        Terminez l'activation de votre compte.
+    </p>
+
+    <h3>Renseignez vos informations personnelles</h3>
+
+    <p>
+        Foobar.
+    </p>
+
+    <h3>Renseignez vos informations d'auto entrepreneur</h3>
+
+    <p>
+        Foobar.
+    </p>
+
+    <h3>Renseignez votre domaine de compétence</h3>
+
+    <p>
+        Foobar.
+    </p>
+
+</div>
+

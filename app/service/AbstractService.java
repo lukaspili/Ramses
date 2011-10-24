@@ -27,4 +27,8 @@ public abstract class AbstractService<T> {
 
         return detachedList;
     }
+
+    protected T merge(T t) {
+        return Model.em().merge(t);
+    }
 }

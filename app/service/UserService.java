@@ -1,8 +1,10 @@
 package service;
 
 import exceptions.CoreException;
+import models.school.Course;
 import models.user.User;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import play.db.jpa.Model;
 
@@ -69,5 +71,33 @@ public class UserService extends AbstractService<User> {
         }
 
         return detach(user);
+    }
+
+    public void updateFromFirstLogin(User newUser, List<Course> courses, User existingUser) {
+
+        existingUser = merge(existingUser);
+
+        existingUser.firstName = newUser.firstName;
+        existingUser.lastName = newUser.lastName;
+        existingUser.street = newUser.street;
+        existingUser.postalCode = newUser.postalCode;
+        existingUser.city = newUser.city;
+        existingUser.siret = newUser.siret;
+        existingUser.active = true;
+
+        existingUser.skills = courses;
+
+        updatePassword(newUser.password, existingUser);
+
+        existingUser.save();
+
+        detach(existingUser);
+    }
+
+    public void updatePassword(String newPassword, User user) {
+        user = merge(user);
+        user.password = new StrongPasswordEncryptor().encryptPassword(newPassword);
+        user.save();
+        detach(user);
     }
 }

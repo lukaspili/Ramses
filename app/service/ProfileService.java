@@ -15,15 +15,4 @@ public class ProfileService {
     public List<Profile> getProfilesList() {
         return Arrays.asList(Profile.values());
     }
-
-    public Map<String, Profile> getProfilesMap() {
-
-        Map<String, Profile> profiles = new HashMap<String, Profile>();
-
-        for (Profile profile : Profile.values()) {
-
-        }
-
-        return profiles;
-    }
 }
