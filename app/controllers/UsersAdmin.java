@@ -49,7 +49,9 @@ public class UsersAdmin extends AppController {
         EnhancedValidator validator = validator();
 
         if (validator.validate(user).require("idBooster", "profile").hasErrors()) {
-            create();
+
+            List<Profile> profiles = profileService.getProfilesList();
+            render("UsersAdmin/create.html", profiles, user, afterSubmit);
         }
 
         try {
@@ -57,8 +59,11 @@ public class UsersAdmin extends AppController {
         } catch (CoreException e) {
 
             if (e.getType().equals(CoreException.Type.UNIQUE_CONSTRAINT_VIOLATION)) {
+
                 validator.addError("idBooster", "usersadmin.create.error.uniqueIdBooster").save();
-                create();
+
+                List<Profile> profiles = profileService.getProfilesList();
+                render("UsersAdmin/create.html", profiles, user, afterSubmit);
             }
 
             throw e;

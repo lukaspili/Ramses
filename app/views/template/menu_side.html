@@ -5,10 +5,10 @@
     <div class="user_box round_all clearfix">
         <!--<img src="@{'/public/images/profile.jpg'}" width="55" alt="Profile Pic"/>-->
 
-        <h2>&{user.profile.label}</h2>
+        <h2>&{currentUser.profile.label}</h2>
 
         <h3><a class="text_shadow" href="#">
-            ${user.fullName?:user.idBooster}
+            ${currentUser.fullName?:user.idBooster}
         </a></h3>
         <!--<ul>-->
         <!--<li><a href="#">settings</a><span class="divider">|</span></li>-->

@@ -56,6 +56,13 @@ users.login.authentication.failure=Identifiants incorrects
 # Users.logout
 users.logout=Deconnexion
 
+# Users.savePersonalInfo
+users.savePersonalInfo.success=Vos informations personnelles ont bien été sauvegardées
+
+# Users.savePassword
+users.savePassword.success=Votre mot de passe a bien été sauvegardé
+
+
 # UsersAdmin
 usersadmin=Gestion des utilisateurs
 

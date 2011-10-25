@@ -18,8 +18,8 @@
             #{form @save(), id:'register-form', enctype:'multipart/form-data' }
 
             #{field 'user.idBooster'}
-            <label for="${field.id}">&{field.name}</label>
-            <input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="medium ${field.errorClass}"
+            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label></label>
+            <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"
                    title="L'id booster est requis et doit être composé uniquement de caractères numériques."/>
             #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
             #{/}
@@ -28,19 +28,19 @@
             <label for="${field.id}">&{field.name}</label>
 
             <div class="input_group">
-                #{select field.name, items:profiles, valueProperty:'value', labelProperty:'label', id:field.id, value:flash[field.name] /}
+                #{select field.name, items:profiles, valueProperty:'value', labelProperty:'label', id:field.id, value:field.value /}
             </div>
             #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
             #{/}
 
             #{field 'afterSubmit'}
-            <label>&{field.name}</label>
+            <label>&{field.name} : ${field.value}</label>
 
             <div class="input_group">
                 <input type="radio" name="${field.name}" value="list" checked/>
                 Revenir à la liste des utilisateurs.<br/>
 
-                <input type="radio" name="${field.name}" value="form" ${(flash[field.name] == 'form').yesno('checked', '')} />
+                <input type="radio" name="${field.name}" value="form" ${(field.value == 'form').yesno('checked', '')} />
                 Rester sur le formulaire et ajouter un nouvel utilisateur.
             </div>
             #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}

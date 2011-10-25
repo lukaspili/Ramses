@@ -5,7 +5,10 @@ user.User(lukas):
   active: true
   firstName: Lukasz
   lastName: Piliszczuk
-  siret: 092384098234
+  street: 77 rue notre dame des champs
+  postalCode: 75006
+  city: Paris
+  siret: 51505484900010
 
 user.User(toto):
   idBooster: 1010

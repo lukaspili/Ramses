@@ -19,7 +19,7 @@ import play.mvc.With;
 @With(AuthHelper.class)
 public class Auth extends UtilController {
 
-    private static final String CURRENT_USER = "user";
+    private static final String CURRENT_USER = "currentUser";
 
     @Before(priority = 0)
     public static void checkUser() {

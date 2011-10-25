@@ -1,41 +1,41 @@
 #{field 'user.firstName'}
 <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
-<input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="large ${field.errorClass}"
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="large ${field.errorClass}"
        title="Votre prénom."/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}
 
 #{field 'user.lastName'}
 <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
-<input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="large ${field.errorClass}"
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="large ${field.errorClass}"
        title="Votre nom."/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}
 
 #{field 'user.street'}
 <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
-<input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="large ${field.errorClass}"
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="large ${field.errorClass}"
        title="Votre numéro et nom de rue."/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}
 
 #{field 'user.postalCode'}
 <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
-<input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="large ${field.errorClass}"
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="large ${field.errorClass}"
        title="Votre code postal."/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}
 
 #{field 'user.city'}
 <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
-<input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="large ${field.errorClass}"
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="large ${field.errorClass}"
        title="Votre ville."/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}
 
 #{field 'user.siret'}
 <label for="${field.id}">&{field.name} <span style="color:red">*</span></label></label>
-<input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="large ${field.errorClass}"
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="large ${field.errorClass}"
        title="Votre numéro SIRET. Laissez ce champs vide si vous ne possedez par encotre votre numéro, vous pourrez l'ajouter plus tard."/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}

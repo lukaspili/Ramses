@@ -13,11 +13,10 @@
         <div class="block">
 
             #{include 'helpers/form_validation.html' /}
-
+            
             #{form @savePersonalInfo(), id:'edit-personalinfo-form', enctype:'multipart/form-data' }
 
-            #{include 'user_personalinfo_form.html' /}
-
+            #{include 'Users/_user_personalinfo_form.html' /}
 
             <button class="button_colour round_all">
                 <img height="24" width="24" alt="Bended Arrow Right" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>

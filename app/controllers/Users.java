@@ -11,6 +11,7 @@ import models.user.User;
 import org.apache.commons.lang3.StringUtils;
 import play.data.validation.Required;
 import play.mvc.Before;
+import play.mvc.Util;
 import service.CourseService;
 import service.UserService;
 import validation.EnhancedValidator;
@@ -94,17 +95,22 @@ public class Users extends AppController {
     public static void completeFirstLogin(User user, @Required String passwordConfirmation, List<Long> skills) {
 
         EnhancedValidator validator = validator();
+        validator.validate(user)
+                .requireFields("passwordConfirmation");
 
-        if (validator.validate(user).require("firstName", "lastName", "street", "postalCode", "city", "siret", "password")
-                .requireFields("passwordConfirmation")
-                .hasErrors()) {
+        requirePersonalInfo(validator);
 
-            firstLogin();
+        if (validator.hasErrors()) {
+            List<Course> courses = courseService.getCourses();
+            render("firstLogin.html", courses, user, skills);
         }
 
         if (!StringUtils.equals(user.password, passwordConfirmation)) {
-            validator.addError("passwordConfirmation", "users.edit.error.passwordConfirmation", true).save();
-            firstLogin();
+
+            validator.addError("passwordConfirmation", "users.edit.error.passwordConfirmation", true);
+
+            List<Course> courses = courseService.getCourses();
+            render("firstLogin.html", courses, user, skills);
         }
 
         List<Course> courses = new ArrayList<Course>();
@@ -140,6 +146,20 @@ public class Users extends AppController {
     @LoggedAccess
     public static void savePersonalInfo(User user) {
 
+        EnhancedValidator validator = validator();
+        validator.validate(user);
+
+        requirePersonalInfo(validator);
+
+        if (validator.hasErrors()) {
+            render("Users/editPersonalInfo.html", user);
+        }
+
+        userService.updateFromPersonalInfo(user, Auth.getCurrentUser());
+
+        flashSuccess("users.savePersonalInfo.success");
+
+        Dashboard.index();
     }
 
     @LoggedAccess
@@ -164,7 +184,9 @@ public class Users extends AppController {
             editPassword();
         }
 
-        userService.updatePassword(user.password, Auth.getCurrentUser());
+        userService.updateFromPassword(user.password, Auth.getCurrentUser());
+
+        flashSuccess("users.savePassword.success");
 
         Dashboard.index();
     }
@@ -177,5 +199,10 @@ public class Users extends AppController {
     @LoggedAccess
     public static void saveSkills(List<Course> skills) {
 
+    }
+
+    @Util
+    private static void requirePersonalInfo(EnhancedValidator validator) {
+        validator.require("firstName", "lastName", "street", "postalCode", "city", "siret");
     }
 }

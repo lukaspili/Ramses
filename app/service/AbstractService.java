@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public abstract class AbstractService<T> {
+public abstract class AbstractService<T extends Model> {
 
     protected T detach(T t) {
         Model.em().detach(t);
@@ -29,6 +29,6 @@ public abstract class AbstractService<T> {
     }
 
     protected T merge(T t) {
-        return Model.em().merge(t);
+        return t.merge();
     }
 }

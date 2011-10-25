@@ -75,29 +75,39 @@ public class UserService extends AbstractService<User> {
 
     public void updateFromFirstLogin(User newUser, List<Course> courses, User existingUser) {
 
-        existingUser = merge(existingUser);
+        existingUser = existingUser.merge();
 
-        existingUser.firstName = newUser.firstName;
-        existingUser.lastName = newUser.lastName;
-        existingUser.street = newUser.street;
-        existingUser.postalCode = newUser.postalCode;
-        existingUser.city = newUser.city;
-        existingUser.siret = newUser.siret;
+        updatePersonalInfo(newUser, existingUser);
+
         existingUser.active = true;
-
         existingUser.skills = courses;
-
-        updatePassword(newUser.password, existingUser);
+        existingUser.password = new StrongPasswordEncryptor().encryptPassword(newUser.password);
 
         existingUser.save();
 
         detach(existingUser);
     }
 
-    public void updatePassword(String newPassword, User user) {
+    public void updateFromPersonalInfo(User newUser, User existingUser) {
+        existingUser = existingUser.merge();
+        updatePersonalInfo(newUser, existingUser);
+        existingUser.save();
+        detach(existingUser);
+    }
+
+    public void updateFromPassword(String newPassword, User user) {
         user = merge(user);
         user.password = new StrongPasswordEncryptor().encryptPassword(newPassword);
         user.save();
         detach(user);
+    }
+
+    private void updatePersonalInfo(User newUser, User existingUser) {
+        existingUser.firstName = newUser.firstName;
+        existingUser.lastName = newUser.lastName;
+        existingUser.street = newUser.street;
+        existingUser.postalCode = newUser.postalCode;
+        existingUser.city = newUser.city;
+        existingUser.siret = newUser.siret;
     }
 }
