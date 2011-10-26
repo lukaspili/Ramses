@@ -176,12 +176,12 @@ public class Users extends AppController {
         EnhancedValidator validator = validator();
 
         if (validator.validate(user).require("password").hasErrors()) {
-            editPassword();
+            render("Users/editPassword.html");
         }
 
         if (!StringUtils.equals(user.password, passwordConfirmation)) {
             validator.addError("passwordConfirmation", "users.edit.error.passwordConfirmation", true).save();
-            editPassword();
+            render("Users/editPassword.html");
         }
 
         userService.updateFromPassword(user.password, Auth.getCurrentUser());
