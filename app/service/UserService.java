@@ -2,6 +2,7 @@ package service;
 
 import exceptions.CoreException;
 import models.school.Course;
+import models.school.YearCourse;
 import models.user.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,7 @@ import play.db.jpa.Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -27,25 +29,21 @@ public class UserService extends AbstractService<User> {
         user.password = RandomStringUtils.randomAlphanumeric(9);
         user.save();
 
-        return detach(user);
+        return user;
     }
 
     public User getById(long id) {
         User user = User.findById(id);
-        return detach(user);
+        return user;
     }
 
     public User getByIdBooster(String idBooser) {
-
         checkNotNull(idBooser, "ID booster is required");
-
-        User user = User.find("byIdBooster", idBooser).first();
-        return detach(user);
+        return User.find("byIdBooster", idBooser).first();
     }
 
     public List<User> getUsers() {
-        List<User> users = User.findAll();
-        return detach(users);
+        return User.findAll();
     }
 
     public User getFromLogin(String idBooster, String password) {
@@ -70,44 +68,37 @@ public class UserService extends AbstractService<User> {
             return null;
         }
 
-        return detach(user);
+        return user;
     }
 
-    public void updateFromFirstLogin(User newUser, List<Course> courses, User existingUser) {
-
-        existingUser = existingUser.merge();
-
-        updatePersonalInfo(newUser, existingUser);
+    public void updateFromFirstLogin(User newUser, Set<Course> courses, User existingUser) {
 
         existingUser.active = true;
         existingUser.skills = courses;
         existingUser.password = new StrongPasswordEncryptor().encryptPassword(newUser.password);
 
-        existingUser.save();
-
-        detach(existingUser);
+        updateFromPersonalInfo(newUser, existingUser);
     }
 
     public void updateFromPersonalInfo(User newUser, User existingUser) {
-        existingUser = existingUser.merge();
-        updatePersonalInfo(newUser, existingUser);
-        existingUser.save();
-        detach(existingUser);
-    }
 
-    public void updateFromPassword(String newPassword, User user) {
-        user = merge(user);
-        user.password = new StrongPasswordEncryptor().encryptPassword(newPassword);
-        user.save();
-        detach(user);
-    }
-
-    private void updatePersonalInfo(User newUser, User existingUser) {
         existingUser.firstName = newUser.firstName;
         existingUser.lastName = newUser.lastName;
         existingUser.street = newUser.street;
         existingUser.postalCode = newUser.postalCode;
         existingUser.city = newUser.city;
         existingUser.siret = newUser.siret;
+
+        existingUser.save();
+    }
+
+    public void updateFromPassword(String newPassword, User user) {
+        user.password = new StrongPasswordEncryptor().encryptPassword(newPassword);
+        user.save();
+    }
+
+    public void updateFromSkills(Set<Course> courses, User user) {
+        user.skills = courses;
+        user.save();
     }
 }

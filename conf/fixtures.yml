@@ -1,3 +1,70 @@
+# COURSES
+
+school.CourseType(course-with-tp):
+  name: coursetype.coursewithtp
+  price: 37.5
+
+school.CourseType(soe):
+  name: coursetype.soe
+  price: 20
+
+school.Course(javab2):
+  promotion: B2
+  name: Java 2eme année
+  code: 2SUN
+  duration: 40
+  type: course-with-tp
+
+school.Course(javab3):
+  promotion: B3
+  name: Java 3eme année
+  code: 3SUN
+  type: course-with-tp
+
+school.Course(oracleb1):
+  promotion: B1
+  name: Oracle 1er année
+  code: 1ORC
+  type: course-with-tp
+
+school.Course(oracleb2):
+  promotion: B2
+  name: Oracle 2ème année
+  code: 2ORC
+  type: course-with-tp
+
+school.Course(oracleb3):
+  promotion: B3
+  name: Oracle 3ème année
+  code: 3ORC
+  type: course-with-tp
+
+
+# YEAR COURSES
+
+school.YearCourse(javab2-2012):
+  year: 2012
+  course: javab2
+
+school.YearCourse(javab3-2012):
+  year: 2012
+  course: javab3
+
+school.YearCourse(oracleb1-2012):
+  year: 2012
+  course: oracleb1
+
+school.YearCourse(oracleb2-2012):
+  year: 2012
+  course: oracleb2
+
+school.YearCourse(oracleb3-2012):
+  year: 2012
+  course: oracleb3
+
+
+# USERS
+
 user.User(lukas):
   idBooster: 75054
   password: szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ
@@ -9,6 +76,7 @@ user.User(lukas):
   postalCode: 75006
   city: Paris
   siret: 51505484900010
+  skills: [javab2, javab3]
 
 user.User(toto):
   idBooster: 1010
@@ -23,40 +91,3 @@ user.User(sebastien):
   active: true
   firstName: Sebastien
   lastName: Dherines
-
-school.CourseType(course-with-tp):
-  name: coursetype.coursewithtp
-  price: 37.5
-
-school.Course(javab2):
-  promotion: B2
-  name: Java 2eme année
-  code: 2SUN
-  users: [lukas]
-  duration: 40
-  type: course-with-tp
-
-school.YearCourse(javab2-2010):
-  course: javab2
-  professor: lukas
-
-school.Course(javab3):
-  promotion: B3
-  name: Java 3eme année
-  code: 3SUN
-  users: [lukas, sebastien]
-
-school.Course(oracleb1):
-  promotion: B1
-  name: Oracle 1er année
-  code: 1ORC
-
-school.Course(oracleb2):
-  promotion: B2
-  name: Oracle 2ème année
-  code: 2ORC
-
-school.Course(oracleb3):
-  promotion: B3
-  name: Oracle 3ème année
-  code: 3ORC

@@ -1,0 +1,10 @@
+#{field 'skills'}
+<label for="${field.id}">&{field.name}</label>
+
+<select name="${field.name}" multiple="multiple" class="multiselect">
+    #{list items:courses, as:'course'}
+    <option value="${course.id}" ${(field.value.contains(course.id)).yesno('selected', '')}>${course.fullName}</option>
+    #{/list}
+</select>
+#{/}
+

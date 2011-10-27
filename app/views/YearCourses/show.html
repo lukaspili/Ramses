@@ -1,0 +1,96 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+    #{a @YearCourses.edit(yearCourse.id)}
+    <button class="button_colour round_all" style="float: right;">
+        <img height="24" width="24" alt="&{'usersadmin.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'yearcourses.edit'}</span>
+    </button>
+    #{/a}
+    
+    <h2>${page_title}</h2>
+
+    #{include 'helpers/flash_box.html' /}
+
+    <ul>
+        <li>Cours : ${yearCourse.course.fullName}</li>
+        <li>Type de cours : &{yearCourse.course.type.name} (${yearCourse.course.type.price} euros / heure)</li>
+        <li>Durée : ${yearCourse.course.duration} heures</li>
+        <li>Date de début : </li>
+        <li>Date de fin : </li>
+        <li>
+            Professeur :
+
+            #{if yearCourse.hasProfessor()}
+            #{a @Users.show(yearCourse.professor.id)}${yearCourse.professor.fullName} (${yearCourse.professor.profile.label})#{/a}
+            #{/if}
+
+            #{else}
+            Non défini
+            #{/else}
+        </li>
+    </ul>
+
+</div>
+
+<div class="box grid_8">
+    <h2 class="box_head grad_colour ">Candidats pour la matière (${yearCourse.candidates.size()})</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">&{'user.idBooster'}</th>
+                    <th class="last">&{'user.lastName'}</th>
+                    <th class="last">Candidature</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                #{list items:yearCourse.candidates, as:'user'}
+                <tr>
+                    <td>${user.idBooster}</td>
+                    <td>${user.fullName}</td>
+                    <td>
+                        #{a @YearCourses.validateCandidature(yearCourse.id, user.id)}Valider#{/a}
+                    </td>
+                </tr>
+                #{/list}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="box grid_8">
+    <h2 class="box_head grad_colour ">Utilisateurs compétents (${yearCourse.course.users.size()})</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">&{'user.idBooster'}</th>
+                    <th class="last">&{'user.lastName'}</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                #{list items:yearCourse.course.users, as:'user'}
+                <tr>
+                    <td>${user.idBooster}</td>
+                    <td>${user.fullName}</td>
+                </tr>
+                #{/list}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

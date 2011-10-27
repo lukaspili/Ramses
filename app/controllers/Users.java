@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.abstracts.AppController;
 import controllers.filters.UserFirstLoginOnly;
+import controllers.helper.CollectionHelper;
 import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
@@ -10,6 +11,7 @@ import models.school.Course;
 import models.user.User;
 import org.apache.commons.lang3.StringUtils;
 import play.data.validation.Required;
+import play.db.jpa.Model;
 import play.mvc.Before;
 import play.mvc.Util;
 import service.CourseService;
@@ -18,7 +20,9 @@ import validation.EnhancedValidator;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -79,50 +83,53 @@ public class Users extends AppController {
     @LoggedAccess
     public static void logout() {
         Auth.logoutUser();
+        flash.clear();
         Users.login();
     }
 
     @LoggedAccess
     @UserFirstLoginOnly
     public static void firstLogin() {
+
         pageHelper.title("Activation de votre compte");
+
         List<Course> courses = courseService.getCourses();
-        render(courses);
+        List<Long> skills = new ArrayList<Long>();
+
+        render(courses, skills);
     }
 
     @LoggedAccess
     @UserFirstLoginOnly
     public static void completeFirstLogin(User user, @Required String passwordConfirmation, List<Long> skills) {
 
+        if (null == skills) {
+            skills = new ArrayList<Long>();
+        }
+
         EnhancedValidator validator = validator();
         validator.validate(user)
+                .require("password")
                 .requireFields("passwordConfirmation");
 
         requirePersonalInfo(validator);
 
         if (validator.hasErrors()) {
+            user.password = null;
             List<Course> courses = courseService.getCourses();
-            render("firstLogin.html", courses, user, skills);
+            render("Users/firstLogin.html", courses, user, skills);
         }
 
         if (!StringUtils.equals(user.password, passwordConfirmation)) {
 
             validator.addError("passwordConfirmation", "users.edit.error.passwordConfirmation", true);
 
+            user.password = null;
             List<Course> courses = courseService.getCourses();
-            render("firstLogin.html", courses, user, skills);
+            render("Users/firstLogin.html", courses, user, skills);
         }
 
-        List<Course> courses = new ArrayList<Course>();
-
-        if (null != skills) {
-            for (Long id : skills) {
-                Course course = Course.findById(id);
-                if (null != course) {
-                    courses.add(course);
-                }
-            }
-        }
+        Set<Course> courses = collectionHelper.getFromIds(Course.class, skills);
 
         userService.updateFromFirstLogin(user, courses, Auth.getCurrentUser());
 
@@ -194,11 +201,24 @@ public class Users extends AppController {
     @LoggedAccess
     public static void editSkills() {
 
+        pageHelper.title("Modifiez vos compétences");
+
+        List<Course> courses = courseService.getCourses();
+        List<Long> skills = collectionHelper.getIdsFromModel(Auth.getCurrentUser().skills);
+
+        render(courses, skills);
     }
 
     @LoggedAccess
-    public static void saveSkills(List<Course> skills) {
+    public static void saveSkills(List<Long> skills) {
 
+        Set<Course> courses = collectionHelper.getFromIds(Course.class, skills);
+
+        userService.updateFromSkills(courses, Auth.getCurrentUser());
+
+        flashSuccess("users.saveSkills.success");
+
+        Dashboard.index();
     }
 
     @Util

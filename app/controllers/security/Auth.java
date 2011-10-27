@@ -8,6 +8,7 @@ import models.user.Profile;
 import models.user.User;
 import org.apache.commons.lang3.ArrayUtils;
 import play.Logger;
+import play.db.jpa.Model;
 import play.i18n.Messages;
 import play.mvc.Before;
 import play.mvc.Util;

@@ -11,3 +11,5 @@ require:
     - org.hibernate -> hibernate-validator 4.2.0.Final
 
     - org.jasypt -> jasypt 1.8 lite
+
+    - org.jadira.usertype -> usertype.jodatime 2.0

@@ -5,6 +5,7 @@ app.name=Ramses
 user.idBooster=ID Booster
 user.password=Mot de passe
 user.profile=Profil
+user.lastName=Nom
 
 user.activity.active=Actif
 user.activity.inactive=Inactif
@@ -30,7 +31,13 @@ course=Cours
 course.code=Code
 course.name=Nom
 course.promotion=&{promotion}
-course.users=Utilisateurs associés
+course.users=Utilisateurs compétents
+
+# Course type
+coursetype.coursewithtp=Cours avec TP
+
+# YearCourses
+yearcourses.edit=Modifier le cours
 
 # Promotion
 promotion=Promotion

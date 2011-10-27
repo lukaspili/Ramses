@@ -5,5 +5,94 @@
 
     #{include 'helpers/flash_box.html' /}
 
-    <p>Bienvenue sur l'application ramses.</p>
 </div>
+
+<div class="box grid_8">
+    <h2 class="box_head grad_colour ">Cours 2011 / 2012</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">Matière</th>
+                    <th #{if !auth.isAdmin()}class="last"#{/if}>Professeur</th>
+
+                    #{if auth.isAdmin()}
+                    <th class="last">Candidats</th>
+                    #{/}
+                </tr>
+                </thead>
+                <tbody>
+
+                #{list items:yearCourses, as:'course'}
+                <tr>
+                    <td>${course.course.code}</td>
+                    <td>
+                        #{if course.candidates.contains(currentUser)}
+                        #{a @YearCourses.cancelCandidature(course.id)}Candidature en cours... Annuler#{/a}
+                        #{/if}
+                        #{elseif course.professor == null}
+                        #{a @YearCourses.candidate(course.id)}Candidatez pour ce cours#{/a}
+                        #{/elseif}
+                        #{else}
+                        ${course.professor.fullName}
+                        #{/else}
+                    </td>
+
+                    #{if auth.isAdmin()}
+                    <td>
+                        #{a @YearCourses.show(course.id)}
+                        ${course.candidates.size()} candidat${course.candidates.pluralize()}
+                        #{/a}
+                    </td>
+                    #{/if}
+                </tr>
+                #{/list}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="box grid_8">
+    <h2 class="box_head grad_colour">Vos bons de commande</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">Matière</th>
+                    <th class="last">Statut</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="gradeX">
+                    <td>Trident</td>
+                    <td>Internet
+                        Explorer 4.0
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--<div class="box grid_5">-->
+<!--<h2 class="box_head grad_colour ">Grid_8</h2>-->
+<!--<a href="#" class="grabber">&nbsp;</a>-->
+<!--<a href="#" class="toggle">&nbsp;</a>-->
+
+<!--<div class="toggle_container">-->
+<!--<div class="block">-->
+<!--<p>Content goes here</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

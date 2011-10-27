@@ -8,7 +8,7 @@
         <h2>&{currentUser.profile.label}</h2>
 
         <h3><a class="text_shadow" href="#">
-            ${currentUser.fullName?:user.idBooster}
+            ${currentUser.fullName?:currentUser.idBooster}
         </a></h3>
         <!--<ul>-->
         <!--<li><a href="#">settings</a><span class="divider">|</span></li>-->
@@ -20,7 +20,19 @@
     <ul id="accordion" class="round_all">
 
         <li>
-            <a href="#" class="top_level"><img src="@{'/public/images/icons/small/grey/documents.png'}"/>Contrats</a>
+            <a href="#" class="top_level"><img src="@{'/public/images/icons/small/grey/documents.png'}"/>
+
+                #{if userNotifications}
+                <span class="alert badge alert_red">${userNotifications}</span>
+                #{/if}
+
+                Contrats
+            </a>
+
+            <ul class="drawer">
+                <li><a href="#">Contrat cadre</a></li>
+                <li><a href="#">Bons de commande</a></li>
+            </ul>
         </li>
 
         <li><a href="#" class="top_level"><img
