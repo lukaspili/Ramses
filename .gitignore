@@ -8,6 +8,8 @@ gen/
 *.iml
 .idea
 
+eclipse/
+
 test-result/
 tmp/
 modules/
