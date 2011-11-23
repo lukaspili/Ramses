@@ -22,6 +22,10 @@ public class UserNotificationFilter extends UtilController {
     @Before
     public static void checkNotifications() {
 
+        if (!Auth.isLogged()) {
+            return;
+        }
+
         User user = Auth.getCurrentUser();
 
         int notifications = 0;

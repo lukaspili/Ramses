@@ -15,7 +15,7 @@ public class UserFirstLoginFilter extends Controller {
     @Before
     public static void checkFirstLogin() {
 
-        if (null != getActionAnnotation(PublicAccess.class)) {
+        if (!Auth.isLogged() || null != getActionAnnotation(PublicAccess.class)) {
             return;
         }
 
