@@ -13,3 +13,5 @@ require:
     - org.jasypt -> jasypt 1.8 lite
 
     - org.jadira.usertype -> usertype.jodatime 2.0
+
+    - com.itextpdf -> itextpdf 5.1.3
