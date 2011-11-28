@@ -4,6 +4,7 @@ import controllers.abstracts.AppController;
 import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
+import helpers.YearCourseHelper;
 import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
@@ -36,7 +37,7 @@ public class YearCourses extends AppController {
             notFound();
         }
 
-        if (yearCourse.year != yearCourseService.getCurrentYear()) {
+        if (yearCourse.year != YearCourseHelper.getCurrentYear()) {
             flashError("yearcourses.error.wrongYear");
             Dashboard.index();
         }
@@ -95,7 +96,7 @@ public class YearCourses extends AppController {
 
         pageHelper.uniqueTitle(yearCourse.course.getFullName());
 
-        if (yearCourse.hasProfessor() && !yearCourse.professor.hasContractCadre()) {
+        if (yearCourse.hasProfessor() && !yearCourse.professor.hasContract()) {
             flashErrorSamePage("yearcourses.user.waitingContractCadre");
         }
 

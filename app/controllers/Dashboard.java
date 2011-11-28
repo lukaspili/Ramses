@@ -4,6 +4,7 @@ import controllers.abstracts.AppController;
 import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
+import helpers.YearCourseHelper;
 import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
@@ -34,7 +35,7 @@ public class Dashboard extends AppController {
         List<YearCourse> yearCourses;
 
         if (Auth.getCurrentUser().profile.equals(Profile.ADMIN)) {
-            yearCourses = yearCourseService.getAllCoursesForYear(yearCourseService.getCurrentYear());
+            yearCourses = yearCourseService.getAllCoursesForYear(YearCourseHelper.getCurrentYear());
         } else {
             yearCourses = yearCourseService.getUserAndAvailables(Auth.getCurrentUser());
         }

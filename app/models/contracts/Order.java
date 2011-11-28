@@ -16,7 +16,7 @@ public class Order extends Model {
     public String path;
 
     @ManyToOne
-    public ContractCadre contractCadre;
+    public Contract contract;
 
     @OneToOne
     public YearCourse yearCourse;

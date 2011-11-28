@@ -1,5 +1,6 @@
 package service;
 
+import helpers.YearCourseHelper;
 import models.school.YearCourse;
 import models.user.User;
 import org.joda.time.LocalDate;
@@ -11,17 +12,6 @@ import java.util.List;
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
 public class YearCourseService extends AbstractService<YearCourse> {
-
-    public int getCurrentYear() {
-
-        LocalDate date = new LocalDate();
-
-        if (date.getMonthOfYear() >= 10) {
-            return date.getYear() + 1;
-        } else {
-            return date.getYear();
-        }
-    }
 
     public List<YearCourse> getUserCoursesForYear(User user, int year) {
 
@@ -45,7 +35,7 @@ public class YearCourseService extends AbstractService<YearCourse> {
 
         query.setParameter("skills", user.skills)
                 .setParameter("user", user)
-                .setParameter("year", getCurrentYear());
+                .setParameter("year", YearCourseHelper.getCurrentYear());
 
         return query.getResultList();
     }

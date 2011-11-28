@@ -2,10 +2,10 @@ package controllers.filters;
 
 import controllers.abstracts.UtilController;
 import controllers.security.Auth;
+import helpers.YearCourseHelper;
 import models.school.YearCourse;
 import models.user.User;
 import play.mvc.Before;
-import play.mvc.Controller;
 import service.YearCourseService;
 
 import javax.inject.Inject;
@@ -30,8 +30,8 @@ public class UserNotificationFilter extends UtilController {
 
         int notifications = 0;
 
-        List<YearCourse> userYearCourses = yearCourseService.getUserCoursesForYear(user, yearCourseService.getCurrentYear());
-        if (!userYearCourses.isEmpty() && !user.hasContractCadre()) {
+        List<YearCourse> userYearCourses = yearCourseService.getUserCoursesForYear(user, YearCourseHelper.getCurrentYear());
+        if (!userYearCourses.isEmpty() && !user.hasContract()) {
             flashErrorSamePage("users.contractCadre.needToBeSigned");
             notifications++;
         }

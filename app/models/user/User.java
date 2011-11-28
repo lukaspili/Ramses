@@ -1,6 +1,7 @@
 package models.user;
 
-import models.contracts.ContractCadre;
+import controllers.Contracts;
+import models.contracts.Contract;
 import models.school.Course;
 import models.school.YearCourse;
 import org.apache.commons.lang3.StringUtils;
@@ -10,8 +11,6 @@ import play.db.jpa.Model;
 import validation.check.NumericCheck;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,11 +42,14 @@ public class User extends Model {
     @Enumerated(EnumType.STRING)
     public Profile profile;
 
-    @OneToOne
-    public ContractCadre contractCadre;
+    @OneToOne(cascade = CascadeType.ALL)
+    public Contract contract;
 
     @ManyToMany
     public Set<Course> skills;
+
+    @OneToMany(mappedBy = "professor")
+    public Set<YearCourse> courses;
 
     public String getOfficialFullName() {
 
@@ -71,8 +73,8 @@ public class User extends Model {
         return idBooster + "@supinfo.com";
     }
 
-    public boolean hasContractCadre() {
-        return null != contractCadre;
+    public boolean hasContract() {
+        return null != contract;
     }
 
     @Override

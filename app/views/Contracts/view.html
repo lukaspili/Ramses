@@ -1,0 +1,58 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+    <h2>${page_title}</h2>
+    #{include 'helpers/flash_box.html' /}
+</div>
+
+<div class="box grid_10 round_all">
+    <h2 class="box_head grad_colour">Contrat cadre</h2>
+
+    <div class="toggle_container">
+        <div class="block">
+
+
+            #{if contractState == contractState.CREATED}
+            <p>
+                Vous devez maintenant télécharger votre contrat et le rapporter signé à la direction régionale de SUPINFO Paris à Chateau Landon.
+            </p>
+
+            <p>
+                Votre contrat cadre a été édité automatiquement en reprenant vos informations enregistrées dans l'application.
+                Si vous souhaitez modifier certaines de vos informations contenues dans le contrat,
+                vous devez re-éditer un nouveau contrat cadre en #{a @regenerate()}cliquant ici#{/a}.
+            </p>
+            #{/if}
+
+            #{elseif contractState == contractState.SIGNED_BY_STA}
+            <p>
+                Votre contrat va être signé par la direction régionale de SUPINFO Paris.<br/>
+                Une fois que celui ci sera signé, vous serez automatiquement notifié par email pour venir récupérer votre exemplaire.
+            </p>
+            #{/elseif}
+
+            #{elseif contractState == contractState.SIGNED_BY_SUPINFO}
+            <p>
+                Votre contrat a été signé par la direction régionale de SUPINFO Paris.<br/>
+                Si vous ne l'avez pas encore fait, vous devez venir récupérer votre exemplaire auprès de la direction.
+            </p>
+            #{/elseif}
+
+            #{a @download()}
+            <button class="button_colour round_all">
+                <img height="24" width="24" alt="&{'contracts.view.download'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'contracts.view.download'}</span>
+            </button>
+            #{/a}
+        </div>
+    </div>
+</div>
+
+<div class="flat_area grid_6">
+
+    <h2>A quoi sert le contrat cadre ?</h2>
+
+    <p>
+        Foobar.
+    </p>
+
+</div>
