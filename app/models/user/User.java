@@ -1,7 +1,7 @@
 package models.user;
 
-import controllers.Contracts;
 import models.contracts.Contract;
+import models.contracts.JobOrder;
 import models.school.Course;
 import models.school.YearCourse;
 import org.apache.commons.lang3.StringUtils;
@@ -37,6 +37,8 @@ public class User extends Model {
 
     public String siret;
 
+    public String rcs;
+
     public boolean active;
 
     @Enumerated(EnumType.STRING)
@@ -50,6 +52,17 @@ public class User extends Model {
 
     @OneToMany(mappedBy = "professor")
     public Set<YearCourse> courses;
+
+    @OneToMany(mappedBy = "user")
+    public Set<JobOrder> orders;
+
+    public User() {
+    }
+
+    public User(String idBooster, Profile profile) {
+        this.idBooster = idBooster;
+        this.profile = profile;
+    }
 
     public String getOfficialFullName() {
 
@@ -78,20 +91,6 @@ public class User extends Model {
     }
 
     @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("idBooster", idBooster)
-                .append("firstName", firstName)
-                .append("lastName", lastName)
-                .append("password", password)
-                .append("siret", siret)
-                .append("active", active)
-                .append("profile", profile)
-                .appendSuper(super.toString())
-                .toString();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -101,13 +100,17 @@ public class User extends Model {
 
         if (active != user.active) return false;
         if (city != null ? !city.equals(user.city) : user.city != null) return false;
+        if (contract != null ? !contract.equals(user.contract) : user.contract != null) return false;
+        if (courses != null ? !courses.equals(user.courses) : user.courses != null) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (idBooster != null ? !idBooster.equals(user.idBooster) : user.idBooster != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (postalCode != null ? !postalCode.equals(user.postalCode) : user.postalCode != null) return false;
         if (profile != user.profile) return false;
+        if (rcs != null ? !rcs.equals(user.rcs) : user.rcs != null) return false;
         if (siret != null ? !siret.equals(user.siret) : user.siret != null) return false;
+        if (skills != null ? !skills.equals(user.skills) : user.skills != null) return false;
         if (street != null ? !street.equals(user.street) : user.street != null) return false;
 
         return true;
@@ -124,8 +127,27 @@ public class User extends Model {
         result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (siret != null ? siret.hashCode() : 0);
+        result = 31 * result + (rcs != null ? rcs.hashCode() : 0);
         result = 31 * result + (active ? 1 : 0);
         result = 31 * result + (profile != null ? profile.hashCode() : 0);
+        result = 31 * result + (contract != null ? contract.hashCode() : 0);
+        result = 31 * result + (skills != null ? skills.hashCode() : 0);
+        result = 31 * result + (courses != null ? courses.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("idBooster", idBooster)
+                .append("firstName", firstName)
+                .append("lastName", lastName)
+                .append("password", password)
+                .append("siret", siret)
+                .append("active", active)
+                .append("profile", profile)
+                .appendSuper(super.toString())
+                .toString();
+    }
+
 }

@@ -30,7 +30,7 @@ public class CollectionHelper {
         return set;
     }
 
-    public <T extends Model> List<Long> getIdsFromModel(Set<T> models) {
+    public <T extends Model> List<Long> getIdsFromModel(Collection<T> models) {
 
         List<Long> ids = new ArrayList<Long>();
 

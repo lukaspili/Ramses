@@ -1,0 +1,52 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+    #{a @SoeExams.edit(soe.id)}
+    <button class="button_colour round_all" style="float: right;">
+        <img height="24" width="24" alt="&{'soeExam.edit'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'soeExam.edit'}</span>
+    </button>
+    #{/a}
+
+    <h2>SOE ${soe.course.course.fullName}</h2>
+
+    #{include 'helpers/flash_box.html' /}
+
+    <ul>
+        <li>Cours : ${soe.course.course.fullName}</li>
+        <li>Date : ${soe.date}</li>
+        <li>Durée plannifiée: ${soe.plannifiedDuration} heures</li>
+        <li>Durée réelle: ${soe.realDuration} heures</li>
+        <li>Etat : ${soe.state.label}</li>
+    </ul>
+
+</div>
+
+<div class="box grid_16">
+    <h2 class="box_head grad_colour ">Examinateurs (${soe.examinators.size()})</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">&{'user.idBooster'}</th>
+                    <th class="last">&{'user.lastName'}</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                #{list items:soe.examinators, as:'user'}
+                <tr>
+                    <td>${user.idBooster}</td>
+                    <td>${user.fullName}</td>
+                </tr>
+                #{/list}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

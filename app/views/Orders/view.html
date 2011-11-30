@@ -1,0 +1,67 @@
+#{extends 'template/template.html' /}
+#{include 'helpers/multiselect.html' /}
+
+<div class="flat_area grid_16">
+    <h2>${page_title}</h2>
+    #{include 'helpers/flash_box.html' /}
+</div>
+
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour">Créer un nouveau bon de commande</h2>
+
+    <div class="toggle_container">
+        <div class="block">
+
+            #{include 'helpers/form_validation.html' /}
+
+            <p>Veuillez renseigner les prestations à ajouter au bon de commande.</p>
+
+            #{form @create(), id:'create-order-form', enctype:'multipart/form-data' }
+
+            #{field 'availableCourses'}
+            <label for="${field.id}">&{field.name}</label>
+            <select name="${field.name}" multiple="multiple" class="multiselect">
+                #{list items:courses, as:'course'}
+                <option value="${course.id}">${course.course.fullName}
+                </option>
+                #{/list}
+            </select>
+            #{/}
+
+            <button class="button_colour round_all">
+                <img height="24" width="24" alt="&{'jobOrder.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'jobOrder.create'}</span>
+            </button>
+            #{/form}
+        </div>
+    </div>
+</div>
+
+<div class="box grid_8">
+    <h2 class="box_head grad_colour">Vos bons de commande</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">Date de création</th>
+                    <th>Total</th>
+                    <th class="last">Etat</th>
+                </tr>
+                </thead>
+                <tbody>
+                #{list items:orders, as:'order'}
+                <tr class="gradeX">
+                    <td>#{a @show(order.id)}${order.creationDate}#{/a}</td>
+                    <td>${order.total}</td>
+                    <td>${order.state.label}</td>
+                </tr>
+                </tbody>
+                #{/list}
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -1,7 +1,6 @@
 package controllers;
 
 import controllers.abstracts.AppController;
-import controllers.abstracts.UtilController;
 import controllers.helper.PageHelper;
 import controllers.security.LoggedAccess;
 import exceptions.CoreException;
@@ -88,7 +87,7 @@ public class UsersAdmin extends AppController {
         long externeCount = User.count("byProfile", Profile.EXTERNE);
         long adminCount = User.count("byProfile", Profile.ADMIN);
 
-        List<User> users = userService.getUsers();
+        List<User> users = userService.getActiveUsers();
 
         render(users, staCount, externeCount, adminCount);
     }

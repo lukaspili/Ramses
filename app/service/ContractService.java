@@ -29,6 +29,10 @@ public class ContractService {
             e.printStackTrace();
         }
 
+        if (user.contract != null && user.contract.pdf != null) {
+            user.contract.pdf.getFile().delete();
+        }
+
         user.contract = contract;
         user.save();
 

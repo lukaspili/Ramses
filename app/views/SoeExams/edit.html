@@ -1,0 +1,75 @@
+#{extends 'template/template.html' /}
+#{include 'helpers/multiselect.html' /}
+
+<div class="flat_area grid_16">
+    <h2>${page_title}</h2>
+    #{include 'helpers/flash_box.html' /}
+</div>
+
+<div class="box grid_10 round_all">
+    <h2 class="box_head grad_colour">Modifier le SOE de ${soe.date} du cours ${soe.course.course.code}</h2>
+
+    <div class="toggle_container">
+        <div class="block">
+
+            #{include 'helpers/form_validation.html' /}
+
+            #{form @save(), id:'edit-soe', enctype:'multipart/form-data' }
+
+            #{field 'soe.id'}
+            <label for="${field.id}">&{field.name}</label>
+            <input type="hidden" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
+            #{/}
+
+            #{field 'soe.plannifiedDuration'}
+            <label for="${field.id}">&{field.name}</label>
+            <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            #{field 'soe.realDuration'}
+            <label for="${field.id}">&{field.name}</label>
+            <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            #{field 'soe.state'}
+            <label for="${field.id}">&{field.name}</label>
+
+            <div class="input_group">
+                #{select field.name, items:states, valueProperty:'value', labelProperty:'label', id:field.id, value:field.value /}
+            </div>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            #{field 'examinators'}
+            <label for="${field.id}">&{field.name}</label>
+
+            <select name="${field.name}" multiple="multiple" class="multiselect">
+                #{list items:users, as:'user'}
+                <option value="${user.id}"
+                ${(field.value.contains(user.id)).yesno('selected', '')}>${user.fullName}</option>
+                #{/list}
+            </select>
+            #{/}
+
+            <button class="button_colour round_all">
+                <img height="24" width="24" alt="Bended Arrow Right" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+            </button>
+            #{/form}
+        </div>
+    </div>
+</div>
+
+<div class="flat_area grid_6">
+
+    <h2>Aide</h2>
+
+    <h3>SOE à venir</h3>
+
+    <h3>SOE plannifié</h3>
+
+    <h3>SOE complété</h3>
+
+</div>
+

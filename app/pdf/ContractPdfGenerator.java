@@ -111,12 +111,12 @@ public class ContractPdfGenerator {
 
             cell = new PdfPCell();
 
-            paragraph = new Paragraph("et M. Lukasz PILISZCZUK", textFont);
+            paragraph = new Paragraph("et M. " + user.firstName + " " + user.lastName.toUpperCase(), textFont);
             cell.addElement(paragraph);
-            paragraph = new Paragraph("Immatriculé à Evry sous le numéro 515 054 849 00010,", textFont);
+            paragraph = new Paragraph("Immatriculé à " + user.rcs + " sous le numéro " + user.siret + ",", textFont);
             paragraph.setLeading(textLeading);
             cell.addElement(paragraph);
-            paragraph = new Paragraph("et domicilié 7 T route de Paris - 91530 Saint-Chéron,", textFont);
+            paragraph = new Paragraph("et domicilié " + user.street + " - " + user.postalCode + " " + user.city + ",", textFont);
             paragraph.setLeading(textLeading);
             cell.addElement(paragraph);
             paragraph = new Paragraph("ci-après dénommé « Le Prestataire », d'autre part,", textFont);
@@ -457,7 +457,7 @@ public class ContractPdfGenerator {
             paragraph.setLeading(textLeading);
             document.add(paragraph);
 
-            
+
             list = new List(List.UNORDERED);
             list.setIndentationLeft(18);
 

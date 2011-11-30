@@ -1,11 +1,15 @@
 package models.school;
 
+import models.contracts.JobOrder;
 import models.user.User;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
 /**
@@ -16,6 +20,14 @@ public class YearCourse extends Model {
 
     public int year;
 
+    public int duration;
+
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
+    public LocalDate startDate;
+
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
+    public LocalDate endDate;
+
     @ManyToOne
     public Course course;
 
@@ -25,7 +37,17 @@ public class YearCourse extends Model {
     @ManyToMany
     public Set<User> candidates;
 
+    @OneToMany(mappedBy = "course")
+    public Set<SoeExam> soeExams;
+
+    @ManyToMany(mappedBy = "courses")
+    public Set<JobOrder> orders;
+
     public boolean hasProfessor() {
         return null != professor;
+    }
+
+    public float getTotal() {
+        return duration * course.type.price;
     }
 }

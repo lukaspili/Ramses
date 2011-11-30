@@ -17,7 +17,6 @@ public class Course extends Model {
 
     public String name;
     public String code;
-    public int duration;
 
     @ManyToOne
     public CourseType type;

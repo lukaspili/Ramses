@@ -12,7 +12,6 @@ school.Course(javab2):
   promotion: B2
   name: Java 2eme année
   code: 2SUN
-  duration: 40
   type: course-with-tp
 
 school.Course(javab3):
@@ -42,25 +41,35 @@ school.Course(oracleb3):
 
 # YEAR COURSES
 
-school.YearCourse(javab2-2012):
-  year: 2012
-  course: javab2
-
-school.YearCourse(javab3-2012):
-  year: 2012
-  course: javab3
-
-school.YearCourse(oracleb1-2012):
-  year: 2012
-  course: oracleb1
-
-school.YearCourse(oracleb2-2012):
-  year: 2012
-  course: oracleb2
-
-school.YearCourse(oracleb3-2012):
-  year: 2012
-  course: oracleb3
+#school.YearCourse(javab2-2012):
+#  year: 2012
+#  course: javab2
+#  startDate: '2001-09-09'
+#  endDate: '2001-09-09'
+#
+#school.YearCourse(javab3-2012):
+#  year: 2012
+#  course: javab3
+#  startDate: '2001-09-09'
+#  endDate: '2001-09-09'
+#
+#school.YearCourse(oracleb1-2012):
+#  year: 2012
+#  course: oracleb1
+#  startDate: '2001-09-09'
+#  endDate: '2001-09-09'
+#
+#school.YearCourse(oracleb2-2012):
+#  year: 2012
+#  course: oracleb2
+#  startDate: '2001-09-09'
+#  endDate: '2001-09-09'
+#
+#school.YearCourse(oracleb3-2012):
+#  year: 2012
+#  course: oracleb3
+#  startDate: '2001-09-09'
+#  endDate: '2001-09-09'
 
 
 # USERS

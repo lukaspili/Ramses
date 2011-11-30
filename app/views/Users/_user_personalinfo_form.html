@@ -36,6 +36,13 @@
 #{field 'user.siret'}
 <label for="${field.id}">&{field.name} <span style="color:red">*</span></label></label>
 <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="large ${field.errorClass}"
-       title="Votre numéro SIRET. Laissez ce champs vide si vous ne possedez par encotre votre numéro, vous pourrez l'ajouter plus tard."/>
+       title="Votre numéro SIRET."/>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'user.rcs'}
+<label for="${field.id}">&{field.name} <span style="color:red">*</span></label></label>
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="large ${field.errorClass}"
+       title="Votre RCS."/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}

@@ -7,17 +7,17 @@
         <img height="24" width="24" alt="&{'usersadmin.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'yearcourses.edit'}</span>
     </button>
     #{/a}
-    
-    <h2>${page_title}</h2>
+
+    <h2>${yearCourse.course.fullName}</h2>
 
     #{include 'helpers/flash_box.html' /}
 
     <ul>
         <li>Cours : ${yearCourse.course.fullName}</li>
         <li>Type de cours : &{yearCourse.course.type.name} (${yearCourse.course.type.price} euros / heure)</li>
-        <li>Durée : ${yearCourse.course.duration} heures</li>
-        <li>Date de début : </li>
-        <li>Date de fin : </li>
+        <li>Durée : ${yearCourse.duration} heures</li>
+        <li>Date de début : ${yearCourse.startDate}</li>
+        <li>Date de fin : ${yearCourse.endDate}</li>
         <li>
             Professeur :
 
@@ -86,6 +86,39 @@
                 <tr>
                     <td>${user.idBooster}</td>
                     <td>${user.fullName}</td>
+                </tr>
+                #{/list}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="box grid_16">
+    <h2 class="box_head grad_colour ">SOE associés (${yearCourse.soeExams.size()})</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">&{'soeExam.date'}</th>
+                    <th>&{'soeExam.plannifiedDuration'}</th>
+                    <th>&{'soeExam.realDuration'}</th>
+                    <th class="last">&{'soeExam.state'}</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                #{list items:yearCourse.soeExams, as:'soe'}
+                <tr>
+                    <td>#{a @SoeExams.show(soe.id)}${soe.date}#{/a}</td>
+                    <td>${soe.plannifiedDuration}</td>
+                    <td>${soe.realDuration}</td>
+                    <td>${soe.state.label}</td>
                 </tr>
                 #{/list}
 

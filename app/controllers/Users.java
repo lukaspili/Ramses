@@ -223,6 +223,6 @@ public class Users extends AppController {
 
     @Util
     private static void requirePersonalInfo(EnhancedValidator validator) {
-        validator.require("firstName", "lastName", "street", "postalCode", "city", "siret");
+        validator.require("firstName", "lastName", "street", "postalCode", "city", "siret", "rcs");
     }
 }

@@ -42,8 +42,8 @@ public class UserService extends AbstractService<User> {
         return User.find("byIdBooster", idBooser).first();
     }
 
-    public List<User> getUsers() {
-        return User.findAll();
+    public List<User> getActiveUsers() {
+        return User.em().createQuery("select u from User u where u.active = true").getResultList();
     }
 
     public User getFromLogin(String idBooster, String password) {
