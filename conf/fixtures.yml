@@ -74,29 +74,29 @@ school.Course(oracleb3):
 
 # USERS
 
-user.User(lukas):
-  idBooster: 75054
-  password: szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ
-  profile: STA
-  active: true
-  firstName: Lukasz
-  lastName: Piliszczuk
-  street: 77 rue notre dame des champs
-  postalCode: 75006
-  city: Paris
-  siret: 51505484900010
-  skills: [javab2, javab3]
-
-user.User(toto):
-  idBooster: 1010
-  password: foobar
-  profile: STA
-  active: false
-
-user.User(sebastien):
-  idBooster: 8080
-  password: szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ
-  profile: ADMIN
-  active: true
-  firstName: Sebastien
-  lastName: Dherines
+#user.User(lukas):
+#  idBooster: 75054
+#  password: szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ
+#  profile: STA
+#  active: true
+#  firstName: Lukasz
+#  lastName: Piliszczuk
+#  street: 77 rue notre dame des champs
+#  postalCode: 75006
+#  city: Paris
+#  siret: 51505484900010
+#  skills: [javab2, javab3]
+#
+#user.User(toto):
+#  idBooster: 1010
+#  password: foobar
+#  profile: STA
+#  active: false
+#
+#user.User(sebastien):
+#  idBooster: 8080
+#  password: szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ
+#  profile: ADMIN
+#  active: true
+#  firstName: Sebastien
+#  lastName: Dherines

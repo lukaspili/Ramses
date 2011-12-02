@@ -28,7 +28,28 @@ public abstract class UtilController extends Controller {
     }
 
     protected static void flashInfo(String message, Object... args) {
-        flash.put("info_box", Messages.get(message, args));
+        flashInfo(message, true, args);
+    }
+
+    protected static void flashInfoSamePage(String message, Object... args) {
+        flashInfo(message, false, args);
+    }
+
+    protected static void flashInfo(String message, boolean keep, Object... args) {
+
+        for (int i = 1; i <= 5; i++) {
+            String box = "info_box_" + i;
+
+            if (!flash.contains(box)) {
+                flash.put(box, Messages.get(message, args));
+
+                if (!keep) {
+                    flash.discard(box);
+                }
+
+                break;
+            }
+        }
     }
 
     protected static void flashError(String message, Object... args) {

@@ -83,12 +83,33 @@ public class UsersAdmin extends AppController {
 
         pageHelper.title("list");
 
-        long staCount = User.count("byProfile", Profile.STA);
-        long externeCount = User.count("byProfile", Profile.EXTERNE);
-        long adminCount = User.count("byProfile", Profile.ADMIN);
+        long inactiveCount = User.count("byActive", false);
+        long staCount = User.count("byProfileAndactive", Profile.STA, true);
+        long externeCount = User.count("byProfileAndactive", Profile.EXTERNE, true);
+        long adminCount = User.count("byProfileAndactive", Profile.ADMIN, true);
 
-        List<User> users = userService.getActiveUsers();
+        List<User> users = User.findAll();
 
-        render(users, staCount, externeCount, adminCount);
+        render(users, inactiveCount, staCount, externeCount, adminCount);
+    }
+
+    public static void show(long userId) {
+
+        User user = userService.findUserWithContratAndOrders(userId);
+
+        notFoundIfNull(user);
+
+        String title = null;
+
+        if (!user.active) {
+            flashInfoSamePage("user.active.not_yet");
+            title = "Utilisateur " + user.idBooster;
+        } else {
+            title = "Utilisateur " + user.getFullName();
+        }
+
+        pageHelper.uniqueTitle(title);
+
+        render(user);
     }
 }

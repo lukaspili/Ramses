@@ -22,7 +22,7 @@
             Professeur :
 
             #{if yearCourse.hasProfessor()}
-            #{a @Users.show(yearCourse.professor.id)}${yearCourse.professor.fullName} (${yearCourse.professor.profile.label})#{/a}
+            #{a @UsersAdmin.show(yearCourse.professor.id)}${yearCourse.professor.fullName}#{/a} (${yearCourse.professor.profile.label})
             #{/if}
 
             #{else}
@@ -95,7 +95,7 @@
     </div>
 </div>
 
-<div class="box grid_16">
+<div class="box grid_8">
     <h2 class="box_head grad_colour ">SOE associés (${yearCourse.soeExams.size()})</h2>
     <a href="#" class="grabber">&nbsp;</a>
     <a href="#" class="toggle">&nbsp;</a>
@@ -113,17 +113,66 @@
                 </thead>
                 <tbody>
 
-                #{list items:yearCourse.soeExams, as:'soe'}
+                #{list items:yearCourse.soeExams, as:'soeExam'}
                 <tr>
-                    <td>#{a @SoeExams.show(soe.id)}${soe.date}#{/a}</td>
-                    <td>${soe.plannifiedDuration}</td>
-                    <td>${soe.realDuration}</td>
-                    <td>${soe.state.label}</td>
+                    <td>#{a @SoeExams.show(soeExam.id)}${soeExam.date}#{/a}</td>
+                    <td>${soeExam.plannifiedDuration}</td>
+                    <td>${soeExam.realDuration}</td>
+                    <td>${soeExam.state.label}</td>
                 </tr>
                 #{/list}
 
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour">Nouvel SOE</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block">
+
+            #{include 'helpers/form_validation.html' /}
+
+            #{form @SoeExamsAdmin.saveFromCourse(), id:'create-soe-form', enctype:'multipart/form-data' }
+
+            #{field 'courseId'}
+            <input type="hidden" id="${field.id}" name="${field.name}" value="${yearCourse.id}"/>
+            #{/}
+
+            #{field 'date'}
+            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+            <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            #{field 'soe.plannifiedDuration'}
+            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+            <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            #{field 'afterSubmit'}
+            <label>&{field.name} : ${field.value}</label>
+
+            <div class="input_group">
+                <input type="radio" name="${field.name}" value="list" checked/>
+                Revenir au détail du cours.<br/>
+
+                <input type="radio" name="${field.name}" value="form" ${(field.value == 'form').yesno('checked', '')} />
+                Afficher le détail du SOE nouvellement créé.
+            </div>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            <button class="button_colour round_all">
+                <img height="24" width="24" alt="Save" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+            </button>
+            #{/form}
         </div>
     </div>
 </div>

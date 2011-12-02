@@ -16,6 +16,7 @@ import java.util.Set;
 public class Course extends Model {
 
     public String name;
+
     public String code;
 
     @ManyToOne
@@ -29,6 +30,16 @@ public class Course extends Model {
 
     @OneToMany(mappedBy = "course")
     public Set<YearCourse> yearCourses;
+
+    public Course() {
+    }
+
+    public Course(String code, String name, Promotion promotion, CourseType type) {
+        this.promotion = promotion;
+        this.type = type;
+        this.code = code;
+        this.name = name;
+    }
 
     public String getFullName() {
         return code + " - " + name;

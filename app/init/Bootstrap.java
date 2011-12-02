@@ -25,15 +25,15 @@ public class Bootstrap extends Job {
     public void doJob() throws Exception {
 
         if (User.count() == 0) {
-            Logger.debug("Load fixtures into database");
-            Fixtures.loadModels("fixtures.yml");
+//            Logger.debug("Load fixtures into database");
+//            Fixtures.loadModels("fixtures.yml");
+//
+//            Logger.debug("Users in database :");
+//            for (User user : User.<User>findAll()) {
+//                Logger.debug("User %s : %s", user.id, user);
+//            }
 
-            Logger.debug("Users in database :");
-            for (User user : User.<User>findAll()) {
-                Logger.debug("User %s : %s", user.id, user);
-            }
-
-            DatabaseInitializer.initDatabase();
+            DatabaseInitializer.initDatabaseWithTests();
         }
     }
 }

@@ -5,11 +5,9 @@ import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import helpers.YearCourseHelper;
-import models.contracts.Contract;
 import models.contracts.ContractState;
 import models.school.YearCourse;
 import models.user.User;
-import play.Logger;
 import play.mvc.Before;
 import service.ContractService;
 import service.YearCourseService;
@@ -40,17 +38,10 @@ public class Contracts extends AppController {
 
         User user = Auth.getCurrentUser();
 
-        // user have no courses
-        List<YearCourse> userYearCourses = yearCourseService.getUserCoursesForYear(user, YearCourseHelper.getCurrentYear());
-
-        if (userYearCourses.isEmpty()) {
-            flashError("contracts.error.noCourses");
-            Dashboard.index();
-        }
-
         // user have no contract
         if (!user.hasContract()) {
-            contractService.createFor(user);
+            flashError("user.error.have_no_contract");
+            Dashboard.index();
         }
 
         ContractState contractState = user.contract.state;
@@ -89,7 +80,7 @@ public class Contracts extends AppController {
             Dashboard.index();
         }
 
-        contractService.createFor(user);
+        contractService.createForUser(user);
 
         flashSuccess("contract.regenerate.success");
         view();

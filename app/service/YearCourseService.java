@@ -1,10 +1,13 @@
 package service;
 
 import helpers.YearCourseHelper;
+import models.contracts.Contract;
+import models.school.Course;
 import models.school.YearCourse;
 import models.user.User;
 import org.joda.time.LocalDate;
 
+import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
@@ -70,8 +73,7 @@ public class YearCourseService extends AbstractService<YearCourse> {
     public List<YearCourse> getNotOrderedCoursesForUser(User user) {
 
         Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
-                "where yc.professor.id not in (select jo.user.id from JobOrder jo) " +
-                "and yc.professor = :user");
+                "where yc.id not in (select joc.id from JobOrder jo join jo.courses joc where jo.user = :user)");
 
         query.setParameter("user", user);
 

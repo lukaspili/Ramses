@@ -9,6 +9,7 @@ import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
 import play.mvc.Before;
+import service.ContractService;
 import service.YearCourseService;
 
 import javax.inject.Inject;
@@ -20,6 +21,9 @@ public class YearCourses extends AppController {
 
     @Inject
     private static YearCourseService yearCourseService;
+
+    @Inject
+    private static ContractService contractService;
 
     private static PageHelper pageHelper;
 
@@ -134,6 +138,10 @@ public class YearCourses extends AppController {
         }
 
         yearCourseService.validateCandidature(yearCourse, user);
+
+        if (!user.hasContract()) {
+            contractService.createForUser(user);
+        }
 
         flashSuccess("yearcourses.validateCandidature.success");
         show(yearCourse.id);

@@ -1,14 +1,14 @@
 #{extends 'template/template.html' /}
 
 <div class="flat_area grid_16">
-    <h2>${page_title}</h2>
+    <h2>Dashboard 2011 / 2012</h2>
 
     #{include 'helpers/flash_box.html' /}
 
 </div>
 
 <div class="box grid_8">
-    <h2 class="box_head grad_colour ">Cours 2011 / 2012</h2>
+    <h2 class="box_head grad_colour ">Cours</h2>
     <a href="#" class="grabber">&nbsp;</a>
     <a href="#" class="toggle">&nbsp;</a>
 
@@ -18,7 +18,8 @@
                 <thead>
                 <tr>
                     <th class="first">Matière</th>
-                    <th #{if !auth.isAdmin()}class="last"#{/if}>Professeur</th>
+                    <th
+                    #{if !auth.isAdmin()}class="last"#{/if}>Professeur</th>
 
                     #{if auth.isAdmin()}
                     <th class="last">Candidats</th>
@@ -59,7 +60,7 @@
 </div>
 
 <div class="box grid_8">
-    <h2 class="box_head grad_colour">Vos bons de commande</h2>
+    <h2 class="box_head grad_colour">SOEs</h2>
     <a href="#" class="grabber">&nbsp;</a>
     <a href="#" class="toggle">&nbsp;</a>
 
@@ -74,10 +75,7 @@
                 </thead>
                 <tbody>
                 <tr class="gradeX">
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
+                    
                 </tr>
                 </tbody>
             </table>

@@ -13,4 +13,11 @@ public class CourseType extends Model {
     public String name;
     public float price;
 
+    public CourseType() {
+    }
+
+    public CourseType(String name, float price) {
+        this.name = name;
+        this.price = price;
+    }
 }

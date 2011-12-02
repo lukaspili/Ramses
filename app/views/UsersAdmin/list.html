@@ -15,6 +15,7 @@
     <p>Il y'a actuellement ${users.size} utilisateur${users.pluralize()} enregistré${users.pluralize()} dans l'application, dont :</p>
 
     <ul>
+        <li>${inactiveCount} &{'profile.inactive' + (inactiveCount > 1 ? '.many':'')}</li>
         <li>${staCount} &{'profile.sta' + (staCount > 1 ? '.many':'')}</li>
         <li>${externeCount} &{'profile.externe' + (externeCount > 1 ? '.many':'')}</li>
         <li>${adminCount} &{'profile.admin' + (adminCount > 1 ? '.many':'')}</li>
@@ -37,7 +38,7 @@
         #{list items:users, as: 'user'}
         <tr>
             <td>
-                #{a @Users.show(user.id)}<strong>${user.idBooster}</strong>#{/a}
+                #{a @UsersAdmin.show(user.id)}<strong>${user.idBooster}</strong>#{/a}
             </td>
 
             <td>

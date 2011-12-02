@@ -13,6 +13,7 @@ import play.libs.MimeTypes;
 
 import javax.activation.MimeType;
 import java.io.*;
+import java.util.Date;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -31,7 +32,7 @@ public class ContractPdfGenerator {
             folder.mkdirs();
         }
 
-        File file = new File(folder, user.id + EXTENSION);
+        File file = new File(folder, "contract-" + new Date().getTime() + "-" + user.id + EXTENSION);
 
         try {
             Document document = new Document(PageSize.A4);
@@ -72,7 +73,8 @@ public class ContractPdfGenerator {
 
             cell = new PdfPCell();
 
-            phrase = new Phrase("CONTRAT DE PRESTATION\nPEDAGOGIQUE SANS EXCLUSIVITE\nn°2012-PAR-01", titleFont);
+            phrase = new Phrase("CONTRAT DE PRESTATION\nPEDAGOGIQUE SANS EXCLUSIVITE\n" +
+                    "n°2012-PAR-" + PdfGeneratorFormatter.getFormattedUserId(user.id), titleFont);
             phrase.setLeading(25);
             cell.setPhrase(phrase);
             cell.setLeading(3, 1);

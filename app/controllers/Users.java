@@ -137,11 +137,6 @@ public class Users extends AppController {
     }
 
     @LoggedAccess
-    public static void show(Long id) {
-
-    }
-
-    @LoggedAccess
     public static void editPersonalInfo() {
 
         pageHelper.title("Modifiez vos informations personnelles");

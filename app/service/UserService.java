@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import play.db.jpa.Model;
 
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -100,5 +101,21 @@ public class UserService extends AbstractService<User> {
     public void updateFromSkills(Set<Course> courses, User user) {
         user.skills = courses;
         user.save();
+    }
+
+    public User findUserWithContratAndOrders(long id) {
+
+        Query query = User.em().createQuery("select u from User u " +
+                "left join u.contract c left join u.orders o " +
+                "where u.id = :id");
+        
+        query.setParameter("id", id);
+
+        try {
+            return (User) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 }

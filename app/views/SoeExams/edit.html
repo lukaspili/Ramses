@@ -7,7 +7,7 @@
 </div>
 
 <div class="box grid_10 round_all">
-    <h2 class="box_head grad_colour">Modifier le SOE de ${soe.date} du cours ${soe.course.course.code}</h2>
+    <h2 class="box_head grad_colour">Modifier le SOE ${soe.course.course.code} du ${soe.date}</h2>
 
     <div class="toggle_container">
         <div class="block">
@@ -17,8 +17,7 @@
             #{form @save(), id:'edit-soe', enctype:'multipart/form-data' }
 
             #{field 'soe.id'}
-            <label for="${field.id}">&{field.name}</label>
-            <input type="hidden" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
+            <input type="hidden" id="${field.id}" name="${field.name}" value="${field.value}"/>
             #{/}
 
             #{field 'soe.plannifiedDuration'}

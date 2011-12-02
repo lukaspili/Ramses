@@ -34,7 +34,7 @@ public class SoeExams extends AppController {
 
     @Before
     public static void before() {
-        pageHelper = new PageHelper("yearcourses", renderArgs);
+        pageHelper = new PageHelper("soeExam", renderArgs);
     }
 
     @LoggedAccess(Profile.ADMIN)

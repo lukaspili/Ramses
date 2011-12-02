@@ -22,13 +22,22 @@
             <label for="${field.id}">&{field.name}</label>
             <select name="${field.name}" multiple="multiple" class="multiselect">
                 #{list items:courses, as:'course'}
-                <option value="${course.id}">${course.course.fullName}
+                <option value="${course.id}">${course.course.code}
                 </option>
                 #{/list}
             </select>
             #{/}
 
-            <button class="button_colour round_all">
+            #{field 'availableSoes'}
+            <label for="${field.id}" style="margin-top: 10px">&{field.name}</label>
+            <select name="${field.name}" multiple="multiple" class="multiselect">
+                #{list items:soes, as:'soe'}
+                <option value="${course.id}">${soe.course.course.code} ${soe.date}</option>
+                #{/list}
+            </select>
+            #{/}
+
+            <button class="button_colour round_all" style="margin-top: 15px">
                 <img height="24" width="24" alt="&{'jobOrder.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'jobOrder.create'}</span>
             </button>
             #{/form}
@@ -48,7 +57,8 @@
                 <tr>
                     <th class="first">Date de création</th>
                     <th>Total</th>
-                    <th class="last">Etat</th>
+                    <th>Etat</th>
+                    <th class="last">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -57,6 +67,7 @@
                     <td>#{a @show(order.id)}${order.creationDate}#{/a}</td>
                     <td>${order.total}</td>
                     <td>${order.state.label}</td>
+                    <td>#{a @download(order.id)}Télécharger#{/a}</td>
                 </tr>
                 </tbody>
                 #{/list}

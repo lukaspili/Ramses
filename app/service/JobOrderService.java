@@ -1,13 +1,22 @@
 package service;
 
+import helpers.YearCourseHelper;
+import models.contracts.Contract;
 import models.contracts.JobOrder;
 import models.school.SoeExam;
 import models.school.YearCourse;
 import models.user.User;
 import org.joda.time.LocalDate;
+import pdf.ContractPdfGenerator;
+import pdf.JobOrderPdfGenerator;
+import play.db.jpa.Blob;
 import play.jobs.Job;
+import play.libs.MimeTypes;
 
 import javax.persistence.Query;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +34,19 @@ public class JobOrderService {
     }
 
     public void createOrder(Set<YearCourse> courses, Set<SoeExam> soeExams, User user) {
+
+//        Query courseQuery = YearCourse.em().createQuery("select yc from YearCourse yc " +
+//                "where yc.id not in (select joc.id from JobOrder jo join jo.courses joc) " +
+//                "and yc.id = :id");
+
+        for(YearCourse course : courses) {
+
+//            courseQuery.setParameter("id", course.id);
+
+            if(! course.professor.equals(user) || !course.orders.isEmpty()) {
+                
+            }
+        }
 
         JobOrder order = new JobOrder();
         order.creationDate = new LocalDate();
@@ -44,5 +66,30 @@ public class JobOrderService {
         }
 
         order.save();
+
+        File pdf = JobOrderPdfGenerator.generate(order);
+
+        try {
+            order.pdf = new Blob();
+            order.pdf.set(new FileInputStream(pdf), MimeTypes.getContentType(pdf.getName()));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        order.save();
+        pdf.delete();
+    }
+
+    public JobOrder findForUser(long orderId, User user) {
+
+        Query query = JobOrder.em().createQuery("select jo from JobOrder jo where jo.user = :user");
+        query.setParameter("user", user);
+
+        try {
+            return (JobOrder) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 }

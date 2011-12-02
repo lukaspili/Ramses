@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
  */
 public class ContractService {
 
-    public Contract createFor(User user) {
+    public Contract createForUser(User user) {
 
         File pdf = ContractPdfGenerator.generate(user);
         Contract contract = new Contract();
@@ -26,7 +26,7 @@ public class ContractService {
         try {
             contract.pdf.set(new FileInputStream(pdf), MimeTypes.getContentType(pdf.getName()));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         if (user.contract != null && user.contract.pdf != null) {

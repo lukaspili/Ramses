@@ -6,12 +6,14 @@ import controllers.security.LoggedAccess;
 import models.contracts.JobOrder;
 import models.school.SoeExam;
 import models.school.YearCourse;
+import models.user.Profile;
 import models.user.User;
 import service.JobOrderService;
 import service.SoeExamService;
 import service.YearCourseService;
 
 import javax.inject.Inject;
+import java.net.IDN;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -43,13 +45,24 @@ public class Orders extends AppController {
         List<YearCourse> courses = yearCourseService.getNotOrderedCoursesForUser(user);
         List<Long> availableCourses = new ArrayList<Long>();
 
-        render(orders, courses, availableCourses);
+        // list SOEs not in orders
+        List<YearCourse> soes = soeExamService.getNotOrderedSoesForUser(user);
+        List<Long> availableSoes = new ArrayList<Long>();
+
+        render(orders, courses, availableCourses, soes, availableSoes);
     }
 
-    public static void create(List<Long> availableCourses, List<Long> availableSoeExams) {
+    public static void create(List<Long> availableCourses, List<Long> availableSoes) {
 
-        if (!((null != availableCourses && !availableCourses.isEmpty()) ||
-                (null != availableSoeExams && !availableSoeExams.isEmpty()))) {
+        if (null == availableCourses) {
+            availableCourses = new ArrayList<Long>();
+        }
+
+        if (null == availableSoes) {
+            availableSoes = new ArrayList<Long>();
+        }
+
+        if (!(!availableCourses.isEmpty() || !availableSoes.isEmpty())) {
 
             flashError("jobOrders.create.error.empty");
             view();
@@ -80,9 +93,27 @@ public class Orders extends AppController {
     public static void show(long orderId) {
 
         JobOrder order = JobOrder.findById(orderId);
+        notFoundIfNull(order);
+
+        flashError("error.functionnality_not_implemented_yet");
+        Dashboard.index();
+    }
+
+    public static void download(long orderId) {
+
+        User user = Auth.getCurrentUser();
+
+        JobOrder order = null;
+
+        if (user.profile == Profile.ADMIN) {
+            order = JobOrder.findById(orderId);
+        } else {
+            order = jobOrderService.findForUser(orderId, user);
+        }
 
         notFoundIfNull(order);
 
-        render(order);
+        response.setContentTypeIfNotSet(order.pdf.type());
+        renderBinary(order.pdf.get(), "Bon de commande.pdf");
     }
 }
