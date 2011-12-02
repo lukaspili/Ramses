@@ -29,4 +29,8 @@ public class SoeExam extends Model {
 
     @ManyToMany
     public Set<User> examinators;
+
+    public float getTotal() {
+        return plannifiedDuration * SoeExam.PRICE;
+    }
 }

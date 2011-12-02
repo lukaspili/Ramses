@@ -63,19 +63,20 @@ public class Orders extends AppController {
         }
 
         if (!(!availableCourses.isEmpty() || !availableSoes.isEmpty())) {
-
             flashError("jobOrders.create.error.empty");
             view();
         }
+
+        User user = Auth.getCurrentUser();
 
         Set<YearCourse> courses = new HashSet<YearCourse>();
 
         for (long id : availableCourses) {
 
-            YearCourse course = yearCourseService.getNotOrderedCourse(id);
+            YearCourse course = yearCourseService.getNotOrderedCourseForUser(id, user);
 
             if (null == course) {
-                flashError("jobOrders.create.error.already_ordered_course");
+                flashError("jobOrders.create.error.invalid_ordered_course");
                 view();
             }
 
@@ -84,7 +85,19 @@ public class Orders extends AppController {
 
         Set<SoeExam> soeExams = new HashSet<SoeExam>();
 
-        jobOrderService.createOrder(courses, soeExams, Auth.getCurrentUser());
+        for (long id : availableSoes) {
+
+            SoeExam soe = soeExamService.getNotOrderedSoeForUser(id, user);
+
+            if (null == soe) {
+                flashError("jobOrders.error.invalid_ordered_soe");
+                view();
+            }
+
+            soeExams.add(soe);
+        }
+
+        jobOrderService.createOrder(courses, soeExams, user);
 
         flashSuccess("jobOrders.create.success");
         view();

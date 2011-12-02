@@ -73,20 +73,22 @@ public class YearCourseService extends AbstractService<YearCourse> {
     public List<YearCourse> getNotOrderedCoursesForUser(User user) {
 
         Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
-                "where yc.id not in (select joc.id from JobOrder jo join jo.courses joc where jo.user = :user)");
+                "where yc.id not in (select joc.id from JobOrder jo join jo.courses joc where jo.user = :user) " +
+                "and yc.professor = :user");
 
         query.setParameter("user", user);
 
         return query.getResultList();
     }
 
-    public YearCourse getNotOrderedCourse(long id) {
+    public YearCourse getNotOrderedCourseForUser(long id, User user) {
 
         Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
-                "where yc.id not in (select c.id from JobOrder jo join jo.courses c) " +
-                "and yc.id = :id");
+                "where yc.id not in (select c.id from JobOrder jo join jo.courses c where jo.user = :user) " +
+                "and yc.id = :id and yc.professor = :user");
 
         query.setParameter("id", id);
+        query.setParameter("user", user);
 
         try {
             return (YearCourse) query.getSingleResult();

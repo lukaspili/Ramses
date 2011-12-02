@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.JobOrderAlreadyOrderedException;
 import helpers.YearCourseHelper;
 import models.contracts.Contract;
 import models.contracts.JobOrder;
@@ -34,19 +35,6 @@ public class JobOrderService {
     }
 
     public void createOrder(Set<YearCourse> courses, Set<SoeExam> soeExams, User user) {
-
-//        Query courseQuery = YearCourse.em().createQuery("select yc from YearCourse yc " +
-//                "where yc.id not in (select joc.id from JobOrder jo join jo.courses joc) " +
-//                "and yc.id = :id");
-
-        for(YearCourse course : courses) {
-
-//            courseQuery.setParameter("id", course.id);
-
-            if(! course.professor.equals(user) || !course.orders.isEmpty()) {
-                
-            }
-        }
 
         JobOrder order = new JobOrder();
         order.creationDate = new LocalDate();
