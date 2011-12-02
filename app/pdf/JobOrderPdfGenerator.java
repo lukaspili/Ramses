@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import models.contracts.JobOrder;
 import models.school.SoeExam;
+import models.school.YearCourse;
 import models.user.User;
 import org.joda.time.LocalDate;
 import play.Logger;
@@ -108,8 +109,203 @@ public class JobOrderPdfGenerator {
             document.add(paragraph);
 
 
+            table = new PdfPTable(8);
+            table.setWidthPercentage(100);
+            table.setWidths(new float[]{3, 1, 1, 1, 1, 1, 1, 1});
+
+            cell = new PdfPCell();
+            phrase = new Phrase("Intitulé du cours", textBoldFont);
+            phrase.setLeading(textLeading);
+            cell.setPhrase(phrase);
+            table.addCell(cell);
+
+            cell = new PdfPCell();
+            phrase = new Phrase("Code du cours", textBoldFont);
+            phrase.setLeading(textLeading);
+            cell.setPhrase(phrase);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell();
+            phrase = new Phrase("Classe", textBoldFont);
+            phrase.setLeading(textLeading);
+            cell.setPhrase(phrase);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell();
+            phrase = new Phrase("Début du cours", textBoldFont);
+            phrase.setLeading(textLeading);
+            cell.setPhrase(phrase);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell();
+            phrase = new Phrase("Fin du cours", textBoldFont);
+            phrase.setLeading(textLeading);
+            cell.setPhrase(phrase);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell();
+            phrase = new Phrase("Durée", textBoldFont);
+            phrase.setLeading(textLeading);
+            cell.setPhrase(phrase);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell();
+            phrase = new Phrase("Tarif horaire", textBoldFont);
+            phrase.setLeading(textLeading);
+            cell.setPhrase(phrase);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell();
+            phrase = new Phrase("Total", textBoldFont);
+            phrase.setLeading(textLeading);
+            cell.setPhrase(phrase);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+
+            for (YearCourse course : order.courses) {
+
+                phrase = new Phrase(course.course.name, textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                table.addCell(cell);
+
+                phrase = new Phrase(course.course.code, textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(course.course.promotion.getLabel(), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(course.startDate.toString(), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(course.endDate.toString(), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(course.duration), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(course.course.type.price), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(course.getTotal()), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
+
+            for (SoeExam soeExam : order.soeExams) {
+
+                phrase = new Phrase("SOE " + soeExam.course.course.name, textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                table.addCell(cell);
+
+                phrase = new Phrase(soeExam.course.course.code, textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(soeExam.course.course.promotion.getLabel(), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(soeExam.date.toString(), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(soeExam.date.toString(), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(soeExam.plannifiedDuration), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(SoeExam.PRICE), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(soeExam.getTotal()), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
+
+            phrase = new Phrase("Total Commande, EUR TTC", textBoldFont);
+            phrase.setLeading(textLeading);
+            cell = new PdfPCell();
+            cell.setPhrase(phrase);
+            cell.setColspan(7);
+            table.addCell(cell);
+
+            phrase = new Phrase(String.valueOf(order.total), textBoldFont);
+            phrase.setLeading(textLeading);
+            cell = new PdfPCell();
+            cell.setPhrase(phrase);
+            cell.setColspan(7);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            document.add(table);
+
+
             paragraph = new Paragraph("Bon pour commande,\nLa Directrice du Campus,", textBoldFont);
             paragraph.setLeading(textLeading);
+            paragraph.setSpacingBefore(30);
             document.add(paragraph);
 
             paragraph = new Paragraph("Marie-Christine FRENDO.", textFont);

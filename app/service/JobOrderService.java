@@ -1,17 +1,12 @@
 package service;
 
-import exceptions.JobOrderAlreadyOrderedException;
-import helpers.YearCourseHelper;
-import models.contracts.Contract;
 import models.contracts.JobOrder;
 import models.school.SoeExam;
 import models.school.YearCourse;
 import models.user.User;
 import org.joda.time.LocalDate;
-import pdf.ContractPdfGenerator;
 import pdf.JobOrderPdfGenerator;
 import play.db.jpa.Blob;
-import play.jobs.Job;
 import play.libs.MimeTypes;
 
 import javax.persistence.Query;
@@ -50,7 +45,7 @@ public class JobOrderService {
         }
 
         for (SoeExam soe : soeExams) {
-            order.total += SoeExam.PRICE;
+            order.total += soe.getTotal();
         }
 
         order.save();
