@@ -110,7 +110,7 @@
                     <th>&{'soeExam.realDuration'}</th>
                     <th class="last">&{'soeExam.state'}</th>
                 </tr>
-                </thead>
+                </thead>    
                 <tbody>
 
                 #{list items:yearCourse.soeExams, as:'soeExam'}
@@ -151,7 +151,7 @@
             #{/}
 
             #{field 'soe.plannifiedDuration'}
-            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+            <label for="${field.id}">&{field.name}</label>
             <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
             #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
             #{/}

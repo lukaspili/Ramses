@@ -14,7 +14,7 @@
 
             #{include 'helpers/form_validation.html' /}
 
-            #{form @save(), id:'edit-soe', enctype:'multipart/form-data' }
+            #{form @SoeExams.update(), id:'edit-soe', enctype:'multipart/form-data' }
 
             #{field 'soe.id'}
             <input type="hidden" id="${field.id}" name="${field.name}" value="${field.value}"/>

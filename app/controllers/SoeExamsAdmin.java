@@ -19,6 +19,7 @@ import service.UserService;
 import validation.EnhancedValidator;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -41,20 +42,16 @@ public class SoeExamsAdmin extends AppController {
         pageHelper = new PageHelper("soeExamsAdmin", renderArgs);
     }
 
-    public static void saveFromCourse(SoeExam soe, LocalDate date, long courseId) {
+    public static void saveFromCourse(SoeExam soe, @As("yyyy-MM-dd") Date date, long courseId) {
 
         EnhancedValidator validator = validator();
-
-        if (validator.validate(soe).require("plannifiedDuration").hasErrors()) {
-            invalidateSave(soe);
-        }
 
         if (null == date) {
             validator.addError("date", "invalid", true);
             invalidateSave(soe);
         }
 
-        soe.date = date;
+        soe.date = new LocalDate(date.getTime());
 
         YearCourse course = YearCourse.findById(courseId);
 
@@ -65,6 +62,7 @@ public class SoeExamsAdmin extends AppController {
 
         soeExamService.create(soe, course, new HashSet<User>());
 
+        flashSuccess("soeExamsAdmin.save.sucess");
         YearCourses.show(courseId);
     }
 

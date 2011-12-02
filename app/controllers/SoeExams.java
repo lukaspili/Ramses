@@ -66,7 +66,7 @@ public class SoeExams extends AppController {
     }
 
     @LoggedAccess(Profile.ADMIN)
-    public static void save(SoeExam soe, List<Long> examinators) {
+    public static void update(SoeExam soe, List<Long> examinators) {
 
         if (null == examinators) {
             examinators = new ArrayList<Long>();
@@ -74,7 +74,11 @@ public class SoeExams extends AppController {
 
         Set<User> users = collectionHelper.getFromIds(User.class, examinators);
 
-        soeExamService.update(soe, users);
+        try {
+            soeExamService.update(soe, users);
+        } catch (RuntimeException e) {
+            flashError("soe.update.error");
+        }
 
         edit(soe.id);
     }

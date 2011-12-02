@@ -51,13 +51,9 @@ public class JobOrderPdfGenerator {
             Font titleFont = FontFactory.getFont("arialnarrow_bold", 14);
 
             int textLeading = 9;
-            int clauseSpacing = 7;
 
             PdfPTable table;
             PdfPCell cell;
-
-            List list;
-            ListItem item;
 
             Paragraph paragraph;
             Phrase phrase;

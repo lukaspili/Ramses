@@ -22,7 +22,7 @@ public class SoeExam extends Model {
     public LocalDate date;
 
     @Enumerated(EnumType.STRING)
-    public SoeExamState state;
+    public SoeExamState state = SoeExamState.WAITING;
 
     @ManyToOne
     public YearCourse course;

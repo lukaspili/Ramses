@@ -25,14 +25,30 @@ public class SoeExamService {
     }
 
     public void update(SoeExam soe, Set<User> users) {
+
         soe.examinators = users;
+
+        if ((soe.state == SoeExamState.PLANNIFIED && soe.plannifiedDuration == 0) ||
+                (soe.state == SoeExamState.COMPLETED && soe.realDuration == 0)) {
+            throw new RuntimeException();
+        }
+
         soe.save();
     }
 
     public SoeExam create(SoeExam soe, YearCourse course, Set<User> users) {
-        soe.id = null;
+
         soe.examinators = users;
         soe.course = course;
+
+        if (soe.plannifiedDuration == 0) {
+            soe.state = SoeExamState.WAITING;
+        } else if (soe.realDuration == 0) {
+            soe.state = SoeExamState.PLANNIFIED;
+        } else {
+            soe.state = SoeExamState.COMPLETED;
+        }
+
         soe.save();
 
         return soe;
@@ -42,9 +58,10 @@ public class SoeExamService {
 
         Query query = SoeExam.em().createQuery("select s from SoeExam s, in(s.examinators) u " +
                 "where s.id not in (select jos.id from JobOrder jo join jo.soeExams jos where jo.user = :user) " +
-                "and u = :user");
+                "and u = :user and s.state != :state");
 
         query.setParameter("user", user);
+        query.setParameter("state", SoeExamState.WAITING);
 
         return query.getResultList();
     }
@@ -53,10 +70,11 @@ public class SoeExamService {
 
         Query query = JobOrder.em().createQuery("select se from SoeExam se, in(se.examinators) u " +
                 "where se.id not in (select jos.id from JobOrder jo join jo.soeExams jos where jo.user = :user) " +
-                "and se.id = :id and u = :user");
+                "and se.id = :id and u = :user and se.state != :state");
 
         query.setParameter("id", id);
         query.setParameter("user", user);
+        query.setParameter("state", SoeExamState.WAITING);
 
         try {
             return (SoeExam) query.getSingleResult();
