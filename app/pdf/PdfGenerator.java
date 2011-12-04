@@ -30,12 +30,12 @@ public abstract class PdfGenerator {
         String mode = Play.configuration.getProperty("application.mode");
 
         if (mode.equals("dev")) {
-            rootPath = "public/pdf/resources/";
+            rootPath = Play.applicationPath.getPath() + "/app/pdf/resources/";
         } else {
-            rootPath = "/app/app/pdf/resources/";
+            rootPath = Play.applicationPath.getPath() + "/app/pdf/resources/";
         }
 
-        FontFactory.register(new File(rootPath + "ARIALN.ttf").getPath(), "arialnarrow_normal");
+        FontFactory.register(new File(rootPath + "ARIALN.ttf").getAbsolutePath(), "arialnarrow_normal");
         FontFactory.register(new File(rootPath + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
 
         textBoldFont = FontFactory.getFont("arialnarrow_bold", 8);
