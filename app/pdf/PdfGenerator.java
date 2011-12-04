@@ -31,6 +31,8 @@ public abstract class PdfGenerator {
 
         if (mode.equals("dev")) {
             rootPath = Play.applicationPath.getPath() + rootPath;
+        } else {
+            rootPath = "/app/" + rootPath;
         }
 
         FontFactory.register(new File(rootPath + "/ARIALN.ttf").getPath(), "arialnarrow_normal");
