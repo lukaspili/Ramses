@@ -3,11 +3,13 @@ package controllers;
 import controllers.abstracts.AppController;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
+import models.contracts.ContractState;
 import models.contracts.JobOrder;
 import models.school.SoeExam;
 import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
+import play.Logger;
 import service.JobOrderService;
 import service.SoeExamService;
 import service.YearCourseService;
@@ -36,6 +38,8 @@ public class Orders extends AppController {
 
     public static void view() {
 
+        checkContractSigned();
+
         User user = Auth.getCurrentUser();
 
         // list orders
@@ -53,6 +57,8 @@ public class Orders extends AppController {
     }
 
     public static void create(List<Long> availableCourses, List<Long> availableSoes) {
+
+        checkContractSigned();
 
         if (null == availableCourses) {
             availableCourses = new ArrayList<Long>();
@@ -105,6 +111,8 @@ public class Orders extends AppController {
 
     public static void show(long orderId) {
 
+        checkContractSigned();
+
         JobOrder order = JobOrder.findById(orderId);
         notFoundIfNull(order);
 
@@ -128,5 +136,15 @@ public class Orders extends AppController {
 
         response.setContentTypeIfNotSet(order.pdf.type());
         renderBinary(order.pdf.get(), "Bon de commande.pdf");
+    }
+
+    private static void checkContractSigned() {
+
+        User user = Auth.getCurrentUser();
+
+        if (user.hasContract() && user.contract.state != ContractState.SIGNED_BY_SUPINFO) {
+            flashError("orders.error.contract_not_signed");
+            Dashboard.index();
+        }
     }
 }

@@ -1,10 +1,12 @@
 package init;
 
+import models.contracts.Contract;
 import models.school.*;
 import models.user.Profile;
 import models.user.User;
 import org.joda.time.LocalDate;
 import play.Logger;
+import service.ContractService;
 import service.UserService;
 
 import javax.inject.Inject;
@@ -374,6 +376,11 @@ public class DatabaseInitializer {
         test.skills = skills;
 
         test.save();
+
+
+        // CONTRACT TEST
+        ContractService contractService = new ContractService();
+        contractService.createForUser(test);
 
 
         // YEAR COURSES TEST
