@@ -50,7 +50,7 @@ public class JobOrderService {
 
         order.save();
 
-        File pdf = JobOrderPdfGenerator.generate(order);
+        File pdf = new JobOrderPdfGenerator().generate(order);
 
         try {
             order.pdf = new Blob();

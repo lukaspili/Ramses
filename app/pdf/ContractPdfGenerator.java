@@ -18,21 +18,15 @@ import java.util.Date;
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public class ContractPdfGenerator {
+public class ContractPdfGenerator extends PdfGenerator {
 
-    private static final String PATH = "generated/contracts";
-    private static final String EXTENSION = ".pdf";
+    private static final String FOLDER = "contracts";
 
-    public static File generate(User user) {
+    public File generate(User user) {
 
         Logger.debug("Generate contract for user : " + user);
 
-        File folder = new File(PATH);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        File file = new File(folder, "contract-" + new Date().getTime() + "-" + user.id + EXTENSION);
+        File file = getFileForGeneration(FOLDER, "contract-" + new Date().getTime() + "-" + user.id);
 
         try {
             Document document = new Document(PageSize.A4);
@@ -40,13 +34,6 @@ public class ContractPdfGenerator {
             PdfWriter.getInstance(document, new FileOutputStream(file));
 
             document.open();
-
-            FontFactory.register(Play.getFile("/public/pdf/ARIALN.ttf").getPath(), "arialnarrow_normal");
-            FontFactory.register(Play.getFile("/public/pdf/ARIALNB.ttf").getPath(), "arialnarrow_bold");
-
-            Font textBoldFont = FontFactory.getFont("arialnarrow_bold", 8);
-            Font textFont = FontFactory.getFont("arialnarrow_normal", 8);
-            Font titleFont = FontFactory.getFont("arialnarrow_bold", 14);
 
             int textLeading = 9;
             int clauseSpacing = 7;
@@ -64,7 +51,7 @@ public class ContractPdfGenerator {
             table = new PdfPTable(2);
             table.setWidthPercentage(100);
 
-            image = Image.getInstance(Play.getFile("/public/pdf/supinfo_logo.png").getPath());
+            image = Image.getInstance(getSupinfoLogo().getPath());
             image.scaleAbsolute(170, 56);
 
             cell = new PdfPCell(image, false);

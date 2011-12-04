@@ -18,7 +18,7 @@ public class ContractService {
 
     public Contract createForUser(User user) {
 
-        File pdf = ContractPdfGenerator.generate(user);
+        File pdf = new ContractPdfGenerator().generate(user);
         Contract contract = new Contract();
         contract.year = YearCourseHelper.getCurrentYear();
         contract.pdf = new Blob();

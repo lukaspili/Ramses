@@ -20,21 +20,15 @@ import java.util.Date;
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public class JobOrderPdfGenerator {
+public class JobOrderPdfGenerator extends PdfGenerator {
 
-    private static final String PATH = "generated/orders";
-    private static final String EXTENSION = ".pdf";
+    private static final String FOLDER = "orders";
 
-    public static File generate(JobOrder order) {
+    public File generate(JobOrder order) {
 
         Logger.debug("Generate order : " + order);
 
-        File folder = new File(PATH);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        File file = new File(folder, "order-" + new Date().getTime() + "-" + order.user.id + EXTENSION);
+        File file = getFileForGeneration(FOLDER, new Date().getTime() + "-" + order.user.id);
 
         try {
             Document document = new Document(PageSize.A4);
@@ -42,13 +36,6 @@ public class JobOrderPdfGenerator {
             PdfWriter.getInstance(document, new FileOutputStream(file));
 
             document.open();
-
-            FontFactory.register(Play.getFile("/public/pdf/ARIALN.ttf").getPath(), "arialnarrow_normal");
-            FontFactory.register(Play.getFile("/public/pdf/ARIALNB.ttf").getPath(), "arialnarrow_bold");
-
-            Font textBoldFont = FontFactory.getFont("arialnarrow_bold", 8);
-            Font textFont = FontFactory.getFont("arialnarrow_normal", 8);
-            Font titleFont = FontFactory.getFont("arialnarrow_bold", 14);
 
             int textLeading = 9;
 
@@ -62,7 +49,7 @@ public class JobOrderPdfGenerator {
             table = new PdfPTable(2);
             table.setWidthPercentage(100);
 
-            image = Image.getInstance(Play.getFile("/public/pdf/supinfo_logo.png").getPath());
+            image = Image.getInstance(getSupinfoLogo().getPath());
             image.scaleAbsolute(170, 56);
 
             cell = new PdfPCell(image, false);
