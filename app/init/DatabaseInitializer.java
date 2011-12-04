@@ -4,6 +4,7 @@ import models.contracts.Contract;
 import models.school.*;
 import models.user.Profile;
 import models.user.User;
+import notifiers.Mails;
 import org.joda.time.LocalDate;
 import play.Logger;
 import service.ContractService;
@@ -18,15 +19,15 @@ import java.util.Set;
  */
 public class DatabaseInitializer {
 
-    public static void initDatabase() {
-        initDatabase(false);
+    public static void initDatabaseForProd() {
+        initDatabase(false, true);
     }
 
-    public static void initDatabaseWithTests() {
-        initDatabase(true);
+    public static void initDatabaseForDev() {
+        initDatabase(true, false);
     }
 
-    private static void initDatabase(boolean withTests) {
+    private static void initDatabase(boolean dev, boolean prod) {
 
         Logger.debug("Init database...");
 
@@ -324,11 +325,15 @@ public class DatabaseInitializer {
 
         for (User user : users) {
             userService.save(user);
+
+            if (prod) {
+                Mails.register(user);
+            }
         }
 
 
         // TESTS
-        if (!withTests) {
+        if (!dev) {
             return;
         }
 

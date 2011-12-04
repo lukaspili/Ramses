@@ -25,11 +25,11 @@ public class BuildService {
             Logger.error("Cannot get latest build : " + e.getMessage());
 
             Build build = new Build();
-            build.changelog = "Unkown";
+            build.changelog = "Initial build.";
             build.date = new LocalDate();
             build.save();
 
-            Logger.info("Create new unknown build with number : " + build.getFormattedNumber());
+            Logger.info("Create new initial build with number : " + build.getFormattedNumber());
 
             return build;
         }

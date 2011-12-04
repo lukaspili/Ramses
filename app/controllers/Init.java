@@ -11,10 +11,19 @@ import models.user.User;
 @PublicAccess
 public class Init extends UtilController {
 
-    public static void index() {
+    public static void dev() {
 
         if (User.count() == 0) {
-            DatabaseInitializer.initDatabaseWithTests();
+            DatabaseInitializer.initDatabaseForDev();
+        }
+
+        Dashboard.index();
+    }
+
+    public static void prod() {
+
+        if (User.count() == 0) {
+            DatabaseInitializer.initDatabaseForProd();
         }
 
         Dashboard.index();
