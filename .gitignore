@@ -18,3 +18,9 @@ out/
 db/
 data/
 generated/
+dist/
+logs/
+test-result/
+
+conf/host.key
+conf/host.cert
