@@ -30,8 +30,8 @@ public abstract class PdfGenerator {
             FontFactory.register(Play.getFile(RESOURCES_PATH + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
         } catch (Exception e) {
             // Heroku fix
-            FontFactory.register(Play.getFile(RESOURCES_PATH.substring(3) + "ARIALN.ttf").getPath(), "arialnarrow_normal");
-            FontFactory.register(Play.getFile(RESOURCES_PATH.substring(3) + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
+            FontFactory.register(Play.getFile(RESOURCES_PATH.substring(5) + "ARIALN.ttf").getPath(), "arialnarrow_normal");
+            FontFactory.register(Play.getFile(RESOURCES_PATH.substring(5) + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
         }
 
         textBoldFont = FontFactory.getFont("arialnarrow_bold", 8);
@@ -55,8 +55,7 @@ public abstract class PdfGenerator {
             return Play.getFile(RESOURCES_PATH + "supinfo_logo.png");
         } catch (Exception e) {
             // Heroku fix
-            return Play.getFile(RESOURCES_PATH.substring(3) + "supinfo_logo.png");
+            return Play.getFile(RESOURCES_PATH.substring(5) + "supinfo_logo.png");
         }
-
     }
 }
