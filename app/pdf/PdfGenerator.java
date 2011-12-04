@@ -5,6 +5,7 @@ import com.itextpdf.text.FontFactory;
 import play.Play;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 /**
@@ -24,8 +25,14 @@ public abstract class PdfGenerator {
 
     public PdfGenerator() {
 
-        FontFactory.register(Play.getFile(RESOURCES_PATH + "ARIALN.ttf").getPath(), "arialnarrow_normal");
-        FontFactory.register(Play.getFile(RESOURCES_PATH + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
+        try {
+            FontFactory.register(Play.getFile(RESOURCES_PATH + "ARIALN.ttf").getPath(), "arialnarrow_normal");
+            FontFactory.register(Play.getFile(RESOURCES_PATH + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
+        } catch (Exception e) {
+            // Heroku fix
+            FontFactory.register(Play.getFile(RESOURCES_PATH.substring(3) + "ARIALN.ttf").getPath(), "arialnarrow_normal");
+            FontFactory.register(Play.getFile(RESOURCES_PATH.substring(3) + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
+        }
 
         textBoldFont = FontFactory.getFont("arialnarrow_bold", 8);
         textFont = FontFactory.getFont("arialnarrow_normal", 8);
@@ -43,6 +50,13 @@ public abstract class PdfGenerator {
     }
 
     protected File getSupinfoLogo() {
-        return Play.getFile(RESOURCES_PATH + "supinfo_logo.png");
+
+        try {
+            return Play.getFile(RESOURCES_PATH + "supinfo_logo.png");
+        } catch (Exception e) {
+            // Heroku fix
+            return Play.getFile(RESOURCES_PATH.substring(3) + "supinfo_logo.png");
+        }
+
     }
 }
