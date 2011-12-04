@@ -30,13 +30,13 @@ public abstract class PdfGenerator {
         String mode = Play.configuration.getProperty("application.mode");
 
         if (mode.equals("dev")) {
-            rootPath = Play.applicationPath.getPath() + rootPath;
+            rootPath = Play.applicationPath.getPath() + "/pdf/resources/";
         } else {
-            rootPath = "/app/app/" + rootPath;
+            rootPath = Play.applicationPath.getPath() + "/pdf/resources/";
         }
 
-        FontFactory.register(new File(rootPath + "/ARIALN.ttf").getPath(), "arialnarrow_normal");
-        FontFactory.register(new File(rootPath + "/ARIALNB.ttf").getPath(), "arialnarrow_bold");
+        FontFactory.register(new File(rootPath + "ARIALN.ttf").getPath(), "arialnarrow_normal");
+        FontFactory.register(new File(rootPath + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
 
         textBoldFont = FontFactory.getFont("arialnarrow_bold", 8);
         textFont = FontFactory.getFont("arialnarrow_normal", 8);
@@ -55,6 +55,6 @@ public abstract class PdfGenerator {
 
     protected File getSupinfoLogo() {
 
-        return new File(rootPath + "/supinfo_logo.png");
+        return new File(rootPath + "supinfo_logo.png");
     }
 }
