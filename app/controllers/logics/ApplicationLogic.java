@@ -23,11 +23,11 @@ public class ApplicationLogic extends UtilController {
 
         renderArgs.put("application_name", APPLICATION_NAME);
         renderArgs.put("globalBuild", buildService.getLatestBuild());
-
-        if (request.secure == false) {
-            request.secure = true;
-            request.port = 9443;
-            Dashboard.index();
-        }
+//
+//        if (request.secure == false) {
+//            request.secure = true;
+//            request.port = 9443;
+//            Dashboard.index();
+//        }
     }
 }
