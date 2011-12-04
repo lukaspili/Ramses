@@ -13,8 +13,6 @@ import java.util.Date;
  */
 public abstract class PdfGenerator {
 
-    private static final String RESOURCES_PATH = "/app/pdf/resources/";
-
     private static final String GENERATED_PATH = "/generated/";
 
     private static final String GENERATED_EXTENSION = ".pdf";
@@ -23,16 +21,20 @@ public abstract class PdfGenerator {
     protected Font textFont;
     protected Font titleFont;
 
+    protected String rootPath;
+
     public PdfGenerator() {
 
-        try {
-            FontFactory.register(Play.getFile(RESOURCES_PATH + "ARIALN.ttf").getPath(), "arialnarrow_normal");
-            FontFactory.register(Play.getFile(RESOURCES_PATH + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
-        } catch (Exception e) {
-            // Heroku fix
-            FontFactory.register(Play.getFile(RESOURCES_PATH.substring(5) + "ARIALN.ttf").getPath(), "arialnarrow_normal");
-            FontFactory.register(Play.getFile(RESOURCES_PATH.substring(5) + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
+        rootPath = Play.configuration.getProperty("my.pdf.resources.path");
+
+        String mode = Play.configuration.getProperty("application.mode");
+
+        if (mode.equals("dev")) {
+            rootPath = Play.applicationPath.getPath() + rootPath;
         }
+
+        FontFactory.register(new File(rootPath + "/ARIALN.ttf").getPath(), "arialnarrow_normal");
+        FontFactory.register(new File(rootPath + "/ARIALNB.ttf").getPath(), "arialnarrow_bold");
 
         textBoldFont = FontFactory.getFont("arialnarrow_bold", 8);
         textFont = FontFactory.getFont("arialnarrow_normal", 8);
@@ -51,11 +53,6 @@ public abstract class PdfGenerator {
 
     protected File getSupinfoLogo() {
 
-        try {
-            return Play.getFile(RESOURCES_PATH + "supinfo_logo.png");
-        } catch (Exception e) {
-            // Heroku fix
-            return Play.getFile(RESOURCES_PATH.substring(5) + "supinfo_logo.png");
-        }
+        return new File(rootPath + "/supinfo_logo.png");
     }
 }
