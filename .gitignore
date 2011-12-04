@@ -16,3 +16,5 @@ modules/
 lib/
 out/
 db/
+data/
+generated/
