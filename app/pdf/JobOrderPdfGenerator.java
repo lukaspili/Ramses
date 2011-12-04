@@ -7,10 +7,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import models.contracts.JobOrder;
 import models.school.SoeExam;
 import models.school.YearCourse;
-import models.user.User;
 import org.joda.time.LocalDate;
 import play.Logger;
-import play.Play;
+import play.db.jpa.Blob;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,16 +23,16 @@ public class JobOrderPdfGenerator extends PdfGenerator {
 
     private static final String FOLDER = "orders";
 
-    public File generate(JobOrder order) {
+    public void generate(JobOrder order, Blob blob) {
 
         Logger.debug("Generate order : " + order);
 
-        File file = getFileForGeneration(FOLDER, new Date().getTime() + "-" + order.user.id);
+//        File file = getFileForGeneration(FOLDER, new Date().getTime() + "-" + order.user.id);
 
         try {
             Document document = new Document(PageSize.A4);
 
-            PdfWriter.getInstance(document, new FileOutputStream(file));
+            PdfWriter.getInstance(document, new FileOutputStream(blob.getFile()));
 
             document.open();
 
@@ -305,8 +304,5 @@ public class JobOrderPdfGenerator extends PdfGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        return file;
     }
 }

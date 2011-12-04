@@ -25,3 +25,5 @@ precompiled/
 
 conf/host.key
 conf/host.cert
+
+local/

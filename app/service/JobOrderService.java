@@ -48,19 +48,12 @@ public class JobOrderService {
             order.total += soe.getTotal();
         }
 
-        order.save();
+        order.pdf = new Blob();
+        new JobOrderPdfGenerator().generate(order, order.pdf);
 
-        File pdf = new JobOrderPdfGenerator().generate(order);
-
-        try {
-            order.pdf = new Blob();
-            order.pdf.set(new FileInputStream(pdf), MimeTypes.getContentType(pdf.getName()));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        //            order.pdf.set(new FileInputStream(pdf), MimeTypes.getContentType(pdf.getName()));
 
         order.save();
-        pdf.delete();
     }
 
     public JobOrder findForUser(long orderId, User user) {

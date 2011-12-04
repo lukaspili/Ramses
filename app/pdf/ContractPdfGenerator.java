@@ -20,13 +20,9 @@ import java.util.Date;
  */
 public class ContractPdfGenerator extends PdfGenerator {
 
-    private static final String FOLDER = "contracts";
-
-    public File generate(User user) {
+    public void generate(User user, File file) {
 
         Logger.debug("Generate contract for user : " + user);
-
-        File file = getFileForGeneration(FOLDER, "contract-" + new Date().getTime() + "-" + user.id);
 
         try {
             Document document = new Document(PageSize.A4);
@@ -51,15 +47,12 @@ public class ContractPdfGenerator extends PdfGenerator {
             table = new PdfPTable(2);
             table.setWidthPercentage(100);
 
-            try {
-                image = Image.getInstance(getSupinfoLogo().getPath());
-                image.scaleAbsolute(170, 56);
-                cell = new PdfPCell(image, false);
-                cell.setBorder(PdfPCell.NO_BORDER);
-                table.addCell(cell);
-            } catch (Exception e) {
-                Logger.error("Cannot load image for pdf generation : " + e.getMessage());
-            }
+            image = Image.getInstance(getSupinfoLogo().getPath());
+            image.scaleAbsolute(170, 56);
+            
+            cell = new PdfPCell(image, false);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
 
             cell = new PdfPCell();
 
@@ -550,8 +543,5 @@ public class ContractPdfGenerator extends PdfGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        return file;
     }
 }
