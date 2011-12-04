@@ -21,13 +21,13 @@ import java.util.List;
 @LoggedAccess
 public class Contracts extends AppController {
 
-    private static PageHelper pageHelper;
-
     @Inject
     private static ContractService contractService;
 
     @Inject
     private static YearCourseService yearCourseService;
+
+    private static PageHelper pageHelper;
 
     @Before
     public static void before() {

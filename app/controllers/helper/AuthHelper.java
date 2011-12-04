@@ -12,7 +12,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class AuthHelper extends Controller {
 
-
     public static final String AUTH_HELPER = "auth";
 
     private Profile profile;

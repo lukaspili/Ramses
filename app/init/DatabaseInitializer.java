@@ -377,8 +377,6 @@ public class DatabaseInitializer {
 
         test.save();
 
-
-        // CONTRACT TEST
         ContractService contractService = new ContractService();
         contractService.createForUser(test);
 

@@ -53,5 +53,10 @@
     <ul id="side_links" class="text_shadow round_all">
         <li>#{a @Users.logout()}&{'users.logout'}#{/a}</li>
     </ul>
+
+    <p style="font-size: 9px; text-align: center; margin: 0; line-height: 9px">
+        version 1 - build ${globalBuild.formattedNumber}<br/>
+        #{a @Builds.show(globalBuild.id)}voir le changelog#{/a}
+    </p>
 </div>
 <!-- #sidebar -->

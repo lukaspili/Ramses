@@ -24,8 +24,5 @@ public class Bootstrap extends Job {
     @Override
     public void doJob() throws Exception {
 
-        if (User.count() == 0) {
-            DatabaseInitializer.initDatabaseWithTests();
-        }
     }
 }

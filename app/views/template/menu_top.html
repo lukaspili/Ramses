@@ -3,18 +3,22 @@
         <li class="current">#{a @Dashboard.index()}<img src="@{'/public/images/icons/small/white/laptop.png'}"/>Dashboard#{/a}</li>
 
         #{if auth.isAdmin()}
-        <li><a href="#"><img src="@{'/public/images/icons/small/grey/users_2.png'}"/>Utilisateurs</a>
+        <li>#{a @UsersAdmin.list()}<img src="@{'/public/images/icons/small/grey/users_2.png'}"/>Utilisateurs#{/a}
             <ul class="dropdown">
                 <li>#{a @UsersAdmin.list()}Liste des utilisateurs#{/a}</li>
                 <li>#{a @UsersAdmin.create()}Nouvel utilisateur#{/a}</li>
             </ul>
         </li>
-        #{/if}
 
-        #{if auth.isAdmin()}
-        <li><a href="#"><img src="@{'/public/images/icons/small/grey/create_write.png'}"/>Cours</a>
+        <li>#{a @CoursesAdmin.list()}<img src="@{'/public/images/icons/small/grey/create_write.png'}"/>Cours#{/a}
             <ul class="dropdown">
                 <li>#{a @CoursesAdmin.list()}Liste des cours#{/a}</li>
+            </ul>
+        </li>
+
+        <li><a href="#"><img src="@{'/public/images/icons/small/grey/create_write.png'}"/>Administration</a>
+            <ul class="dropdown">
+                <li>#{a @Builds.manage()}Gestion des builds#{/a}</li>
             </ul>
         </li>
         #{/if}

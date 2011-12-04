@@ -10,15 +10,7 @@ import play.mvc.Controller;
  */
 public class Application extends UtilController {
 
-    private static final String APPLICATION_NAME = "Ramses";
 
-    private static final String APPLICATION_VERSION = "0.1";
-
-    @Before
-    public static void initGlobalValues() {
-        renderArgs.put("application_name", APPLICATION_NAME);
-        renderArgs.put("application_version", APPLICATION_VERSION);
-    }
 
     @LoggedAccess
     public static void about() {

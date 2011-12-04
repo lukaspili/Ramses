@@ -1,0 +1,20 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+    <h2>Gestion des données</h2>
+
+    <h3>Initialisation des données</h3>
+
+    <p>Vous pouvez initialiser les données de l'application en insérant les STA et cours existants avant la mise en production.</p>
+
+    #{form @Admin.initData(), id:'init-data-form', enctype:'multipart/form-data' }
+
+    <button class="button_colour round_all">
+        <img height="24" width="24" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>Intialiser les données</span>
+    </button>
+    #{/form}
+
+</div>
+
+

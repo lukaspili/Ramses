@@ -1,0 +1,57 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+    <h2>${page_title}</h2>
+    #{include 'helpers/flash_box.html' /}
+</div>
+
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour">Nouveau build</h2>
+
+    <div class="toggle_container">
+        <div class="block">
+
+            #{include 'helpers/form_validation.html' /}
+
+            #{form @save(), id:'build-create-form', enctype:'multipart/form-data' }
+
+            #{field 'build.changelog'}
+            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+            <textarea rows="10" cols="100" id="${field.id}" name="${field.name}">${field.value}</textarea>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            <button class="button_colour round_all">
+                <img height="24" width="24" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+            </button>
+            #{/form}
+        </div>
+    </div>
+</div>
+
+<div class="box grid_8 round_all">
+    <h2 class="box_head grad_colour">Historique</h2>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">Build</th>
+                    <th class="last">Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                #{list items:builds, as:'build'}
+                <tr class="gradeX">
+                    <td>#{a @show(build.id)}${build.formattedNumber}#{/a}</td>
+                    <td>${build.date}</td>
+                </tr>
+                #{/list}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

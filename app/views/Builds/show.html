@@ -1,0 +1,49 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+    <h2>${page_title}</h2>
+
+</div>
+
+<div class="flat_area grid_10">
+
+    <h3>Informations</h3>
+
+    <p>Mise en production : ${build.date}</p>
+
+    <h3>Changelog</h3>
+
+    <p>
+        ${build.changelog}
+    </p>
+
+</div>
+
+<div class="box grid_6 round_all">
+    <h2 class="box_head grad_colour">Historique</h2>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">Build</th>
+                    <th class="last">Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                #{list items:builds, as:'build'}
+                <tr class="gradeX">
+                    <td>#{a @show(build.id)}${build.formattedNumber}#{/a}</td>
+                    <td>${build.date}</td>
+                </tr>
+                #{/list}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
