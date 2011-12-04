@@ -60,20 +60,21 @@ public class Users extends AppController {
         EnhancedValidator validator = validator();
 
         if (validator.validate(user).require("idBooster", "password").hasErrors()) {
-            login();
+            user.password = null;
+            render("Users/login.html", user);
         }
 
-        user = userService.getFromLogin(user.idBooster, user.password);
+        User userFromDb = userService.getFromLogin(user.idBooster, user.password);
 
-        if (null == user) {
-            params.flash();
-            flashError("users.login.authentication.failure");
-            login();
+        if (null == userFromDb) {
+            user.password = null;
+            flashErrorSamePage("users.login.authentication.failure");
+            render("Users/login.html", user);
         }
 
-        Auth.loginUser(user);
+        Auth.loginUser(userFromDb);
 
-        if (!user.active) {
+        if (!userFromDb.active) {
             firstLogin();
         }
 

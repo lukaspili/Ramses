@@ -15,7 +15,7 @@
 
     #{field 'user.idBooster'}
     <label class="fields"><strong>&{field.name}</strong>
-        <input type="text" id="${field.id}" name="${field.name}" value="${flash[field.name]}" class="indent round_all"
+        <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="indent round_all"
                title="Entrez votre ID booster."/>
     </label>
     #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
