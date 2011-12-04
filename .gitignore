@@ -21,6 +21,7 @@ generated/
 dist/
 logs/
 test-result/
+precompiled/
 
 conf/host.key
 conf/host.cert

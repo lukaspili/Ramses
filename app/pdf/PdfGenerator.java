@@ -32,7 +32,7 @@ public abstract class PdfGenerator {
         if (mode.equals("dev")) {
             rootPath = "public/pdf/resources/";
         } else {
-            rootPath = "/app/public/pdf/resources/";
+            rootPath = "~/public/pdf/resources/";
         }
 
         FontFactory.register(new File(rootPath + "ARIALN.ttf").getPath(), "arialnarrow_normal");
