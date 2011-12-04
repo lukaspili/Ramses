@@ -49,12 +49,15 @@ public class JobOrderPdfGenerator extends PdfGenerator {
             table = new PdfPTable(2);
             table.setWidthPercentage(100);
 
-            image = Image.getInstance(getSupinfoLogo().getPath());
-            image.scaleAbsolute(170, 56);
-
-            cell = new PdfPCell(image, false);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
+            try {
+                image = Image.getInstance(getSupinfoLogo().getPath());
+                image.scaleAbsolute(170, 56);
+                cell = new PdfPCell(image, false);
+                cell.setBorder(PdfPCell.NO_BORDER);
+                table.addCell(cell);
+            } catch (Exception e) {
+                Logger.error("Cannot load image for pdf generation : " + e.getMessage());
+            }
 
             cell = new PdfPCell();
 

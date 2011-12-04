@@ -2,10 +2,12 @@ package pdf;
 
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import play.Logger;
 import play.Play;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -35,8 +37,13 @@ public abstract class PdfGenerator {
             rootPath = Play.applicationPath.getPath() + "/app/pdf/resources/";
         }
 
-        FontFactory.register(new File(rootPath + "ARIALN.ttf").getAbsolutePath(), "arialnarrow_normal");
-        FontFactory.register(new File(rootPath + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
+        try {
+            FontFactory.register(new File(rootPath + "ARIALN.ttf").getAbsolutePath(), "arialnarrow_normal");
+            FontFactory.register(new File(rootPath + "ARIALNB.ttf").getPath(), "arialnarrow_bold");
+        } catch (Exception e) {
+            Logger.error("Cannot load fonts for pdf generation : " + e.getMessage());
+        }
+
 
         textBoldFont = FontFactory.getFont("arialnarrow_bold", 8);
         textFont = FontFactory.getFont("arialnarrow_normal", 8);
