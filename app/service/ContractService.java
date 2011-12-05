@@ -23,7 +23,10 @@ public class ContractService {
         contract.pdf = new S3Blob();
 
         try {
-            File file = File.createTempFile("contract", "eunomie");
+            File folder = new File("pdf/contracts");
+            folder.mkdirs();
+
+            File file = File.createTempFile("contract", ".pdf");
             new ContractPdfGenerator().generate(user, file);
 
             contract.pdf.set(new FileInputStream(file), MimeTypes.getContentType(file.getName()));

@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import org.hibernate.HibernateException;
 import org.hibernate.type.StringType;
 import org.hibernate.usertype.UserType;
+import play.Play;
 import play.db.Model.BinaryField;
 import play.libs.Codec;
 
@@ -41,8 +42,9 @@ public class S3Blob implements BinaryField, UserType {
 
     @Override
     public void set(InputStream is, String type) {
+
         this.bucket = s3Bucket;
-        this.key = Codec.UUID();
+        this.key = Play.configuration.getProperty("application.mode") + "/" + Codec.UUID();
 
         ObjectMetadata om = new ObjectMetadata();
         om.setContentType(type);

@@ -30,22 +30,39 @@ public abstract class PdfGenerator {
     protected Font textFont;
     protected Font titleFont;
 
+    private File fontFolder;
+    private File imageFolder;
+
     public PdfGenerator() {
 
         try {
 
+            fontFolder = new File("pdf/fonts");
+            fontFolder.mkdirs();
+
+            imageFolder = new File("pdf/images");
+            imageFolder.mkdirs();
+
             if (!FontFactory.contains("arialnarrow_normal")) {
-                S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALN.TTF");
-                File arialnFile = File.createTempFile("arialn", "eunomie");
-                ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnFile));
+
+                File arialnFile = new File(fontFolder, "ARIALN.TTF");
+
+                if (!arialnFile.exists()) {
+                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALN.TTF");
+                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnFile));
+                }
 
                 FontFactory.register(arialnFile.getCanonicalPath(), "arialnarrow_normal");
             }
 
             if (!FontFactory.contains("arialnarrow_bold")) {
-                S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALNB.TTF");
-                File arialnbFile = File.createTempFile("arialnb", "eunomie");
-                ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnbFile));
+
+                File arialnbFile = new File(fontFolder, "ARIALNB.TTF");
+
+                if (!arialnbFile.exists()) {
+                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALNB.TTF");
+                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnbFile));
+                }
 
                 FontFactory.register(arialnbFile.getCanonicalPath(), "arialnarrow_bold");
             }
@@ -59,23 +76,19 @@ public abstract class PdfGenerator {
         textFont = FontFactory.getFont("arialnarrow_normal", 8);
         titleFont = FontFactory.getFont("arialnarrow_bold", 14);
     }
-//
-//    protected File getFileForGeneration(String folder, String name) {
-//
-//        File folderFile = new File(GENERATED_PATH + folder);
-//        if (!folderFile.exists()) {
-//            folderFile.mkdirs();
-//        }
-//
-//        return new File(folderFile, name + GENERATED_EXTENSION);
-//    }
 
     protected File getSupinfoLogo() {
 
         try {
-            File file = File.createTempFile("logo", "eunomie");
-            ByteStreams.copy(S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/supinfo_logo.png").getObjectContent(), new FileOutputStream(file));
+            File file = new File(imageFolder, "supinfo_logo.png");
+
+            if (!file.exists()) {
+                S3Object object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/supinfo_logo.png");
+                ByteStreams.copy(object.getObjectContent(), new FileOutputStream(file));
+            }
+
             return file;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

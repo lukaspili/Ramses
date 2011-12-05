@@ -5,14 +5,17 @@ import models.school.SoeExam;
 import models.school.YearCourse;
 import models.user.User;
 import org.joda.time.LocalDate;
+import pdf.ContractPdfGenerator;
 import pdf.JobOrderPdfGenerator;
 import play.db.jpa.Blob;
 import play.libs.MimeTypes;
+import s3.storage.S3Blob;
 
 import javax.persistence.Query;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -48,10 +51,21 @@ public class JobOrderService {
             order.total += soe.getTotal();
         }
 
-        order.pdf = new Blob();
-        new JobOrderPdfGenerator().generate(order, order.pdf);
+        order.save();
 
-        //            order.pdf.set(new FileInputStream(pdf), MimeTypes.getContentType(pdf.getName()));
+        try {
+            File folder = new File("pdf/orders");
+            folder.mkdirs();
+
+            File file = File.createTempFile("order", ".pdf");
+            new JobOrderPdfGenerator().generate(order, file);
+
+            order.pdf = new S3Blob();
+            order.pdf.set(new FileInputStream(file), MimeTypes.getContentType(file.getName()));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         order.save();
     }

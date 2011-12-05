@@ -23,16 +23,14 @@ public class JobOrderPdfGenerator extends PdfGenerator {
 
     private static final String FOLDER = "orders";
 
-    public void generate(JobOrder order, Blob blob) {
+    public void generate(JobOrder order, File file) {
 
         Logger.debug("Generate order : " + order);
-
-//        File file = getFileForGeneration(FOLDER, new Date().getTime() + "-" + order.user.id);
 
         try {
             Document document = new Document(PageSize.A4);
 
-            PdfWriter.getInstance(document, new FileOutputStream(blob.getFile()));
+            PdfWriter.getInstance(document, new FileOutputStream(file));
 
             document.open();
 
@@ -48,15 +46,12 @@ public class JobOrderPdfGenerator extends PdfGenerator {
             table = new PdfPTable(2);
             table.setWidthPercentage(100);
 
-            try {
-                image = Image.getInstance(getSupinfoLogo().getPath());
-                image.scaleAbsolute(170, 56);
-                cell = new PdfPCell(image, false);
-                cell.setBorder(PdfPCell.NO_BORDER);
-                table.addCell(cell);
-            } catch (Exception e) {
-                Logger.error("Cannot load image for pdf generation : " + e.getMessage());
-            }
+            image = Image.getInstance(getSupinfoLogo().getPath());
+            image.scaleAbsolute(170, 56);
+            
+            cell = new PdfPCell(image, false);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
 
             cell = new PdfPCell();
 

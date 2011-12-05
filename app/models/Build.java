@@ -1,5 +1,6 @@
 package models;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import play.db.jpa.Model;
 
@@ -13,6 +14,7 @@ public class Build extends Model {
 
     public String changelog;
 
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
     public LocalDate date;
 
     public String getFormattedNumber() {
