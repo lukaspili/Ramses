@@ -9,6 +9,7 @@ import com.itextpdf.text.Image;
 import org.apache.commons.io.IOUtils;
 import play.Logger;
 import play.Play;
+import play.vfs.VirtualFile;
 import s3.storage.S3Blob;
 
 import java.io.File;
@@ -45,26 +46,30 @@ public abstract class PdfGenerator {
 
             if (!FontFactory.contains("arialnarrow_normal")) {
 
-                File arialnFile = new File(fontFolder, "ARIALN.TTF");
+                String arialnFile = play.vfs.VirtualFile.fromRelativePath("/pdf/fonts/ARIALN.TTF").getRealFile().getCanonicalPath();
+                Logger.debug("Font ARIALN path : " + arialnFile);
 
-                if (!arialnFile.exists()) {
-                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALN.TTF");
-                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnFile));
-                }
+//                if (!arialnFile.exists()) {
+//                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALN.TTF");
+//                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnFile));
+//                }
 
-                FontFactory.register(arialnFile.getCanonicalPath(), "arialnarrow_normal");
+                FontFactory.register(arialnFile, "arialnarrow_normal");
             }
 
             if (!FontFactory.contains("arialnarrow_bold")) {
 
-                File arialnbFile = new File(fontFolder, "ARIALNB.TTF");
+                String arialnbFile = play.vfs.VirtualFile.fromRelativePath("/pdf/fonts/ARIALN.TTF").getRealFile().getCanonicalPath();
+                Logger.debug("Font ARIALNB path : " + arialnbFile);
 
-                if (!arialnbFile.exists()) {
-                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALNB.TTF");
-                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnbFile));
-                }
+//                File arialnbFile = new File(fontFolder, "ARIALNB.TTF");
+//
+//                if (!arialnbFile.exists()) {
+//                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALNB.TTF");
+//                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnbFile));
+//                }
 
-                FontFactory.register(arialnbFile.getCanonicalPath(), "arialnarrow_bold");
+                FontFactory.register(arialnbFile, "arialnarrow_bold");
             }
 
 
@@ -80,12 +85,16 @@ public abstract class PdfGenerator {
     protected File getSupinfoLogo() {
 
         try {
-            File file = new File(imageFolder, "supinfo_logo.png");
 
-            if (!file.exists()) {
-                S3Object object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/supinfo_logo.png");
-                ByteStreams.copy(object.getObjectContent(), new FileOutputStream(file));
-            }
+            File file = play.vfs.VirtualFile.fromRelativePath("/pdf/images/supinfo_logo.png").getRealFile();
+            Logger.debug("Image supinfologo path : " + file.getCanonicalPath());
+
+//            File file = new File(imageFolder, "supinfo_logo.png");
+//
+//            if (!file.exists()) {
+//                S3Object object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/supinfo_logo.png");
+//                ByteStreams.copy(object.getObjectContent(), new FileOutputStream(file));
+//            }
 
             return file;
 
