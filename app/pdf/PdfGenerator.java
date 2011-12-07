@@ -44,33 +44,49 @@ public abstract class PdfGenerator {
             imageFolder = new File("pdf/images");
             imageFolder.mkdirs();
 
-//            if (!FontFactory.contains("arialnarrow_normal")) {
-//
-//                String arialnFile = Play.getFile("./pdf/fonts/ARIALN.TTF").getCanonicalPath();
-//                Logger.debug("Font ARIALN path : " + arialnFile);
-//
-////                if (!arialnFile.exists()) {
-////                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALN.TTF");
-////                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnFile));
-////                }
-//
-//                FontFactory.register(arialnFile, "arialnarrow_normal");
-//            }
+            if (!FontFactory.contains("arialnarrow_normal")) {
 
-//            if (!FontFactory.contains("arialnarrow_bold")) {
-//
-//                String arialnbFile = Play.getFile("./pdf/fonts/ARIALN.TTF").getCanonicalPath();
-//                Logger.debug("Font ARIALNB path : " + arialnbFile);
-//
-////                File arialnbFile = new File(fontFolder, "ARIALNB.TTF");
-////
-////                if (!arialnbFile.exists()) {
-////                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALNB.TTF");
-////                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnbFile));
-////                }
-//
-//                FontFactory.register(arialnbFile, "arialnarrow_bold");
-//            }
+                File arialnFile = Play.getFile("./pdf/fonts/ARIALN.TTF");
+
+                if (arialnFile.exists()) {
+                    Logger.info("PDF GENERATION : Local ARIALN.TTF exists");
+
+                } else {
+
+                    Logger.info("PDF GENERATION : Local ARIALN.TTF dosen't exist, getting from amazon s3");
+
+                    arialnFile = new File(fontFolder, "ARIALN.TTF");
+
+                    if (!arialnFile.exists()) {
+                        S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALN.TTF");
+                        ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnFile));
+                    }
+                }
+
+                FontFactory.register(arialnFile.getCanonicalPath(), "arialnarrow_normal");
+            }
+
+            if (!FontFactory.contains("arialnarrow_bold")) {
+
+                File arialnbFile = Play.getFile("./pdf/fonts/ARIALNB.TTF");
+
+                if (arialnbFile.exists()) {
+                    Logger.info("PDF GENERATION : Local ARIALNB.TTF exists");
+
+                } else {
+
+                    Logger.info("PDF GENERATION : Local ARIALNB.TTF dosen't exist, getting from amazon s3");
+
+                    arialnbFile = new File(fontFolder, "ARIALNB.TTF");
+
+                    if (!arialnbFile.exists()) {
+                        S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALNB.TTF");
+                        ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnbFile));
+                    }
+                }
+
+                FontFactory.register(arialnbFile.getCanonicalPath(), "arialnarrow_bold");
+            }
 
 
         } catch (Exception e) {
@@ -84,23 +100,22 @@ public abstract class PdfGenerator {
 
     protected File getSupinfoLogo() {
 
+        File file = Play.getFile("./pdf/images/supinfo_logo.png");
+
+        if (file.exists()) {
+            Logger.info("PDF GENERATION : Local supinfo_logo.png exists");
+            return file;
+        }
+
         try {
+            Logger.info("PDF GENERATION : Local supinfo_logo.png dosen't exist, getting from amazon s3");
 
-            File file = Play.getFile("./pdf/images/supinfo_logo.png");
-            Logger.info("Image supinfologo path : " + file.getCanonicalPath());
+            file = new File(imageFolder, "supinfo_logo.png");
 
-            if(file.exists()) {
-                Logger.info("Image exists");
-            } else {
-                Logger.info("Image dosen't exist");
+            if (!file.exists()) {
+                S3Object object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/supinfo_logo.png");
+                ByteStreams.copy(object.getObjectContent(), new FileOutputStream(file));
             }
-
-//            File file = new File(imageFolder, "supinfo_logo.png");
-//
-//            if (!file.exists()) {
-//                S3Object object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/supinfo_logo.png");
-//                ByteStreams.copy(object.getObjectContent(), new FileOutputStream(file));
-//            }
 
             return file;
 
