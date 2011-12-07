@@ -44,33 +44,33 @@ public abstract class PdfGenerator {
             imageFolder = new File("pdf/images");
             imageFolder.mkdirs();
 
-            if (!FontFactory.contains("arialnarrow_normal")) {
-
-                String arialnFile = Play.getFile("./pdf/fonts/ARIALN.TTF").getCanonicalPath();
-                Logger.debug("Font ARIALN path : " + arialnFile);
-
-//                if (!arialnFile.exists()) {
-//                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALN.TTF");
-//                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnFile));
-//                }
-
-                FontFactory.register(arialnFile, "arialnarrow_normal");
-            }
-
-            if (!FontFactory.contains("arialnarrow_bold")) {
-
-                String arialnbFile = Play.getFile("./pdf/fonts/ARIALN.TTF").getCanonicalPath();
-                Logger.debug("Font ARIALNB path : " + arialnbFile);
-
-//                File arialnbFile = new File(fontFolder, "ARIALNB.TTF");
+//            if (!FontFactory.contains("arialnarrow_normal")) {
 //
-//                if (!arialnbFile.exists()) {
-//                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALNB.TTF");
-//                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnbFile));
-//                }
+//                String arialnFile = Play.getFile("./pdf/fonts/ARIALN.TTF").getCanonicalPath();
+//                Logger.debug("Font ARIALN path : " + arialnFile);
+//
+////                if (!arialnFile.exists()) {
+////                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALN.TTF");
+////                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnFile));
+////                }
+//
+//                FontFactory.register(arialnFile, "arialnarrow_normal");
+//            }
 
-                FontFactory.register(arialnbFile, "arialnarrow_bold");
-            }
+//            if (!FontFactory.contains("arialnarrow_bold")) {
+//
+//                String arialnbFile = Play.getFile("./pdf/fonts/ARIALN.TTF").getCanonicalPath();
+//                Logger.debug("Font ARIALNB path : " + arialnbFile);
+//
+////                File arialnbFile = new File(fontFolder, "ARIALNB.TTF");
+////
+////                if (!arialnbFile.exists()) {
+////                    S3Object s3Object = S3Blob.s3Client.getObject(S3Blob.s3Bucket, "resources/ARIALNB.TTF");
+////                    ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnbFile));
+////                }
+//
+//                FontFactory.register(arialnbFile, "arialnarrow_bold");
+//            }
 
 
         } catch (Exception e) {
