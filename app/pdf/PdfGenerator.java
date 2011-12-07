@@ -46,7 +46,7 @@ public abstract class PdfGenerator {
 
             if (!FontFactory.contains("arialnarrow_normal")) {
 
-                String arialnFile = play.vfs.VirtualFile.fromRelativePath("/pdf/fonts/ARIALN.TTF").getRealFile().getCanonicalPath();
+                String arialnFile = Play.getFile("./pdf/fonts/ARIALN.TTF").getCanonicalPath();
                 Logger.debug("Font ARIALN path : " + arialnFile);
 
 //                if (!arialnFile.exists()) {
@@ -59,7 +59,7 @@ public abstract class PdfGenerator {
 
             if (!FontFactory.contains("arialnarrow_bold")) {
 
-                String arialnbFile = play.vfs.VirtualFile.fromRelativePath("/pdf/fonts/ARIALN.TTF").getRealFile().getCanonicalPath();
+                String arialnbFile = Play.getFile("./pdf/fonts/ARIALN.TTF").getCanonicalPath();
                 Logger.debug("Font ARIALNB path : " + arialnbFile);
 
 //                File arialnbFile = new File(fontFolder, "ARIALNB.TTF");
@@ -86,7 +86,7 @@ public abstract class PdfGenerator {
 
         try {
 
-            File file = play.vfs.VirtualFile.fromRelativePath("/pdf/images/supinfo_logo.png").getRealFile();
+            File file = Play.getFile("./pdf/images/supinfo_logo.png");
             Logger.debug("Image supinfologo path : " + file.getCanonicalPath());
 
 //            File file = new File(imageFolder, "supinfo_logo.png");
