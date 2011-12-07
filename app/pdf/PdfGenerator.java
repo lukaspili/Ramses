@@ -87,7 +87,13 @@ public abstract class PdfGenerator {
         try {
 
             File file = Play.getFile("./pdf/images/supinfo_logo.png");
-            Logger.debug("Image supinfologo path : " + file.getCanonicalPath());
+            Logger.info("Image supinfologo path : " + file.getCanonicalPath());
+
+            if(file.exists()) {
+                Logger.info("Image exists");
+            } else {
+                Logger.info("Image dosen't exist");
+            }
 
 //            File file = new File(imageFolder, "supinfo_logo.png");
 //
