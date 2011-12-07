@@ -49,7 +49,7 @@ public class ContractPdfGenerator extends PdfGenerator {
 
             image = Image.getInstance(getSupinfoLogo().getPath());
             image.scaleAbsolute(170, 56);
-            
+
             cell = new PdfPCell(image, false);
             cell.setBorder(PdfPCell.NO_BORDER);
             table.addCell(cell);
@@ -539,9 +539,9 @@ public class ContractPdfGenerator extends PdfGenerator {
             document.close();
 
         } catch (DocumentException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
     }
 }
