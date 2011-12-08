@@ -46,7 +46,8 @@ public abstract class PdfGenerator {
 
             if (!FontFactory.contains("arialnarrow_normal")) {
 
-                File arialnFile = Play.getFile("./pdf/fonts/ARIALN.TTF");
+                File arialnFile = Play.getFile("/app/pdf/resources/ARIALN.TTF");
+                Logger.info("PDF GENERATION : Getting file from " + arialnFile.getAbsolutePath());
 
                 if (arialnFile.exists()) {
                     Logger.info("PDF GENERATION : Local ARIALN.TTF exists");
@@ -68,7 +69,8 @@ public abstract class PdfGenerator {
 
             if (!FontFactory.contains("arialnarrow_bold")) {
 
-                File arialnbFile = Play.getFile("./pdf/fonts/ARIALNB.TTF");
+                File arialnbFile = Play.getFile("/app/pdf/resources/ARIALNB.TTF");
+                Logger.info("PDF GENERATION : Getting file from " + arialnbFile.getAbsolutePath());
 
                 if (arialnbFile.exists()) {
                     Logger.info("PDF GENERATION : Local ARIALNB.TTF exists");
@@ -100,7 +102,8 @@ public abstract class PdfGenerator {
 
     protected File getSupinfoLogo() {
 
-        File file = Play.getFile("./pdf/images/supinfo_logo.png");
+        File file = Play.getFile("/app/pdf/resources/supinfo_logo.png");
+        Logger.info("PDF GENERATION : Getting file from " + file.getAbsolutePath());
 
         if (file.exists()) {
             Logger.info("PDF GENERATION : Local supinfo_logo.png exists");
