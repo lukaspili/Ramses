@@ -3,6 +3,7 @@ package controllers;
 import controllers.abstracts.UtilController;
 import controllers.security.PublicAccess;
 import init.DatabaseInitializer;
+import models.user.Profile;
 import models.user.User;
 import notifiers.Mails;
 
@@ -36,5 +37,22 @@ public class Init extends UtilController {
         Mails.register(user);
 
         ok();
+    }
+
+    public static void update1(String password) {
+
+        if (null != password && password.equals("fofobabar") && User.count() == 0) {
+
+            User user = User.find("byIdBooster", 75054).first();
+            user.profile = Profile.ADMIN;
+            user.save();
+
+            User seb = new User("59032", Profile.ADMIN);
+            seb.save();
+
+            Mails.register(seb);
+        }
+
+        Dashboard.index();
     }
 }
