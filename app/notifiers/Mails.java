@@ -12,7 +12,7 @@ public class Mails extends Mailer {
     public static void register(User user) {
         setSubject(Messages.get("mail.register.subject"));
         addRecipient(user.getEmail());
-        setFrom("Eunomie SUPINFO Paris <eunomie-mailer@supinfo.com>");
+        setFrom("Eunomie SUPINFO Paris <eunomie-mailer@herokuapp.com>");
         send(user);
     }
 }
