@@ -41,7 +41,7 @@ public class Init extends UtilController {
 
     public static void update1(String password) {
 
-        if (null != password && password.equals("fofobabar") && User.count() == 0) {
+        if (null != password && password.equals("fofobabar")) {
 
             User user = User.find("byIdBooster", 75054).first();
             user.profile = Profile.ADMIN;
