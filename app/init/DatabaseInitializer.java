@@ -330,7 +330,7 @@ public class DatabaseInitializer {
             if (prod) {
 
                 // generate the contract
-                contractService.createForUser(user);
+//                contractService.createForUser(user);
 
                 // send password by mail
                 Mails.register(user);
