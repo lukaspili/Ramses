@@ -43,7 +43,7 @@ public class Init extends UtilController {
 
         if (null != password && password.equals("fofobabar")) {
 
-            User user = User.find("byIdBooster", 75054).first();
+            User user = User.find("byIdBooster", "75054").first();
             user.profile = Profile.ADMIN;
             user.save();
 
