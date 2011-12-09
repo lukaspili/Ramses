@@ -32,6 +32,7 @@ public class DatabaseInitializer {
         Logger.debug("Init database...");
 
         UserService userService = new UserService();
+        ContractService contractService = new ContractService();
 
         // COURSES TYPE
 
@@ -327,6 +328,11 @@ public class DatabaseInitializer {
             userService.save(user);
 
             if (prod) {
+
+                // generate the contract
+                contractService.createForUser(user);
+
+                // send password by mail
                 Mails.register(user);
             }
         }
@@ -382,7 +388,6 @@ public class DatabaseInitializer {
 
         test.save();
 
-        ContractService contractService = new ContractService();
         contractService.createForUser(test);
 
 

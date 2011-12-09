@@ -96,7 +96,7 @@ public class Orders extends AppController {
             SoeExam soe = soeExamService.getNotOrderedSoeForUser(id, user);
 
             if (null == soe) {
-                flashError("jobOrders.error.invalid_ordered_soe");
+                flashError("jobOrders.create.error.invalid_ordered_soe");
                 view();
             }
 

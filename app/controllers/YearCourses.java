@@ -108,11 +108,6 @@ public class YearCourses extends AppController {
     }
 
     @LoggedAccess(Profile.ADMIN)
-    public static void edit(Long yearCourseId) {
-
-    }
-
-    @LoggedAccess(Profile.ADMIN)
     public static void validateCandidature(Long yearCourseId, Long userId) {
 
         YearCourse yearCourse = YearCourse.findById(yearCourseId);

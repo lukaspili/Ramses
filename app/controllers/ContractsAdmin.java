@@ -2,12 +2,10 @@ package controllers;
 
 import controllers.abstracts.AppController;
 import controllers.helper.PageHelper;
-import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import models.contracts.Contract;
 import models.contracts.ContractState;
 import models.user.Profile;
-import models.user.User;
 import play.mvc.Before;
 import service.ContractService;
 import service.YearCourseService;

@@ -58,9 +58,9 @@ public class EnhancedValidator {
         return this;
     }
 
-    public EnhancedValidator requireFields(String... fields) {
-        for (String field : fields) {
-            validation.required(field);
+    public EnhancedValidator requireFields(Object... objects) {
+        for (Object o : objects) {
+            validation.required(o);
         }
         return this;
     }

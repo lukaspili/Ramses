@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 public class SoeExam extends Model {
 
-    public static final float PRICE = 25;
+    public static final float PRICE = 20;
 
     public int plannifiedDuration;
 

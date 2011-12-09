@@ -1,9 +1,9 @@
 package controllers;
 
+import controllers.YearCourses;
 import controllers.abstracts.AppController;
 import controllers.helper.PageHelper;
 import controllers.security.LoggedAccess;
-import models.contracts.JobOrder;
 import models.contracts.JobOrderState;
 import models.school.SoeExam;
 import models.school.YearCourse;
@@ -11,9 +11,9 @@ import models.user.Profile;
 import models.user.User;
 import org.joda.time.LocalDate;
 import play.data.binding.As;
+import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Util;
-import service.JobOrderService;
 import service.SoeExamService;
 import service.UserService;
 import validation.EnhancedValidator;
@@ -42,34 +42,27 @@ public class SoeExamsAdmin extends AppController {
         pageHelper = new PageHelper("soeExamsAdmin", renderArgs);
     }
 
-    public static void saveFromCourse(SoeExam soe, @As("yyyy-MM-dd") Date date, long courseId) {
+    public static void saveFromCourse(SoeExam soeExam, @Required Date date, long courseId) {
 
-        EnhancedValidator validator = validator();
-
-        if (null == date) {
-            validator.addError("date", "invalid", true);
-            invalidateSave(soe);
+        if (validator().validate(soeExam).hasErrors()) {
+            invalidateSave(soeExam);
         }
 
-        soe.date = new LocalDate(date.getTime());
+        soeExam.date = new LocalDate(date.getTime());
 
         YearCourse course = YearCourse.findById(courseId);
+        notFoundIfNull(course);
 
-        if (null == course) {
-            validator.addError("courseId", "required", true);
-            invalidateSave(soe);
-        }
-
-        soeExamService.create(soe, course, new HashSet<User>());
+        soeExamService.create(soeExam, course, new HashSet<User>());
 
         flashSuccess("soeExamsAdmin.save.sucess");
         YearCourses.show(courseId);
     }
 
     @Util
-    private static void invalidateSave(SoeExam soe) {
+    private static void invalidateSave(SoeExam soeExam) {
         List<JobOrderState> states = JobOrderState.getList();
         List<User> users = userService.getActiveUsers();
-        render("JobOrderAdmin/create.html", states, users, soe);
+        render("JobOrderAdmin/create.html", states, users, soeExam);
     }
 }

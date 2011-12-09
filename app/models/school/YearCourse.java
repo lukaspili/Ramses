@@ -50,4 +50,8 @@ public class YearCourse extends Model {
     public float getTotal() {
         return duration * course.type.price;
     }
+
+    public boolean isPlannified() {
+        return null != startDate && null != endDate && duration != 0;
+    }
 }

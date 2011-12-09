@@ -2,7 +2,7 @@
 
 <div class="flat_area grid_16">
 
-    #{a @YearCourses.edit(yearCourse.id)}
+    #{a @YearCoursesAdmin.edit(yearCourse.id)}
     <button class="button_colour round_all" style="float: right;">
         <img height="24" width="24" alt="&{'usersadmin.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'yearcourses.edit'}</span>
     </button>
@@ -15,9 +15,11 @@
     <ul>
         <li>Cours : ${yearCourse.course.fullName}</li>
         <li>Type de cours : &{yearCourse.course.type.name} (${yearCourse.course.type.price} euros / heure)</li>
+        #{if yearCourse.isPlannified()}
         <li>Durée : ${yearCourse.duration} heures</li>
-        <li>Date de début : ${yearCourse.startDate}</li>
-        <li>Date de fin : ${yearCourse.endDate}</li>
+        <li>Date de début : ${yearCourse.startDate.format()}</li>
+        <li>Date de fin : ${yearCourse.endDate.format()}</li>
+        #{/if}
         <li>
             Professeur :
 
@@ -110,7 +112,7 @@
                     <th>&{'soeExam.realDuration'}</th>
                     <th class="last">&{'soeExam.state'}</th>
                 </tr>
-                </thead>    
+                </thead>
                 <tbody>
 
                 #{list items:yearCourse.soeExams, as:'soeExam'}
@@ -150,7 +152,7 @@
             #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
             #{/}
 
-            #{field 'soe.plannifiedDuration'}
+            #{field 'soeExam.plannifiedDuration'}
             <label for="${field.id}">&{field.name}</label>
             <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
             #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}

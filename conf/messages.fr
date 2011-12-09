@@ -6,7 +6,13 @@ user.idBooster=ID Booster
 user.password=Mot de passe
 user.profile=Profil
 user.lastName=Nom
-
+user.firstName=Prénom
+user.street=Adresse
+user.postalCode=Code Postal
+user.city=Ville
+user.siret=Numéro de SIRET
+user.rcs=Ville de votre RCS
+user.activity=Activité du compte
 user.activity.active=Actif
 user.activity.inactive=Inactif
 
@@ -16,6 +22,9 @@ profile.many=Profils
 
 profile.guest=Invité
 profile.guest.many=Invités
+
+profile.inactive=Inactif
+profile.inactive.many=Inactifs
 
 profile.sta=STA
 profile.sta.many=STA
@@ -33,11 +42,21 @@ course.name=Nom
 course.promotion=&{promotion}
 course.users=Utilisateurs compétents
 
+# YearCourse
+yearCourse.duration=Durée du cours
+yearCourse.duration.validate.positive=La durée
+
 # Course type
 coursetype.coursewithtp=Cours avec TP
 
 # YearCourses
 yearcourses.edit=Modifier le cours
+
+# SoeExam
+soeExam.date=Date
+soeExam.plannifiedDuration=Durée planifiée
+soeExam.realDuration=Durée réelle
+soeExam.state=État
 
 # Promotion
 promotion=Promotion
@@ -46,6 +65,19 @@ promotion.b2=B2
 promotion.b3=B3
 promotion.m1=M1
 promotion.m2=M2
+
+# JobOrder
+
+# JobOrderState
+jobOrderState.signed=Signé
+jobOrderState.created=Créé
+
+# Contract
+
+# ContractState
+contractState.created=Créé
+contractState.signed_by_sta=Signé par le STA
+contractState.signed_by_supinfo=Signé par SUPINFO
 
 
 # Dashboard
@@ -81,6 +113,15 @@ usersadmin.save.success=L'utilisateur avec l'id booster %1$s a été enregistré
 # UsersAdmin.list
 usersadmin.list=Liste des utilisateurs
 
+# JobOrders
+
+
+# JobOrders.create
+jobOrders.create.error.empty=Veuillez inclure au moins une prestation dans le bon de commande
+jobOrders.create.error.invalid_ordered_soe=Un ou plusieurs SOE inclus dans le bon de commande ne sont pas valides
+jobOrders.create.error.invalid_ordered_course=Un ou plusieurs cours inclus dans le bon de commande ne sont pas valides
+jobOrders.create.success=Le bon de commande a été créé avec succès
+
 # Form commons
 submit.save=Enregistrer
 afterSubmit=Après l'enregistrement du formulaire
@@ -89,6 +130,15 @@ afterSubmit=Après l'enregistrement du formulaire
 validation.required=Cette information est requise
 validation.email=L'email n'est pas valide
 validation.numeric=Ne doit contenir que des caractères numériques
+validation.invalidDate=La date n'est pas valide
+
+# Misc
+date=Date (jj/mm/aaaa)
+startDate=Date de début (jj/mm/aaaa)
+endDate=Date de fin (jj/mm/aaaa)
+skills=Compétences
+passwordConfirmation=Confirmation du mot de passe
+error.functionnality_not_implemented_yet=Fonctionnalité non implementée
 
 # Commons
 not_filled=Non renseigné

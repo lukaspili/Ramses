@@ -33,6 +33,6 @@ public class CoreException extends RuntimeException {
     }
 
     public static enum Type {
-        NOT_SPECIFIED, UNIQUE_CONSTRAINT_VIOLATION
+        NOT_SPECIFIED, UNIQUE_CONSTRAINT_VIOLATION, REJECTED, NULL
     }
 }

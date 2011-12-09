@@ -1,0 +1,56 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+    #{a @YearCourses.show(yearCourse.id)}
+    <button class="button_colour round_all" style="float: right;">
+        <img height="24" width="24" alt="&{'usersadmin.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'yearcourses.edit'}</span>
+    </button>
+    #{/a}
+
+    <h2>${yearCourse.course.fullName}</h2>
+
+    #{include 'helpers/flash_box.html' /}
+</div>
+
+<div class="box grid_16 round_all">
+    <h2 class="box_head grad_colour">Modifier le cours</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block">
+
+            #{include 'helpers/form_validation.html' /}
+
+            #{form @YearCoursesAdmin.update(), id:'update-yearcourse-form', enctype:'multipart/form-data' }
+
+            #{field 'yearCourse.id'}
+            <input type="hidden" id="${field.id}" name="${field.name}" value="${field.value}"/>
+            #{/}
+
+            #{field 'yearCourse.duration'}
+            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+            <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            #{field 'startDate'}
+            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+            <input type="text" id="${field.id}" name="${field.name}" value="${field.value?.format()}" class="medium ${field.errorClass}"/>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            #{field 'endDate'}
+            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+            <input type="text" id="${field.id}" name="${field.name}" value="${field.value?.format()}" class="medium ${field.errorClass}"/>
+            #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+            #{/}
+
+            <button class="button_colour round_all">
+                <img height="24" width="24" alt="Save" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+            </button>
+            #{/form}
+        </div>
+    </div>
+</div>

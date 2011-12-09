@@ -2,7 +2,6 @@ package controllers;
 
 import controllers.abstracts.AppController;
 import controllers.security.LoggedAccess;
-import models.contracts.Contract;
 import models.contracts.JobOrder;
 import models.contracts.JobOrderState;
 import models.user.Profile;

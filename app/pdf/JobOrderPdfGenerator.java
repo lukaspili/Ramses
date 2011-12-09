@@ -10,6 +10,7 @@ import models.school.YearCourse;
 import org.joda.time.LocalDate;
 import play.Logger;
 import play.db.jpa.Blob;
+import play.libs.I18N;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,7 +49,7 @@ public class JobOrderPdfGenerator extends PdfGenerator {
 
             image = Image.getInstance(getSupinfoLogo().getPath());
             image.scaleAbsolute(170, 56);
-            
+
             cell = new PdfPCell(image, false);
             cell.setBorder(PdfPCell.NO_BORDER);
             table.addCell(cell);
@@ -82,7 +83,7 @@ public class JobOrderPdfGenerator extends PdfGenerator {
             document.add(paragraph);
 
             LocalDate today = new LocalDate();
-            paragraph = new Paragraph("Paris, le " + today.getDayOfMonth() + " / " + today.getDayOfMonth() + " / " + today.getYear(), textFont);
+            paragraph = new Paragraph("Paris, le " + today.getDayOfMonth() + " / " + today.getMonthOfYear() + " / " + today.getYear(), textFont);
             paragraph.setIndentationLeft(leftIndent);
             paragraph.setSpacingBefore(2);
             paragraph.setSpacingAfter(20);
@@ -171,14 +172,14 @@ public class JobOrderPdfGenerator extends PdfGenerator {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(course.startDate.toString(), textFont);
+                phrase = new Phrase(course.startDate.toString(I18N.getDateFormat()), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(course.endDate.toString(), textFont);
+                phrase = new Phrase(course.endDate.toString(I18N.getDateFormat()), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
@@ -229,7 +230,7 @@ public class JobOrderPdfGenerator extends PdfGenerator {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(soeExam.date.toString(), textFont);
+                phrase = new Phrase(soeExam.date.toString(I18N.getDateFormat()), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);

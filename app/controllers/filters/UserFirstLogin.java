@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-public @interface UserFirstLoginOnly {
+public @interface UserFirstLogin {
 
+    boolean only() default false;
 }

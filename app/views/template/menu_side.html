@@ -9,7 +9,7 @@
         <h2>&{currentUser.profile.label}</h2>
 
         <h3><a class="text_shadow" href="#">
-            ${currentUser.fullName?:currentUser.idBooster}
+            ${currentUser.fullName?:'ID Booster : ' + currentUser.idBooster}
         </a></h3>
         <!--<ul>-->
         <!--<li><a href="#">settings</a><span class="divider">|</span></li>-->
@@ -18,8 +18,8 @@
     </div>
     <!-- #user_box -->
 
+    #{if currentUser.active}
     <ul id="accordion" class="round_all">
-
         <li>
             <a href="#" class="top_level"><img src="@{'/public/images/icons/small/grey/documents.png'}"/>
 
@@ -49,6 +49,7 @@
         </li>
 
     </ul>
+    #{/if}
 
     <ul id="side_links" class="text_shadow round_all">
         <li>#{a @Users.logout()}&{'users.logout'}#{/a}</li>

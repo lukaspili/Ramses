@@ -15,15 +15,20 @@ public class UserFirstLoginFilter extends Controller {
     @Before
     public static void checkFirstLogin() {
 
+        // user is not logged or the action is public, ignore
         if (!Auth.isLogged() || null != getActionAnnotation(PublicAccess.class)) {
             return;
         }
 
-        if (null == getActionAnnotation(UserFirstLoginOnly.class) && !Auth.getCurrentUser().active) {
+        UserFirstLogin firstLogin = getActionAnnotation(UserFirstLogin.class);
+
+        // user is not active and action is not for first logged users
+        if (null == firstLogin && !Auth.getCurrentUser().active) {
             Users.firstLogin();
         }
 
-        if (null != getActionAnnotation(UserFirstLoginOnly.class) && Auth.getCurrentUser().active) {
+        // user is active and action is for first logged users only
+        if (null != firstLogin && firstLogin.only() && Auth.getCurrentUser().active) {
             Dashboard.index();
         }
     }

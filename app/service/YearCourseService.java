@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.CoreException;
 import helpers.YearCourseHelper;
 import models.contracts.Contract;
 import models.school.Course;
@@ -74,7 +75,7 @@ public class YearCourseService extends AbstractService<YearCourse> {
 
         Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
                 "where yc.id not in (select joc.id from JobOrder jo join jo.courses joc where jo.user = :user) " +
-                "and yc.professor = :user");
+                "and yc.professor = :user and yc.duration != null and yc.startDate != null and yc.endDate != null");
 
         query.setParameter("user", user);
 
@@ -95,5 +96,32 @@ public class YearCourseService extends AbstractService<YearCourse> {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public void update(YearCourse yearCourse) throws CoreException {
+
+        YearCourse fromDb = YearCourse.findById(yearCourse.id);
+
+        if (null == fromDb) {
+            throw new CoreException().type(CoreException.Type.NULL);
+        }
+
+        if (!isEditable(fromDb)) {
+            throw new CoreException().type(CoreException.Type.REJECTED);
+        }
+
+        fromDb.duration = yearCourse.duration;
+        fromDb.startDate = yearCourse.startDate;
+        fromDb.endDate = yearCourse.endDate;
+        fromDb.save();
+    }
+
+    public boolean isEditable(YearCourse yearCourse) {
+
+        if (!yearCourse.orders.isEmpty() || yearCourse.year < YearCourseHelper.getCurrentYear()) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -1,8 +1,7 @@
 package controllers;
 
 import controllers.abstracts.AppController;
-import controllers.filters.UserFirstLoginOnly;
-import controllers.helper.CollectionHelper;
+import controllers.filters.UserFirstLogin;
 import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
@@ -11,7 +10,6 @@ import models.school.Course;
 import models.user.User;
 import org.apache.commons.lang3.StringUtils;
 import play.data.validation.Required;
-import play.db.jpa.Model;
 import play.mvc.Before;
 import play.mvc.Util;
 import service.CourseService;
@@ -20,7 +18,6 @@ import validation.EnhancedValidator;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -82,6 +79,7 @@ public class Users extends AppController {
     }
 
     @LoggedAccess
+    @UserFirstLogin
     public static void logout() {
         Auth.logoutUser();
         flash.clear();
@@ -89,7 +87,7 @@ public class Users extends AppController {
     }
 
     @LoggedAccess
-    @UserFirstLoginOnly
+    @UserFirstLogin(only = true)
     public static void firstLogin() {
 
         pageHelper.title("Activation de votre compte");
@@ -101,8 +99,8 @@ public class Users extends AppController {
     }
 
     @LoggedAccess
-    @UserFirstLoginOnly
-    public static void completeFirstLogin(User user, @Required String passwordConfirmation, List<Long> skills) {
+    @UserFirstLogin(only = true)
+    public static void completeFirstLogin(User user, String passwordConfirmation, List<Long> skills) {
 
         if (null == skills) {
             skills = new ArrayList<Long>();
@@ -111,7 +109,7 @@ public class Users extends AppController {
         EnhancedValidator validator = validator();
         validator.validate(user)
                 .require("password")
-                .requireFields("passwordConfirmation");
+                .requireFields(passwordConfirmation);
 
         requirePersonalInfo(validator);
 
