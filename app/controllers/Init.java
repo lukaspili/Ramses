@@ -21,9 +21,9 @@ public class Init extends UtilController {
         Dashboard.index();
     }
 
-    public static void prod() {
+    public static void prod(String password) {
 
-        if (User.count() == 0) {
+        if (null != password && password.equals("fofobabar") && User.count() == 0) {
             DatabaseInitializer.initDatabaseForProd();
         }
 
