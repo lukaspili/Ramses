@@ -4,6 +4,7 @@ import controllers.abstracts.UtilController;
 import controllers.security.PublicAccess;
 import init.DatabaseInitializer;
 import models.user.User;
+import notifiers.Mails;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -27,5 +28,13 @@ public class Init extends UtilController {
         }
 
         Dashboard.index();
+    }
+
+    public static void mail() {
+
+        User user = User.find("byIdBooster", "75054").first();
+        Mails.register(user);
+
+        ok();
     }
 }
