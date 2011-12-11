@@ -149,7 +149,7 @@ public class Auth extends UtilController {
 
         Logger.debug("Access denied");
 
-        String profile = (isLogged() ? getCurrentUser().profile.toString() : Messages.get("profile.guest"));
+        String profile = (isLogged() ? getCurrentUser().profile.getLabel() : Messages.get("profile.guest"));
         flashError("auth.logged.denied_for_profile", profile);
 
         Dashboard.index();
