@@ -89,6 +89,7 @@ public class UserService extends AbstractService<User> {
         existingUser.postalCode = newUser.postalCode;
         existingUser.city = newUser.city;
         existingUser.siret = newUser.siret;
+        existingUser.rcs = newUser.rcs;
 
         existingUser.save();
     }
@@ -108,7 +109,7 @@ public class UserService extends AbstractService<User> {
         Query query = User.em().createQuery("select u from User u " +
                 "left join u.contract c left join u.orders o " +
                 "where u.id = :id");
-        
+
         query.setParameter("id", id);
 
         try {
