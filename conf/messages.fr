@@ -160,6 +160,12 @@ jobOrders.create.error.invalid_ordered_soe=Un ou plusieurs SOE inclus dans le bo
 jobOrders.create.error.invalid_ordered_course=Un ou plusieurs cours inclus dans le bon de commande ne sont pas valides
 jobOrders.create.success=Le bon de commande a été créé avec succès
 
+# Application
+
+# Application.reportBug
+application.reportBug=Rapport de bug
+application.about=A propos d'Eunomie
+
 # Form commons
 submit.save=Enregistrer
 afterSubmit=Après l'enregistrement du formulaire

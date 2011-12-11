@@ -1,0 +1,60 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+    <h2>${page_title}</h2>
+
+    #{include 'helpers/flash_box.html' /}
+</div>
+
+<div class="flat_area grid_10">
+    <p>
+        L'application Eunomie a été réalisée par le laboratoire Java de SUPINFO Paris afin de répondre aux besoins de campus.<br/>
+        Cette application permet de gérer les STA, les contrats cadres, les SOE et les bons de commande.
+    </p>
+
+    <p>
+        Les technologies utilisées sont bien evidemment Java, avec Play!Framework, JQuery et PostgreSQL pour la persistence des données.
+        L'hébergement est assuré par la plateforme cloud Heroku et le stockage des contratset des bons de commande par Amazon S3.
+    </p>
+
+    <p>
+        Pour tout retour sur l'application (suggestions, bugs, etc) merci d'utiliser la page : #{a @Application.reportbug()}Signaler un bug#{/a}.
+    </p>
+
+    <p>
+        Visitez les sites des laboratoires Java :
+    </p>
+
+    <ul>
+        <li><a href="http://www.laboratoires-java.com">laboratoires-java.com</a></li>
+        <li><a href="http://www.labo-java.net">labo-java.net</a></li>
+    </ul>
+</div>
+
+<div class="box grid_6">
+    <h2 class="box_head grad_colour ">Equipe du projet depuis son lancement jusqu'à aujourd'hui</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">Nom</th>
+                    <th>Fonction</th>
+                    <th class="last">Campus</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Lukasz Piliszczuk</td>
+                    <td>GLM</td>
+                    <td>Paris</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
