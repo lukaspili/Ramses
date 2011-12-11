@@ -90,7 +90,7 @@ public class Users extends AppController {
     @UserFirstLogin(only = true)
     public static void firstLogin() {
 
-        pageHelper.title("Activation de votre compte");
+        pageHelper.uniqueTitle("users.firstLogin");
 
         List<Course> courses = courseService.getCourses();
         List<Long> skills = new ArrayList<Long>();
@@ -138,7 +138,7 @@ public class Users extends AppController {
     @LoggedAccess
     public static void editPersonalInfo() {
 
-        pageHelper.title("Modifiez vos informations personnelles");
+        pageHelper.uniqueTitle("users.editPersonalInfo");
 
         User user = Auth.getCurrentUser();
         render(user);
@@ -166,7 +166,7 @@ public class Users extends AppController {
     @LoggedAccess
     public static void editPassword() {
 
-        pageHelper.title("Modifiez votre mot de passe");
+        pageHelper.uniqueTitle("users.editPassword");
 
         render();
     }
@@ -181,7 +181,7 @@ public class Users extends AppController {
         }
 
         if (!StringUtils.equals(user.password, passwordConfirmation)) {
-            validator.addError("passwordConfirmation", "users.edit.error.passwordConfirmation", true).save();
+            validator.addError("passwordConfirmation", "users.error.passwordConfirmation", true).save();
             render("Users/editPassword.html");
         }
 
@@ -195,7 +195,7 @@ public class Users extends AppController {
     @LoggedAccess
     public static void editSkills() {
 
-        pageHelper.title("Modifiez vos compétences");
+        pageHelper.uniqueTitle("users.editSkills");
 
         List<Course> courses = courseService.getCourses();
         List<Long> skills = collectionHelper.getIdsFromModel(Auth.getCurrentUser().skills);

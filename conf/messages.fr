@@ -17,6 +17,9 @@ user.activity=Activité du compte
 user.activity.active=Actif
 user.activity.inactive=Inactif
 
+user.error.have_no_contract=Votre contrat cadre n'a pas encore été généré
+user.info.not_yet_active=L'utilisateur n'a pas encore activé son compte
+
 # Profile
 profile=Profil
 profile.many=Profils
@@ -52,6 +55,23 @@ coursetype.coursewithtp=Cours avec TP
 
 # YearCourses
 yearcourses.edit=Modifier le cours
+yearcourses.error.wrongYear=L'année du cours est invalide
+yearcourses.error.noSkills=Vous n'avez pas les compétences requises pour ce cours
+yearcourses.error.professorAlreadyExists=Un candidat a déjà été choisi pour ce cours
+yearcourses.error.candidatureAlreadyExists=Vous avez déjà candidaté pour ce cours
+yearcourses.info.waitingContractCadre=En attente du contrat cadre du STA
+yearcourses.error.userDontCandidate=Cet utilisateur n'a pas candidaté pour le cours
+yearcourses.error.userHaveNoSkill=Cet utilisateur n'a pas les compétences requises pour ce cours
+
+# YearCourses.candidate
+yearcourses.candidate.success=Votre candidature a été enregistrée avec succès
+
+# YearCourses.cancelCandidature
+yearcourses.cancelCandidature.success=Votre candidature a bien été annulée
+
+# YearCourses.validate
+yearcourses.validateCandidature.success=La candidature a été validée avec succès
+
 
 # SoeExam
 soeExam.date=Date
@@ -85,6 +105,7 @@ contractState.signed_by_supinfo=Signé par SUPINFO
 dashboard=Dashboard
 
 # Users
+users.error.passwordConfirmation=Les mots de passe sont differents
 
 # Users.login
 users.login=Authentification
@@ -92,6 +113,21 @@ users.login.submit=Connexion
 users.login.password=Mot de passe oublié ?
 users.login.remember=Connexion auto.
 users.login.authentication.failure=Identifiants incorrects
+
+# Users.firstLogin
+users.firstLogin=Activation de votre compte
+
+# Users.editPersonalInfo
+users.editPersonalInfo=Modifiez vos informations personnelles
+
+# Users.editPassword
+users.editPassword=Modifiez votre mot de passe
+
+# Users.editSkills
+users.editSkills=Modifiez vos compétences
+
+# Users.saveSkills
+users.saveSkills.success=Vos compétences ont bien été sauvegardées
 
 # Users.logout
 users.logout=Deconnexion
@@ -110,6 +146,7 @@ usersadmin=Gestion des utilisateurs
 usersadmin.create=Nouvel utilisateur
 usersadmin.create.error.uniqueIdBooster=Cet id booster existe déjà dans l'application
 usersadmin.save.success=L'utilisateur avec l'id booster %1$s a été enregistré avec succès. Un mail contenant le mot de passe a été envoyé à %1$s@supinfo.com.
+
 
 # UsersAdmin.list
 usersadmin.list=Liste des utilisateurs
@@ -137,7 +174,9 @@ validation.invalidDate=La date n'est pas valide
 date=Date (jj/mm/aaaa)
 startDate=Date de début (jj/mm/aaaa)
 endDate=Date de fin (jj/mm/aaaa)
-skills=Compétences
+skills=Matières dans lesquelles vous êtes validés
+availableCourses=Cours à ajouter au bon de commande
+availableSoes=SOE à ajouter au bon de commande
 passwordConfirmation=Confirmation du mot de passe
 error.functionnality_not_implemented_yet=Fonctionnalité non implementée
 

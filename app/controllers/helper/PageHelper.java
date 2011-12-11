@@ -30,6 +30,6 @@ public class PageHelper {
     }
 
     public void uniqueTitle(String title) {
-        renderArgs.put("page_title", title);
+        renderArgs.put("page_title", Messages.get(title));
     }
 }

@@ -6,6 +6,8 @@ import init.DatabaseInitializer;
 import models.user.Profile;
 import models.user.User;
 import notifiers.Mails;
+import play.Logger;
+import play.Play;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -15,42 +17,13 @@ public class Init extends UtilController {
 
     public static void dev() {
 
+        if (Play.configuration.getProperty("application.mode").equals("prod")) {
+            Logger.info("Trying to init dev database on production mode");
+            return;
+        }
+
         if (User.count() == 0) {
             DatabaseInitializer.initDatabaseForDev();
-        }
-
-        Dashboard.index();
-    }
-
-    public static void prod(String password) {
-
-        if (null != password && password.equals("fofobabar") && User.count() == 0) {
-            DatabaseInitializer.initDatabaseForProd();
-        }
-
-        Dashboard.index();
-    }
-
-    public static void mail() {
-
-        User user = User.find("byIdBooster", "75054").first();
-        Mails.register(user);
-
-        ok();
-    }
-
-    public static void update1(String password) {
-
-        if (null != password && password.equals("fofobabar")) {
-
-            User user = User.find("byIdBooster", "75054").first();
-            user.profile = Profile.ADMIN;
-            user.save();
-
-            User seb = new User("59032", Profile.ADMIN);
-            seb.save();
-
-            Mails.register(seb);
         }
 
         Dashboard.index();

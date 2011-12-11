@@ -7,13 +7,13 @@
 </div>
 
 <div class="box grid_10 round_all">
-    <h2 class="box_head grad_colour">Modifiez vos informations personnelles</h2>
+    <h2 class="box_head grad_colour">${page_title}</h2>
 
     <div class="toggle_container">
         <div class="block">
 
             #{include 'helpers/form_validation.html' /}
-            
+
             #{form @savePersonalInfo(), id:'edit-personalinfo-form', enctype:'multipart/form-data' }
 
             #{include 'Users/_user_personalinfo_form.html' /}

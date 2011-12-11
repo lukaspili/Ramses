@@ -102,7 +102,7 @@ public class UsersAdmin extends AppController {
         String title = null;
 
         if (!user.active) {
-            flashInfoSamePage("user.active.not_yet");
+            flashInfoSamePage("user.info.not_yet_active");
             title = "Utilisateur " + user.idBooster;
         } else {
             title = "Utilisateur " + user.getFullName();
