@@ -232,7 +232,7 @@ public class DatabaseInitializer {
 
 
         // USERS
-
+        // 14, 15, 16 ids ignored
         User user75054 = new User("75054", Profile.STA);
         User user76330 = new User("76330", Profile.STA);
         User user83026 = new User("83026", Profile.STA);

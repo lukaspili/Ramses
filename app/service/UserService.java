@@ -27,6 +27,7 @@ public class UserService extends AbstractService<User> {
             throw new CoreException().type(CoreException.Type.UNIQUE_CONSTRAINT_VIOLATION);
         }
 
+        user.staNumber = User.count() + 1;
         user.password = RandomStringUtils.randomAlphanumeric(9);
         user.save();
 

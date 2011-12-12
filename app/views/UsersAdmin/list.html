@@ -27,7 +27,7 @@
     <table class="display datatable">
         <thead>
         <tr>
-            <th class="first">&{'user.id'}</th>
+            <th class="first">&{'user.staNumber'}</th>
             <th>&{'user.idBooster'}</th>
             <th>&{'user.lastName'}</th>
             <th>&{'user.profile'}</th>
@@ -39,7 +39,7 @@
         #{list items:users, as: 'user'}
         <tr>
             <td>
-                ${user.id}
+                ${user.staNumber}
             </td>
             <td>
                 #{a @UsersAdmin.show(user.id)}<strong>${user.idBooster}</strong>#{/a}

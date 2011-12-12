@@ -20,6 +20,8 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends Model {
 
+    public long staNumber;
+
     @CheckWith(NumericCheck.class)
     public String idBooster;
 

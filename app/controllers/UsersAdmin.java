@@ -89,7 +89,7 @@ public class UsersAdmin extends AppController {
         long externeCount = User.count("byProfileAndactive", Profile.EXTERNE, true);
         long adminCount = User.count("byProfileAndactive", Profile.ADMIN, true);
 
-        List<User> users = User.findAll();
+        List<User> users = User.find("order by staNumber").fetch();
 
         render(users, inactiveCount, staCount, externeCount, adminCount);
     }

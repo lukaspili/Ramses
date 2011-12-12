@@ -2,7 +2,7 @@
 app.name=Eunomie SUPINFO Paris
 
 # User
-user.id=Numéro STA
+user.staNumber=Numéro STA
 user.idBooster=ID Booster
 user.password=Mot de passe
 user.profile=Profil
