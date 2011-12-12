@@ -33,9 +33,9 @@ public class YearCourseService extends AbstractService<YearCourse> {
 
     public List<YearCourse> getAvailableCoursesForUser(User user) {
 
-//        if (user.skills.isEmpty()) {
-//            return new ArrayList<YearCourse>();
-//        }
+        if (user.skills.isEmpty()) {
+            return new ArrayList<YearCourse>();
+        }
 
         Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
                 "join fetch yc.course c " +
