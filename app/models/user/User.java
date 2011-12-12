@@ -41,6 +41,8 @@ public class User extends Model {
 
     public boolean active;
 
+    public boolean desactivated;
+
     @Enumerated(EnumType.STRING)
     public Profile profile;
 

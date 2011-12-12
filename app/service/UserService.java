@@ -119,4 +119,22 @@ public class UserService extends AbstractService<User> {
         }
 
     }
+
+    public void remove(User user) {
+
+        try {
+            if (user.hasContract() && user.contract.pdf.exists()) {
+                user.contract.pdf.delete();
+            }
+
+            user.delete();
+        } catch (Exception e) {
+            throw new CoreException().type(CoreException.Type.REJECTED);
+        }
+    }
+
+    public void changeActivationState(User user) {
+        user.desactivated = !user.desactivated;
+        user.save();
+    }
 }

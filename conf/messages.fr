@@ -113,6 +113,7 @@ users.login.submit=Connexion
 users.login.password=Mot de passe oublié ?
 users.login.remember=Connexion auto.
 users.login.authentication.failure=Identifiants incorrects
+users.authenticate.error.user_is_desactivated=Votre compte a été désactivé, la connexion à l'application vous est interdite
 
 # Users.firstLogin
 users.firstLogin=Activation de votre compte
@@ -147,6 +148,18 @@ usersadmin.create=Nouvel utilisateur
 usersadmin.create.error.uniqueIdBooster=Cet id booster existe déjà dans l'application
 usersadmin.save.success=L'utilisateur avec l'id booster %1$s a été enregistré avec succès. Un mail contenant le mot de passe a été envoyé à %1$s@supinfo.com.
 
+# UsersAdmin.remove
+usersAdmin.remove.error.cannot_remove_yourself=Vous ne pouvez pas vous supprimer vous même
+usersAdmin.remove.error.rejected=L'utilisateur ne peut pas être supprimé car il est associé à des cours ou SOE existants. Vous pouvez par contre le désactiver de l'application.
+usersAdmin.remove.succes=L'utilisateur a bien été définitivement supprimé
+
+# UsersAdmin.changeActivationState
+usersAdmin.changeActivationState.error.cannot_desactivate_yourself=Vous ne pouvez pas vous désactiver vous même
+usersAdmin.desactivate.success=L'utilisateur a bien été désactivé et ne peut plus se connecter dès maintenant
+usersAdmin.activate.success=L'utilisateur a bien été activé et peut se connecter dès maintenant
+
+# UsersAdmin.show
+user.show.is_desactivated=L'utilisateur est désactivé et ne peut pas se connecter à l'application
 
 # UsersAdmin.list
 usersadmin.list=Liste des utilisateurs

@@ -1,8 +1,38 @@
 #{extends 'template/template.html' /}
 
 <div class="flat_area grid_16">
+
     <h2>${page_title}</h2>
+
     #{include 'helpers/flash_box.html' /}
+
+    <table style="float: right;">
+        <tr>
+            <td>
+                #{a @UsersAdmin.changeActivationState(user.id)}
+                <button class="button_colour round_all">
+                    <img height="24" width="24" alt="&{'usersadmin.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}">
+                    <span>
+                        #{if user.desactivated}
+                        Activer cet utilisateur
+                        #{/if}
+                        #{else}
+                        Désactiver cet utilisateur
+                        #{/else}
+                    </span>
+                </button>
+                #{/a}
+            </td>
+
+            <td>
+                #{a @UsersAdmin.remove(user.id), onClick:'return confirm(\'Etes vous sur de vouloir supprimer cet utilisateur ? Cette opération est définitive.\');'}
+                <button class="button_colour round_all">
+                    <img height="24" width="24" alt="&{'usersadmin.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>Supprimer cet utilisateur</span>
+                </button>
+                #{/a}
+            </td>
+        </tr>
+    </table>
 </div>
 
 <div class="box grid_8 round_all">

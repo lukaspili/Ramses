@@ -44,10 +44,6 @@ public class Users extends AppController {
 
         pageHelper.uniqueTitle("users.login");
 
-        if (flash.contains("user.password")) {
-            flash.remove("user.password");
-        }
-
         render();
     }
 
@@ -66,6 +62,12 @@ public class Users extends AppController {
         if (null == userFromDb) {
             user.password = null;
             flashErrorSamePage("users.login.authentication.failure");
+            render("Users/login.html", user);
+        }
+
+        if (userFromDb.desactivated) {
+            user.password = null;
+            flashErrorSamePage("users.authenticate.error.user_is_desactivated");
             render("Users/login.html", user);
         }
 

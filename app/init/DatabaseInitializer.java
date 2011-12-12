@@ -372,6 +372,19 @@ public class DatabaseInitializer {
         test.password = "szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ";
         test.active = true;
 
+        test.save();
+
+        User test2 = new User("1010", Profile.ADMIN);
+        test2.firstName = "John";
+        test2.lastName = "Doe";
+        test2.street = "52 rue de bassano";
+        test2.postalCode = "75003";
+        test2.city = "Paris";
+        test2.siret = "123 456 789 00";
+        test2.rcs = "Evry";
+        test2.password = "szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ";
+        test2.active = true;
+
         Set<Course> skills = new HashSet<Course>();
         skills.add(course1ADS1);
         skills.add(course1ADS3);
@@ -384,11 +397,11 @@ public class DatabaseInitializer {
         skills.add(course0BBC);
         skills.add(course0CBC);
         skills.add(course0DBC);
-        test.skills = skills;
+        test2.skills = skills;
 
-        test.save();
+        test2.save();
 
-        contractService.createForUser(test);
+        contractService.createForUser(test2);
 
 
         // YEAR COURSES TEST
@@ -399,11 +412,11 @@ public class DatabaseInitializer {
         yearCourse0ABC.year = 2012;
         yearCourse0ABC.startDate = new LocalDate(2011, 11, 10);
         yearCourse0ABC.endDate = new LocalDate(2011, 11, 20);
-        yearCourse0ABC.professor = test;
+        yearCourse0ABC.professor = test2;
         yearCourse0ABC.save();
 
         Set<User> examinatorsTest = new HashSet<User>();
-        examinatorsTest.add(test);
+        examinatorsTest.add(test2);
 
         SoeExam soe0ABC1 = new SoeExam();
         soe0ABC1.plannifiedDuration = 8;

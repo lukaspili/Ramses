@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.abstracts.AppController;
 import controllers.helper.PageHelper;
+import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import exceptions.CoreException;
 import models.user.Profile;
@@ -110,6 +111,56 @@ public class UsersAdmin extends AppController {
 
         pageHelper.uniqueTitle(title);
 
+        if (user.desactivated) {
+            flashErrorSamePage("user.show.is_desactivated");
+        }
+
         render(user);
+    }
+
+    public static void remove(Long id) {
+
+        User user = User.findById(id);
+        notFoundIfNull(user);
+
+        if (user.equals(Auth.getCurrentUser())) {
+            flashError("usersAdmin.remove.error.cannot_remove_yourself");
+            UsersAdmin.show(id);
+        }
+
+        try {
+            userService.remove(user);
+        } catch (CoreException e) {
+
+            if (e.getType() == CoreException.Type.REJECTED) {
+                flashError("usersAdmin.remove.error.rejected");
+                UsersAdmin.show(id);
+            }
+
+            throw e;
+        }
+
+        flashSuccess("usersAdmin.remove.succes");
+        UsersAdmin.list();
+    }
+
+    public static void changeActivationState(Long id) {
+
+        User user = User.findById(id);
+        notFoundIfNull(user);
+
+        if (user.equals(Auth.getCurrentUser()) && !user.desactivated) {
+            flashError("usersAdmin.changeActivationState.error.cannot_desactivate_yourself");
+            UsersAdmin.show(id);
+        }
+
+        userService.changeActivationState(user);
+
+        if (user.desactivated) {
+            flashSuccess("usersAdmin.desactivate.success");
+        } else {
+            flashSuccess("usersAdmin.activate.success");
+        }
+        UsersAdmin.show(id);
     }
 }
