@@ -4,7 +4,9 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import play.db.jpa.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -12,6 +14,7 @@ import javax.persistence.Entity;
 @Entity
 public class Build extends Model {
 
+    @Column(name = "changelog", columnDefinition = "TEXT")
     public String changelog;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
