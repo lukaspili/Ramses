@@ -374,7 +374,7 @@ public class DatabaseInitializer {
 
         test.save();
 
-        User test2 = new User("1010", Profile.ADMIN);
+        User test2 = new User("1010", Profile.STA);
         test2.firstName = "John";
         test2.lastName = "Doe";
         test2.street = "52 rue de bassano";
@@ -384,6 +384,19 @@ public class DatabaseInitializer {
         test2.rcs = "Evry";
         test2.password = "szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ";
         test2.active = true;
+
+        User test3 = new User("2020", Profile.STA);
+        test3.firstName = "John";
+        test3.lastName = "Doe";
+        test3.street = "52 rue de bassano";
+        test3.postalCode = "75003";
+        test3.city = "Paris";
+        test3.siret = "123 456 789 00";
+        test3.rcs = "Evry";
+        test3.password = "szDYTQT2WMavb0aIRICgeKB0xNV/KHQdzNqQhcojNO9p7lomppgBjeEzSj0rUfeQ";
+        test3.active = true;
+
+        test3.save();
 
         Set<Course> skills = new HashSet<Course>();
         skills.add(course1ADS1);

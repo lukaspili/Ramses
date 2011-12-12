@@ -11,6 +11,7 @@ import org.joda.time.LocalDate;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,11 @@ public class YearCourseService extends AbstractService<YearCourse> {
         return query.getResultList();
     }
 
-    public List<YearCourse> getUserAndAvailables(User user) {
+    public List<YearCourse> getAvailableCoursesForUser(User user) {
+
+        if (user.skills.isEmpty()) {
+            return new ArrayList<YearCourse>();
+        }
 
         Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
                 "join fetch yc.course c " +

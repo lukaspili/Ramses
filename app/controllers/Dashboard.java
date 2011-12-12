@@ -7,7 +7,6 @@ import controllers.security.LoggedAccess;
 import helpers.YearCourseHelper;
 import models.school.YearCourse;
 import models.user.Profile;
-import models.user.User;
 import play.mvc.Before;
 import service.YearCourseService;
 
@@ -34,10 +33,10 @@ public class Dashboard extends AppController {
 
         List<YearCourse> yearCourses;
 
-        if (Auth.getCurrentUser().profile.equals(Profile.ADMIN)) {
+        if (Auth.getCurrentUser().profile == Profile.ADMIN) {
             yearCourses = yearCourseService.getAllCoursesForYear(YearCourseHelper.getCurrentYear());
         } else {
-            yearCourses = yearCourseService.getUserAndAvailables(Auth.getCurrentUser());
+            yearCourses = yearCourseService.getAvailableCoursesForUser(Auth.getCurrentUser());
         }
 
         render(yearCourses);
