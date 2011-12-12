@@ -179,6 +179,11 @@ jobOrders.create.success=Le bon de commande a été créé avec succès
 application.reportBug=Rapport de bug
 application.about=A propos d'Eunomie
 
+# Builds
+
+# Builds.save
+builds.save.success=Le build a été ajouté avec succès
+
 # Form commons
 submit.save=Enregistrer
 afterSubmit=Après l'enregistrement du formulaire
