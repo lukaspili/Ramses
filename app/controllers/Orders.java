@@ -143,7 +143,7 @@ public class Orders extends AppController {
         User user = Auth.getCurrentUser();
 
         if (user.hasContract() && user.contract.state != ContractState.SIGNED_BY_SUPINFO) {
-            flashError("orders.error.contract_not_signed");
+            flashError("jobOrders.error.contract_not_signed");
             Dashboard.index();
         }
     }
