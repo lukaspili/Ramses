@@ -161,15 +161,20 @@ public class User extends Model {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .append("staNumber", staNumber)
                 .append("idBooster", idBooster)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("password", password)
+                .append("street", street)
+                .append("postalCode", postalCode)
+                .append("city", city)
                 .append("siret", siret)
+                .append("rcs", rcs)
                 .append("active", active)
+                .append("desactivated", desactivated)
                 .append("profile", profile)
                 .appendSuper(super.toString())
                 .toString();
     }
-
 }

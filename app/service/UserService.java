@@ -27,7 +27,14 @@ public class UserService extends AbstractService<User> {
             throw new CoreException().type(CoreException.Type.UNIQUE_CONSTRAINT_VIOLATION);
         }
 
-        user.staNumber = User.count() + 1;
+        User last = User.find("order by staNumber desc limit 1").first();
+        
+        if (null == last) {
+            user.staNumber = 1;
+        } else {
+            user.staNumber = last.staNumber + 1;
+        }
+
         user.password = RandomStringUtils.randomAlphanumeric(9);
         user.save();
 
