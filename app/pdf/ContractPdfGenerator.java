@@ -57,7 +57,7 @@ public class ContractPdfGenerator extends PdfGenerator {
             cell = new PdfPCell();
 
             phrase = new Phrase("CONTRAT DE PRESTATION\nPEDAGOGIQUE SANS EXCLUSIVITE\n" +
-                    "n°2012-PAR-" + PdfGeneratorFormatter.getFormattedUserId(user.id), titleFont);
+                    "n°2012-PAR-" + user.getFormattedStaNumber(), titleFont);
             phrase.setLeading(25);
             cell.setPhrase(phrase);
             cell.setLeading(3, 1);

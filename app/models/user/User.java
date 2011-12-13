@@ -94,6 +94,18 @@ public class User extends Model {
         return null != contract;
     }
 
+    /**
+     * Add 0 before if the user id is in 1 -> 9, in case to have id number like 01, 02, 03, etc...
+     */
+    public String getFormattedStaNumber() {
+
+        if (staNumber < 10) {
+            return "0" + staNumber;
+        }
+
+        return String.valueOf(staNumber);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,12 +115,15 @@ public class User extends Model {
         User user = (User) o;
 
         if (active != user.active) return false;
+        if (desactivated != user.desactivated) return false;
+        if (staNumber != user.staNumber) return false;
         if (city != null ? !city.equals(user.city) : user.city != null) return false;
         if (contract != null ? !contract.equals(user.contract) : user.contract != null) return false;
         if (courses != null ? !courses.equals(user.courses) : user.courses != null) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (idBooster != null ? !idBooster.equals(user.idBooster) : user.idBooster != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (orders != null ? !orders.equals(user.orders) : user.orders != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (postalCode != null ? !postalCode.equals(user.postalCode) : user.postalCode != null) return false;
         if (profile != user.profile) return false;
@@ -123,6 +138,7 @@ public class User extends Model {
     @Override
     public int hashCode() {
         int result = super.hashCode();
+        result = 31 * result + (int) (staNumber ^ (staNumber >>> 32));
         result = 31 * result + (idBooster != null ? idBooster.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
@@ -133,10 +149,12 @@ public class User extends Model {
         result = 31 * result + (siret != null ? siret.hashCode() : 0);
         result = 31 * result + (rcs != null ? rcs.hashCode() : 0);
         result = 31 * result + (active ? 1 : 0);
+        result = 31 * result + (desactivated ? 1 : 0);
         result = 31 * result + (profile != null ? profile.hashCode() : 0);
         result = 31 * result + (contract != null ? contract.hashCode() : 0);
         result = 31 * result + (skills != null ? skills.hashCode() : 0);
         result = 31 * result + (courses != null ? courses.hashCode() : 0);
+        result = 31 * result + (orders != null ? orders.hashCode() : 0);
         return result;
     }
 

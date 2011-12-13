@@ -39,4 +39,18 @@ public class JobOrder extends Model {
 
     @ManyToMany
     public Set<YearCourse> courses;
+
+    /**
+     * Add 0 before if the order id is in 1 -> 99, in case to have id number like 001, 002, 010, etc...
+     */
+    public String getFormattedId() {
+
+        if (id < 10) {
+            return "00" + id;
+        } else if (id < 100) {
+            return "0" + id;
+        }
+
+        return String.valueOf(id);
+    }
 }
