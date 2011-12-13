@@ -622,7 +622,6 @@ button img{
 
 button span{
 	display:inline-block;
-	text-transform:capitalize;
 	margin:-2px 5px 0 5px;
 }
 
