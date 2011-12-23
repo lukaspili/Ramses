@@ -1,144 +1,141 @@
 package s3.storage;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.AmazonS3Exception;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.S3Object;
 import org.hibernate.HibernateException;
-import org.hibernate.type.StringType;
-import org.hibernate.usertype.UserType;
-import play.Play;
-import play.db.Model.BinaryField;
-import play.libs.Codec;
 
 import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 
-public class S3Blob implements BinaryField, UserType {
+/**
+ * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
+ */
+public class S3Blob implements S3BlobInterface {
 
-    public static String s3Bucket;
-    public static AmazonS3 s3Client;
+    public static Type type = Type.DEV;
 
-    private String bucket;
-    private String key;
+    private S3ProdBlob prodBlob;
+    private S3DevBlob devBlob;
 
     public S3Blob() {
+        prodBlob = new S3ProdBlob();
+        devBlob = new S3DevBlob();
     }
 
-    private S3Blob(String bucket, String s3Key) {
-        this.bucket = bucket;
-        this.key = s3Key;
+    private S3BlobInterface getCurrentBlob() {
+
+        if (type == Type.DEV) {
+            return getDevBlob();
+        } else {
+            return getProdBlob();
+        }
+    }
+
+    private S3ProdBlob getProdBlob() {
+
+        if (null == prodBlob) {
+            prodBlob = new S3ProdBlob();
+        }
+
+        return prodBlob;
+    }
+
+    private S3DevBlob getDevBlob() {
+
+        if (null == devBlob) {
+            devBlob = new S3DevBlob();
+        }
+
+        return devBlob;
+    }
+
+    @Override
+    public void delete() {
+        getCurrentBlob().delete();
     }
 
     @Override
     public InputStream get() {
-        S3Object s3Object = s3Client.getObject(bucket, key);
-        return s3Object.getObjectContent();
+        return getCurrentBlob().get();
     }
 
     @Override
     public void set(InputStream is, String type) {
-
-        this.bucket = s3Bucket;
-        this.key = Play.configuration.getProperty("application.mode") + "/" + Codec.UUID();
-
-        ObjectMetadata om = new ObjectMetadata();
-        om.setContentType(type);
-
-        s3Client.putObject(bucket, key, is, om);
+        getCurrentBlob().set(is, type);
     }
 
     @Override
     public long length() {
-        ObjectMetadata om = s3Client.getObjectMetadata(bucket, key);
-        return om.getContentLength();
+        return getCurrentBlob().length();
     }
 
     @Override
     public String type() {
-        ObjectMetadata om = s3Client.getObjectMetadata(bucket, key);
-        return om.getContentType();
+        return getCurrentBlob().type();
     }
 
     @Override
     public boolean exists() {
-        try {
-            ObjectMetadata om = s3Client.getObjectMetadata(bucket, key);
-            return om != null;
-        } catch (AmazonS3Exception e) {
-            return false;
-        }
+        return getCurrentBlob().exists();
     }
 
     @Override
     public int[] sqlTypes() {
-        return new int[]{Types.VARCHAR};
+        return getCurrentBlob().sqlTypes();
     }
 
     @Override
     public Class returnedClass() {
-        return S3Blob.class;
+        return getCurrentBlob().returnedClass();
     }
 
     @Override
     public boolean equals(Object o, Object o1) throws HibernateException {
-        return o == null ? false : o.equals(o1);
+        return getCurrentBlob().equals(o, o1);
     }
 
     @Override
     public int hashCode(Object o) throws HibernateException {
-        return o.hashCode();
+        return getCurrentBlob().hashCode(o);
     }
 
     @Override
-    public Object nullSafeGet(ResultSet rs, String[] names, Object o) throws HibernateException, SQLException {
-        String val = (String) StringType.INSTANCE.nullSafeGet(rs, names[0]);
-        if (val == null || val.length() == 0 || !val.contains("|")) {
-            return new S3Blob();
-        }
-        return new S3Blob(val.split("[|]")[0], val.split("[|]")[1]);
+    public Object nullSafeGet(ResultSet resultSet, String[] strings, Object o) throws HibernateException, SQLException {
+        return getCurrentBlob().nullSafeGet(resultSet, strings, getCurrentBlob());
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement ps, Object o, int i) throws HibernateException, SQLException {
-        if (o != null) {
-            ps.setString(i, ((S3Blob) o).bucket + "|" + ((S3Blob) o).key);
-        } else {
-            ps.setNull(i, Types.VARCHAR);
-        }
+    public void nullSafeSet(PreparedStatement preparedStatement, Object o, int i) throws HibernateException, SQLException {
+        getCurrentBlob().nullSafeSet(preparedStatement, getCurrentBlob(), i);
     }
 
     @Override
     public Object deepCopy(Object o) throws HibernateException {
-        if (o == null) {
-            return null;
-        }
-        return new S3Blob(this.bucket, this.key);
+        return getCurrentBlob().deepCopy(o);
     }
 
     @Override
     public boolean isMutable() {
-        return true;
+        return getCurrentBlob().isMutable();
     }
 
-    public void delete() {
-        s3Client.deleteObject(bucket, key);
-    }
-
+    @Override
     public Serializable disassemble(Object o) throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return getCurrentBlob().disassemble(o);
     }
 
-    public Object assemble(Serializable srlzbl, Object o) throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    @Override
+    public Object assemble(Serializable serializable, Object o) throws HibernateException {
+        return getCurrentBlob().assemble(serializable, o);
     }
 
+    @Override
     public Object replace(Object o, Object o1, Object o2) throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return getCurrentBlob().replace(o, o1, o2);
     }
 
+    public enum Type {
+        DEV, PROD
+    }
 }

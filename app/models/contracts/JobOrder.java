@@ -5,7 +5,6 @@ import models.school.YearCourse;
 import models.user.User;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
-import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import s3.storage.S3Blob;
 

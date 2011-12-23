@@ -193,7 +193,7 @@ public class JobOrderPdfGenerator extends PdfGenerator {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(String.valueOf(course.course.type.price), textFont);
+                phrase = new Phrase(String.valueOf(course.type.price), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);

@@ -20,7 +20,6 @@ public class ContractService {
 
         Contract contract = new Contract();
         contract.year = YearCourseHelper.getCurrentYear();
-        contract.pdf = new S3Blob();
 
         try {
             File folder = new File("pdf/contracts");
@@ -29,6 +28,7 @@ public class ContractService {
             File file = File.createTempFile("contract", ".pdf");
             new ContractPdfGenerator().generate(user, file);
 
+            contract.pdf = new S3Blob();
             contract.pdf.set(new FileInputStream(file), MimeTypes.getContentType(file.getName()));
 
         } catch (IOException e) {
