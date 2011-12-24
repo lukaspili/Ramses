@@ -1,1 +1,2 @@
 0: plugin.s3.S3Plugin
+1: plugin.htmlcollections.HtmlCollectionsPlugin
