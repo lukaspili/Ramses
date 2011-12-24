@@ -6,7 +6,7 @@ import models.user.User;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import play.db.jpa.Model;
-import s3.storage.S3Blob;
+import plugin.s3.model.S3Blob;
 
 import javax.persistence.*;
 import java.util.Set;

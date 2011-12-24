@@ -1,13 +1,11 @@
 package service;
 
-import com.google.common.io.Files;
 import helpers.YearCourseHelper;
 import models.contracts.Contract;
 import models.user.User;
 import pdf.ContractPdfGenerator;
-import play.db.jpa.Blob;
 import play.libs.MimeTypes;
-import s3.storage.S3Blob;
+import plugin.s3.model.S3Blob;
 
 import java.io.*;
 

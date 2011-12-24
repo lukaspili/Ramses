@@ -1,6 +1,8 @@
-package s3.storage;
+package plugin.s3.model;
 
 import org.hibernate.HibernateException;
+import plugin.s3.model.impl.S3MockBlob;
+import plugin.s3.model.impl.S3RealBlob;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -13,41 +15,41 @@ import java.sql.SQLException;
  */
 public class S3Blob implements S3BlobInterface {
 
-    public static Type type = Type.DEV;
+    public static Mode mode = Mode.MOCK;
 
-    private S3ProdBlob prodBlob;
-    private S3DevBlob devBlob;
+    private S3RealBlob realBlob;
+    private S3MockBlob mockBlob;
 
     public S3Blob() {
-        prodBlob = new S3ProdBlob();
-        devBlob = new S3DevBlob();
+        realBlob = new S3RealBlob();
+        mockBlob = new S3MockBlob();
     }
 
     private S3BlobInterface getCurrentBlob() {
 
-        if (type == Type.DEV) {
-            return getDevBlob();
+        if (mode == Mode.MOCK) {
+            return getMockBlob();
         } else {
-            return getProdBlob();
+            return getRealBlob();
         }
     }
 
-    private S3ProdBlob getProdBlob() {
+    private S3RealBlob getRealBlob() {
 
-        if (null == prodBlob) {
-            prodBlob = new S3ProdBlob();
+        if (null == realBlob) {
+            realBlob = new S3RealBlob();
         }
 
-        return prodBlob;
+        return realBlob;
     }
 
-    private S3DevBlob getDevBlob() {
+    private S3MockBlob getMockBlob() {
 
-        if (null == devBlob) {
-            devBlob = new S3DevBlob();
+        if (null == mockBlob) {
+            mockBlob = new S3MockBlob();
         }
 
-        return devBlob;
+        return mockBlob;
     }
 
     @Override
@@ -135,7 +137,7 @@ public class S3Blob implements S3BlobInterface {
         return getCurrentBlob().replace(o, o1, o2);
     }
 
-    public enum Type {
-        DEV, PROD
+    public enum Mode {
+        MOCK, REAL
     }
 }

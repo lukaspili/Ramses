@@ -1,4 +1,4 @@
-package s3.storage;
+package plugin.s3.model;
 
 import org.hibernate.usertype.UserType;
 import play.db.Model;

@@ -1,4 +1,4 @@
-package s3.storage;
+package plugin.s3.model.impl;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
@@ -6,11 +6,9 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 import org.hibernate.HibernateException;
 import org.hibernate.type.StringType;
-import org.hibernate.usertype.UserType;
 import play.Play;
-import play.db.Model;
-import play.db.Model.BinaryField;
 import play.libs.Codec;
+import plugin.s3.model.S3BlobInterface;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -19,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public class S3ProdBlob implements S3BlobInterface {
+public class S3RealBlob implements S3BlobInterface {
 
     public static String s3Bucket;
     public static AmazonS3 s3Client;
@@ -27,10 +25,10 @@ public class S3ProdBlob implements S3BlobInterface {
     private String bucket;
     private String key;
 
-    public S3ProdBlob() {
+    public S3RealBlob() {
     }
 
-    private S3ProdBlob(String bucket, String s3Key) {
+    private S3RealBlob(String bucket, String s3Key) {
         this.bucket = bucket;
         this.key = s3Key;
     }
@@ -82,7 +80,7 @@ public class S3ProdBlob implements S3BlobInterface {
 
     @Override
     public Class returnedClass() {
-        return S3ProdBlob.class;
+        return S3RealBlob.class;
     }
 
     @Override
@@ -99,15 +97,15 @@ public class S3ProdBlob implements S3BlobInterface {
     public Object nullSafeGet(ResultSet rs, String[] names, Object o) throws HibernateException, SQLException {
         String val = (String) StringType.INSTANCE.nullSafeGet(rs, names[0]);
         if (val == null || val.length() == 0 || !val.contains("|")) {
-            return new S3ProdBlob();
+            return new S3RealBlob();
         }
-        return new S3ProdBlob(val.split("[|]")[0], val.split("[|]")[1]);
+        return new S3RealBlob(val.split("[|]")[0], val.split("[|]")[1]);
     }
 
     @Override
     public void nullSafeSet(PreparedStatement ps, Object o, int i) throws HibernateException, SQLException {
         if (o != null) {
-            ps.setString(i, ((S3ProdBlob) o).bucket + "|" + ((S3ProdBlob) o).key);
+            ps.setString(i, ((S3RealBlob) o).bucket + "|" + ((S3RealBlob) o).key);
         } else {
             ps.setNull(i, Types.VARCHAR);
         }
@@ -118,7 +116,7 @@ public class S3ProdBlob implements S3BlobInterface {
         if (o == null) {
             return null;
         }
-        return new S3ProdBlob(this.bucket, this.key);
+        return new S3RealBlob(this.bucket, this.key);
     }
 
     @Override

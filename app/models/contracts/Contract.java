@@ -2,7 +2,7 @@ package models.contracts;
 
 import models.user.User;
 import play.db.jpa.Model;
-import s3.storage.S3Blob;
+import plugin.s3.model.S3Blob;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

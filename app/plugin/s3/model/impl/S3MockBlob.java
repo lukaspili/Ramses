@@ -1,13 +1,12 @@
-package s3.storage;
+package plugin.s3.model.impl;
 
-import org.hibernate.usertype.UserType;
-import play.db.Model;
 import play.db.jpa.Blob;
+import plugin.s3.model.S3BlobInterface;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
-public class S3DevBlob extends Blob implements S3BlobInterface {
+public class S3MockBlob extends Blob implements S3BlobInterface {
 
     @Override
     public void delete() {

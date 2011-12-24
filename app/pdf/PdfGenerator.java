@@ -1,23 +1,16 @@
 package pdf;
 
-import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.google.common.io.ByteStreams;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
-import org.apache.commons.io.IOUtils;
 import play.Logger;
 import play.Play;
-import play.vfs.VirtualFile;
-import s3.storage.S3Blob;
-import s3.storage.S3ProdBlob;
+import plugin.s3.model.impl.S3RealBlob;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -60,7 +53,7 @@ public abstract class PdfGenerator {
                     arialnFile = new File(fontFolder, "ARIALN.TTF");
 
                     if (!arialnFile.exists()) {
-                        S3Object s3Object = S3ProdBlob.s3Client.getObject(S3ProdBlob.s3Bucket, "resources/ARIALN.TTF");
+                        S3Object s3Object = S3RealBlob.s3Client.getObject(S3RealBlob.s3Bucket, "resources/ARIALN.TTF");
                         ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnFile));
                     }
                 }
@@ -83,7 +76,7 @@ public abstract class PdfGenerator {
                     arialnbFile = new File(fontFolder, "ARIALNB.TTF");
 
                     if (!arialnbFile.exists()) {
-                        S3Object s3Object = S3ProdBlob.s3Client.getObject(S3ProdBlob.s3Bucket, "resources/ARIALNB.TTF");
+                        S3Object s3Object = S3RealBlob.s3Client.getObject(S3RealBlob.s3Bucket, "resources/ARIALNB.TTF");
                         ByteStreams.copy(s3Object.getObjectContent(), new FileOutputStream(arialnbFile));
                     }
                 }
@@ -117,7 +110,7 @@ public abstract class PdfGenerator {
             file = new File(imageFolder, "supinfo_logo.png");
 
             if (!file.exists()) {
-                S3Object object = S3ProdBlob.s3Client.getObject(S3ProdBlob.s3Bucket, "resources/supinfo_logo.png");
+                S3Object object = S3RealBlob.s3Client.getObject(S3RealBlob.s3Bucket, "resources/supinfo_logo.png");
                 ByteStreams.copy(object.getObjectContent(), new FileOutputStream(file));
             }
 
