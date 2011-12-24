@@ -1,6 +1,8 @@
 package plugin.s3.model;
 
 import org.hibernate.HibernateException;
+import org.hibernate.type.StringType;
+import play.Logger;
 import plugin.s3.model.impl.S3MockBlob;
 import plugin.s3.model.impl.S3RealBlob;
 
@@ -17,124 +19,100 @@ public class S3Blob implements S3BlobInterface {
 
     public static Mode mode = Mode.MOCK;
 
-    private S3RealBlob realBlob;
-    private S3MockBlob mockBlob;
+    private S3BlobInterface blob;
 
     public S3Blob() {
-        realBlob = new S3RealBlob();
-        mockBlob = new S3MockBlob();
-    }
-
-    private S3BlobInterface getCurrentBlob() {
-
         if (mode == Mode.MOCK) {
-            return getMockBlob();
+            blob = new S3MockBlob();
         } else {
-            return getRealBlob();
+            blob = new S3RealBlob();
         }
-    }
-
-    private S3RealBlob getRealBlob() {
-
-        if (null == realBlob) {
-            realBlob = new S3RealBlob();
-        }
-
-        return realBlob;
-    }
-
-    private S3MockBlob getMockBlob() {
-
-        if (null == mockBlob) {
-            mockBlob = new S3MockBlob();
-        }
-
-        return mockBlob;
     }
 
     @Override
     public void delete() {
-        getCurrentBlob().delete();
+        blob.delete();
     }
 
     @Override
     public InputStream get() {
-        return getCurrentBlob().get();
+        return blob.get();
     }
 
     @Override
     public void set(InputStream is, String type) {
-        getCurrentBlob().set(is, type);
+        blob.set(is, type);
     }
 
     @Override
     public long length() {
-        return getCurrentBlob().length();
+        return blob.length();
     }
 
     @Override
     public String type() {
-        return getCurrentBlob().type();
+        return blob.type();
     }
 
     @Override
     public boolean exists() {
-        return getCurrentBlob().exists();
+        return blob.exists();
     }
 
     @Override
     public int[] sqlTypes() {
-        return getCurrentBlob().sqlTypes();
+        return blob.sqlTypes();
     }
 
     @Override
     public Class returnedClass() {
-        return getCurrentBlob().returnedClass();
+        return S3Blob.class;
     }
 
     @Override
     public boolean equals(Object o, Object o1) throws HibernateException {
-        return getCurrentBlob().equals(o, o1);
+        return blob.equals(o, o1);
     }
 
     @Override
     public int hashCode(Object o) throws HibernateException {
-        return getCurrentBlob().hashCode(o);
+        return blob.hashCode(o);
     }
 
     @Override
-    public Object nullSafeGet(ResultSet resultSet, String[] strings, Object o) throws HibernateException, SQLException {
-        return getCurrentBlob().nullSafeGet(resultSet, strings, getCurrentBlob());
+    public Object nullSafeGet(ResultSet rs, String[] names, Object o) throws HibernateException, SQLException {
+        blob = (S3BlobInterface) blob.nullSafeGet(rs, names, o);
+        return this;
     }
 
     @Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object o, int i) throws HibernateException, SQLException {
-        getCurrentBlob().nullSafeSet(preparedStatement, getCurrentBlob(), i);
+        blob.nullSafeSet(preparedStatement, blob, i);
     }
 
     @Override
     public Object deepCopy(Object o) throws HibernateException {
-        return getCurrentBlob().deepCopy(o);
+        return blob.deepCopy(o);
     }
 
     @Override
     public boolean isMutable() {
-        return getCurrentBlob().isMutable();
+        return blob.isMutable();
     }
 
     @Override
     public Serializable disassemble(Object o) throws HibernateException {
-        return getCurrentBlob().disassemble(o);
+        return blob.disassemble(o);
     }
 
     @Override
     public Object assemble(Serializable serializable, Object o) throws HibernateException {
-        return getCurrentBlob().assemble(serializable, o);
+        return blob.assemble(serializable, o);
     }
 
     @Override
     public Object replace(Object o, Object o1, Object o2) throws HibernateException {
-        return getCurrentBlob().replace(o, o1, o2);
+        return blob.replace(o, o1, o2);
     }
 
     public enum Mode {
