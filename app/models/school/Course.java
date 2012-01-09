@@ -19,9 +19,6 @@ public class Course extends Model {
 
     public String code;
 
-    @ManyToOne
-    public CourseType type;
-
     @Enumerated(EnumType.STRING)
     public Promotion promotion;
 
@@ -34,9 +31,8 @@ public class Course extends Model {
     public Course() {
     }
 
-    public Course(String code, String name, Promotion promotion, CourseType type) {
+    public Course(String code, String name, Promotion promotion) {
         this.promotion = promotion;
-        this.type = type;
         this.code = code;
         this.name = name;
     }

@@ -1,0 +1,64 @@
+#{extends 'template/template.html' /}
+#{include 'helpers/multiselect.html' /}
+
+<div class="flat_area grid_16">
+    <h2>Promotions 2011 / 2012</h2>
+
+#{include 'helpers/flash_box.html' /}
+
+</div>
+
+<div class="box grid_10">
+    <h2 class="box_head grad_colour ">Nouvelle promotion</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block">
+
+        #{include 'helpers/form_validation.html' /}
+
+        #{form @create(), id:'yearPromotion-create-form', enctype:'multipart/form-data' }
+            #{include 'YearPromotions/_yearPromotion_form.html' /}
+        #{/form}
+        </div>
+    </div>
+</div>
+
+<div class="flat_area grid_6">
+
+    <h2>Aide</h2>
+
+    <h3>Nom</h3>
+
+    <p>
+        Le nom correspond au nom de la classe.
+        Par exemple si la promotion B3A existe, alors le nom de la promotion est <strong>A</strong>.
+    </p>
+
+    <h3>Effectif</h3>
+
+    <p>
+        L'effectif correspond au nombre d'élèves dans la promotion.
+        Cett information est importante car elle va déterminer le taux horaire d'un cours.
+    </p>
+
+    <h3>Niveau</h3>
+
+    <p>
+        Le niveau correspond à l'année dans le cursus scolaire de la promotion.
+        Par exemple si la promotion B3A existe, alors le niveau de la promotion est <strong>B3</strong>.
+    </p>
+
+    <h3>Cours</h3>
+
+    <p>
+        Définissez les cours associés à la promotion.
+        Vous pourrez également ajouter des cours plus tard.
+    </p>
+
+    <p style="text-align: right">
+    #{a @YearPromotions.index()}Retourner à la liste des promotions#{/a}
+    </p>
+
+</div>

@@ -29,6 +29,9 @@ public class YearCourse extends Model {
     public LocalDate endDate;
 
     @ManyToOne
+    public CourseType type;
+
+    @ManyToOne
     public Course course;
 
     @ManyToOne
@@ -43,12 +46,21 @@ public class YearCourse extends Model {
     @ManyToMany(mappedBy = "courses")
     public Set<JobOrder> orders;
 
+    @ManyToMany(mappedBy = "yearCourses")
+    public Set<YearPromotion> yearPromotions;
+
     public boolean hasProfessor() {
         return null != professor;
     }
 
+    /**
+     * Return the price for the year course based on the nb of hours and the price for 1 hour defined by the course type
+     * Be careful because this method requires a JOIN on the course type entity
+     *
+     * @return the price of the year course
+     */
     public float getTotal() {
-        return duration * course.type.price;
+        return duration * type.price;
     }
 
     public boolean isPlannified() {

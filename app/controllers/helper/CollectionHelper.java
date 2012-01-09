@@ -3,6 +3,7 @@ package controllers.helper;
 import play.classloading.enhancers.LocalvariablesNamesEnhancer;
 import play.db.jpa.Model;
 
+import javax.persistence.Query;
 import java.util.*;
 
 /**
@@ -24,6 +25,42 @@ public class CollectionHelper {
 
             if (null != t) {
                 set.add(t);
+            }
+        }
+
+        return set;
+    }
+
+    public <T extends Model> Set<T> getFromIds(Class<T> model, List<Long> ids, String... joins) {
+
+        Set<T> set = new HashSet<T>();
+
+        if (null == ids) {
+            return set;
+        }
+
+        for (Long id : ids) {
+
+            StringBuilder queryBuilder = new StringBuilder("select m from " + model.getSimpleName() + " m ");
+
+            int i = 1;
+            for (String join : joins) {
+                queryBuilder.append("join m.");
+                queryBuilder.append(join);
+                queryBuilder.append(" m");
+                queryBuilder.append(i);
+                queryBuilder.append(" ");
+            }
+
+            queryBuilder.append("where m.id = :id");
+
+            Query query = Model.em().createQuery(queryBuilder.toString());
+            query.setParameter("id", id);
+
+            Object o = query.getSingleResult();
+
+            if (null != o) {
+                set.add(model.cast(o));
             }
         }
 

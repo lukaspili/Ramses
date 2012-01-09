@@ -1,8 +1,9 @@
 <div id="nav_top" class="clearfix round_top">
     <ul class="clearfix round_all">
-        <li class="current">#{a @Dashboard.index()}<img src="@{'/public/images/icons/small/white/laptop.png'}"/>Dashboard#{/a}</li>
+        <li class="current">#{a @Dashboard.index()}<img src="@{'/public/images/icons/small/white/laptop.png'}"/>Dashboard#{/a}
+        </li>
 
-        #{if auth.isAdmin()}
+    #{if auth.isAdmin()}
         <li>#{a @UsersAdmin.list()}<img src="@{'/public/images/icons/small/grey/users_2.png'}"/>Utilisateurs#{/a}
             <ul class="dropdown">
                 <li>#{a @UsersAdmin.list()}Liste des utilisateurs#{/a}</li>
@@ -10,9 +11,11 @@
             </ul>
         </li>
 
-        <li>#{a @CoursesAdmin.list()}<img src="@{'/public/images/icons/small/grey/create_write.png'}"/>Cours#{/a}
+        <li>#{a @CoursesAdmin.list()}<img src="@{'/public/images/icons/small/grey/create_write.png'}"/>Scolarité#{/a}
             <ul class="dropdown">
                 <li>#{a @CoursesAdmin.list()}Liste des cours#{/a}</li>
+                <li>#{a @YearPromotions.index()}Liste des promotions#{/a}</li>
+                <li>#{a @YearPromotions.newYearPromotion()}Nouvelle promotion#{/a}</li>
             </ul>
         </li>
 
@@ -21,16 +24,18 @@
                 <li>#{a @Builds.manage()}Gestion des builds#{/a}</li>
             </ul>
         </li>
-        #{/if}
+    #{/if}
 
-        #{if currentUser.active}
+    #{if currentUser.active}
         <li><a href="#"><img src="@{'/public/images/icons/small/grey/plane_suitcase.png'}"/>Aide</a>
             <ul class="dropdown dropdown_left">
-                <li>#{a @Application.about()}<img src="@{'/public/images/icons/small/grey/folder.png'}"/>A propos#{/a}</li>
-                <li>#{a @Application.reportBug()}<img src="@{'/public/images/icons/small/grey/users.png'}"/>Signaler un bug#{/a}</li>
+                <li>#{a @Application.about()}<img src="@{'/public/images/icons/small/grey/folder.png'}"/>A propos#{/a}
+                </li>
+                <li>#{a @Application.reportBug()}<img src="@{'/public/images/icons/small/grey/users.png'}"/>Signaler un
+                    bug#{/a}</li>
             </ul>
         </li>
-        #{/if}
+    #{/if}
     </ul>
 </div>
 <!-- #nav_top -->

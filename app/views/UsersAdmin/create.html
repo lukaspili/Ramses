@@ -18,7 +18,7 @@
             #{form @save(), id:'register-form', enctype:'multipart/form-data' }
 
             #{field 'user.idBooster'}
-            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label></label>
+            <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
             <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"
                    title="L'id booster est requis et doit être composé uniquement de caractères numériques."/>
             #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
@@ -47,7 +47,7 @@
             #{/}
 
             <button class="button_colour round_all">
-                <img height="24" width="24" alt="Bended Arrow Right" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+                <img height="24" width="24" alt="&{'submit.save'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
             </button>
             #{/form}
         </div>

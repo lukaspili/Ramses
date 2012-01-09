@@ -4,6 +4,7 @@ import exceptions.CoreException;
 import helpers.YearCourseHelper;
 import models.contracts.Contract;
 import models.school.Course;
+import models.school.Promotion;
 import models.school.YearCourse;
 import models.user.User;
 import org.joda.time.LocalDate;
@@ -54,6 +55,18 @@ public class YearCourseService extends AbstractService<YearCourse> {
 
         Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
                 "where yc.year = :year");
+
+        query.setParameter("year", year);
+
+        return query.getResultList();
+    }
+
+    public List<YearCourse> getYearCoursesForYear(int year) {
+
+        Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
+                "join yc.course c " +
+                "where yc.year = :year " +
+                "order by yc.course.code");
 
         query.setParameter("year", year);
 

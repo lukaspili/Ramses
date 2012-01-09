@@ -54,6 +54,7 @@ yearCourse.duration.validate.positive=La durée
 coursetype.coursewithtp=Cours avec TP
 
 # YearCourses
+yearCourses=Cours
 yearcourses.edit=Modifier le cours
 yearcourses.error.wrongYear=L'année du cours est invalide
 yearcourses.error.noSkills=Vous n'avez pas les compétences requises pour ce cours
@@ -73,19 +74,16 @@ yearcourses.cancelCandidature.success=Votre candidature a bien été annulée
 yearcourses.validateCandidature.success=La candidature a été validée avec succès
 
 
+# YearPromotions
+yearPromotions.error.course_not_in_promotion=Un ou plusieurs des cours ajoutés n'appartiennent pas au niveau de la promotion selectionée
+
+yearPromotions.create.success=La promotion a été créé avec succès
+
 # SoeExam
 soeExam.date=Date
 soeExam.plannifiedDuration=Durée planifiée
 soeExam.realDuration=Durée réelle
 soeExam.state=État
-
-# Promotion
-promotion=Promotion
-promotion.b1=B1
-promotion.b2=B2
-promotion.b3=B3
-promotion.m1=M1
-promotion.m2=M2
 
 # JobOrder
 
@@ -100,6 +98,19 @@ contractState.created=Créé
 contractState.signed_by_sta=Signé par le STA
 contractState.signed_by_supinfo=Signé par SUPINFO
 
+# Promotion
+promotion=Promotion
+promotion.b1=B1
+promotion.b2=B2
+promotion.b3=B3
+promotion.m1=M1
+promotion.m2=M2
+
+# YearPromotion
+yearPromotion=Promotion
+yearPromotion.name=Nom
+yearPromotion.studentsNumber=Effectif
+yearPromotion.promotion=Niveau
 
 # Dashboard
 dashboard=Dashboard

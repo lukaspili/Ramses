@@ -1,15 +1,27 @@
+# mac
+DS_Store
+
+# common
+*.tar
+*.gz
+*.zip
+
+# eclipse
 .classpath
 .project
 .settings
+eclipse/
 bin/
 target/
 gen/
 
+# idea
+*.ipr
+*.iws
 *.iml
 .idea
 
-eclipse/
-
+# play
 test-result/
 tmp/
 modules/
@@ -23,8 +35,8 @@ logs/
 test-result/
 precompiled/
 
+# app
 conf/host.key
 conf/host.cert
-
 local/
 pdf/

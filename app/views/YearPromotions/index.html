@@ -1,0 +1,60 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+    <h2>Promotions 2011 / 2012</h2>
+
+#{include 'helpers/flash_box.html' /}
+
+</div>
+
+<div class="box grid_11">
+    <h2 class="box_head grad_colour ">Promotions</h2>
+    <a href="#" class="grabber">&nbsp;</a>
+    <a href="#" class="toggle">&nbsp;</a>
+
+    <div class="toggle_container">
+        <div class="block no_padding">
+            <table class="static">
+                <thead>
+                <tr>
+                    <th class="first">Classe</th>
+                    <th>Niveau</th>
+                    <th class="last">Effectif</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                #{list items:yearPromotions, as:'yearPromotion'}
+                <tr>
+                    <td>${yearPromotion.fullName}</td>
+                    <td>${yearPromotion.promotion.label}</td>
+                    <td>${yearPromotion.studentsNumber}</td>
+                </tr>
+                #{/list}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="flat_area grid_5">
+
+    <h2>Gestion des promotions</h2>
+
+    <p>
+        Une promotion correspond à une classe, associée à une année scolaire.
+    </p>
+
+    <h3>Cours</h3>
+
+    <p>
+        Cliquez sur une promotion pour voir ses cours associés.
+        Vous pouvez également associer ou supprimer des cours existants.
+    </p>
+
+    <p style="text-align: right">
+    #{a @YearPromotions.newYearPromotion()}Nouvelle promotion#{/a}
+    </p>
+
+</div>

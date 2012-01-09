@@ -1,0 +1,38 @@
+#{field 'yearPromotion.name'}
+<label for="${field.id}">&{field.name} <span style="color:red">*</span></label></label>
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}"
+       class="medium ${field.errorClass}"/>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'yearPromotion.studentsNumber'}
+<label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}"
+       class="medium ${field.errorClass}"/>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'yearPromotion.promotion'}
+<label for="${field.id}">&{field.name}</label>
+
+<div class="input_group">
+#{select field.name, items:promotions, valueProperty:'value', labelProperty:'label', id:field.id, value:field.value /}
+</div>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'yearCoursesIds'}
+<label for="${field.id}">&{field.name}</label>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+
+<select name="${field.name}" multiple="multiple" class="multiselect" style="margin-bottom: 10px">
+#{list items:yearCourses, as:'yearCourse'}
+    <option value="${yearCourse.id}" ${(field.value.contains(yearCourse.id)).yesno('selected', '')}>${yearCourse.course.fullName}</option>
+#{/list}
+</select>
+#{/}
+
+<button class="button_colour round_all">
+    <img height="24" width="24" alt="&{'submit.save'}"
+         src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+</button>
