@@ -1,7 +1,6 @@
 package plugin.s3.model;
 
 import org.hibernate.HibernateException;
-import org.hibernate.type.StringType;
 import play.Logger;
 import plugin.s3.model.impl.S3MockBlob;
 import plugin.s3.model.impl.S3RealBlob;
@@ -92,7 +91,7 @@ public class S3Blob implements S3BlobInterface {
 
     @Override
     public Object deepCopy(Object o) throws HibernateException {
-        return blob.deepCopy(o);
+        return blob.deepCopy(((S3Blob) o).getBlob());
     }
 
     @Override
@@ -113,6 +112,10 @@ public class S3Blob implements S3BlobInterface {
     @Override
     public Object replace(Object o, Object o1, Object o2) throws HibernateException {
         return blob.replace(o, o1, o2);
+    }
+
+    public S3BlobInterface getBlob() {
+        return blob;
     }
 
     public enum Mode {

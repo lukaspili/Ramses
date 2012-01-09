@@ -81,7 +81,7 @@ public class S3MockBlob implements S3BlobInterface {
 
     @Override
     public Object deepCopy(Object o) throws HibernateException {
-        return blob.deepCopy(o);
+        return blob.deepCopy(((S3MockBlob) o).getBlob());
     }
 
     @Override
@@ -102,5 +102,9 @@ public class S3MockBlob implements S3BlobInterface {
     @Override
     public Object replace(Object o, Object o1, Object o2) throws HibernateException {
         return blob.replace(o, o1, o2);
+    }
+
+    public Blob getBlob() {
+        return blob;
     }
 }
