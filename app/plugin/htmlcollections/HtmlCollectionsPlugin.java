@@ -2,9 +2,11 @@ package plugin.htmlcollections;
 
 import play.Logger;
 import play.PlayPlugin;
-import play.data.binding.Binder;
+import play.db.jpa.Model;
 import plugin.htmlcollections.annotations.IsHtmlCollection;
+import plugin.htmlcollections.exceptions.HtmlCollectionPluginException;
 
+import javax.persistence.Query;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -14,6 +16,8 @@ import java.util.*;
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
 public class HtmlCollectionsPlugin extends PlayPlugin {
+
+    private static final String PLUGIN = "HtmlCollectionPlugin";
 
     @Override
     public Object bind(String name, Class clazz, Type type, Annotation[] annotations, Map<String, String[]> params) {
@@ -32,7 +36,7 @@ public class HtmlCollectionsPlugin extends PlayPlugin {
                 if (type instanceof ParameterizedType) {
                     collectionType = (Class) ((ParameterizedType) type).getActualTypeArguments()[0];
                 } else {
-                    collectionType = String.class;
+                    throw new HtmlCollectionPluginException("The collection has no type : Collection<???>");
                 }
 
                 populateCollection(collection, collectionType, params.get(name));
@@ -76,10 +80,26 @@ public class HtmlCollectionsPlugin extends PlayPlugin {
         }
 
         for (String param : params) {
+
+            long id = 0;
             try {
-                collection.add(Binder.directBind(param, collectionType));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+                id = Long.valueOf(param);
+            } catch (NumberFormatException e) {
+                Logger.debug(PLUGIN + " : Invalid id from select : " + id);
+            }
+
+            String name = collectionType.getName().substring(collectionType.getName().lastIndexOf(".") + 1);
+            Logger.debug(name);
+            Query query = Model.em().createQuery("SELECT m FROM " + name + " m WHERE m.id = :id");
+            query.setParameter("id", id);
+
+            Object o = query.getSingleResult();
+
+            if (null != o) {
+                collection.add(o);
+                Logger.debug(PLUGIN + " : Add entity to collection : " + o);
+            } else {
+                Logger.debug(PLUGIN + " : Entity dosen't exists from select with id " + id);
             }
         }
     }

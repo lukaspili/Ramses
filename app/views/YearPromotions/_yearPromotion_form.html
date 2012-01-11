@@ -21,12 +21,12 @@
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}
 
-#{field 'yearCoursesIds'}
+#{field 'yearCourses'}
 <label for="${field.id}">&{field.name}</label>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 
 <select name="${field.name}" multiple="multiple" class="multiselect" style="margin-bottom: 10px">
-#{list items:yearCourses, as:'yearCourse'}
+#{list items:yearCoursesModel, as:'yearCourse'}
     <option value="${yearCourse.id}" ${(field.value.contains(yearCourse.id)).yesno('selected', '')}>${yearCourse.course.fullName}</option>
 #{/list}
 </select>

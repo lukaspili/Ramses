@@ -1,7 +1,7 @@
 package controllers.helper;
 
-import play.classloading.enhancers.LocalvariablesNamesEnhancer;
 import play.db.jpa.Model;
+import play.mvc.Scope;
 
 import javax.persistence.Query;
 import java.util.*;
@@ -10,6 +10,55 @@ import java.util.*;
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
 public class CollectionHelper {
+
+    public void renderCollection(String name, Collection model) {
+        Scope.RenderArgs renderArgs = Scope.RenderArgs.current();
+        renderArgs.put(name + "Model", model);
+
+        if (null == renderArgs.get(name)) {
+            renderArgs.put(name, new ArrayList<Long>());
+        }
+    }
+
+    public void renderCollection(String name, Collection model, Collection selected) {
+        Scope.RenderArgs renderArgs = Scope.RenderArgs.current();
+        renderArgs.put(name + "Model", model);
+        renderArgs.put(name, getIdsFromModel(selected));
+    }
+
+//    public <T extends Model> Set<T> getFromHtmlCollection(List<Long> htmlCollection) {
+//
+//        Method method;
+//
+//        try {
+//            method = this.getClass().getMethod("getFromHtmlCollection", List.class);
+//        } catch (Exception e) {
+//            throw new RuntimeException();
+//        }
+//
+//        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+//        Class[] parameterTypes = method.getParameterTypes();
+//
+//        int i = 0;
+//        for (Annotation[] annotations : parameterAnnotations) {
+//
+//            Logger.debug("Annotations : " + annotations.length);
+//
+//            Class parameterType = parameterTypes[i++];
+//
+//            for (Annotation annotation : annotations) {
+//
+//                Logger.debug("Annotation : " + annotation.getClass().getName());
+//
+//                if (annotation instanceof IsHtmlCollection) {
+//                    IsHtmlCollection myAnnotation = (IsHtmlCollection) annotation;
+//                    Logger.debug("param: " + parameterType.getName());
+//                }
+//            }
+//        }
+//
+//        return new HashSet<T>();
+//    }
 
     public <T extends Model> Set<T> getFromIds(Class<T> model, List<Long> ids) {
 

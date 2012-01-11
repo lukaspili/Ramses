@@ -8,7 +8,6 @@ import models.school.Promotion;
 import models.school.YearCourse;
 import models.school.YearPromotion;
 import models.user.Profile;
-import play.Logger;
 import play.mvc.Before;
 import plugin.htmlcollections.annotations.IsHtmlCollection;
 import service.YearCourseService;
@@ -16,7 +15,6 @@ import service.YearPromotionService;
 import validation.EnhancedValidator;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -47,14 +45,11 @@ public class YearPromotions extends AppController {
 
     public static void newYearPromotion() {
         List<Promotion> promotions = Arrays.asList(Promotion.values());
-        List<YearCourse> yearCourses = yearCourseService.getYearCoursesForYear(YearCourseHelper.getCurrentYear());
-        List<Long> yearCoursesIds = new ArrayList<Long>();
-        render(promotions, yearCourses, yearCoursesIds);
+        collectionHelper.renderCollection("yearCourses", yearCourseService.getYearCoursesForYear(YearCourseHelper.getCurrentYear()));
+        render(promotions);
     }
 
-    public static void create(YearPromotion yearPromotion, @IsHtmlCollection(of = YearCourse.class) List<Long> yearCoursesIds) {
-
-        Logger.debug("" + yearCoursesIds.size());
+    public static void create(YearPromotion yearPromotion, @IsHtmlCollection Set<YearCourse> yearCourses) {
 
         EnhancedValidator validator = validator();
 
@@ -64,9 +59,9 @@ public class YearPromotions extends AppController {
             validator.addError("studentsNumber", "validation.required");
         }
 
-        Set<YearCourse> yearCoursesFromSelect = collectionHelper.getFromIds(YearCourse.class, yearCoursesIds, "course");
+//        Set<YearCourse> yearCoursesFromSelect = collectionHelper.getFromIds(YearCourse.class, yearCoursesIds, "course");
 
-        for (YearCourse yc : yearCoursesFromSelect) {
+        for (YearCourse yc : yearCourses) {
             if (yc.course.promotion != yearPromotion.promotion) {
                 validator.addError("yearCoursesIds", "yearPromotions.error.course_not_in_promotion", true);
             }
@@ -74,11 +69,11 @@ public class YearPromotions extends AppController {
 
         if (validator.hasErrors()) {
             List<Promotion> promotions = Arrays.asList(Promotion.values());
-            List<YearCourse> yearCourses = yearCourseService.getYearCoursesForYear(YearCourseHelper.getCurrentYear());
-            render("YearPromotions/newYearPromotion.html", promotions, yearCourses, yearCoursesIds, yearPromotion);
+            collectionHelper.renderCollection("yearCourses", yearCourseService.getYearCoursesForYear(YearCourseHelper.getCurrentYear()), yearCourses);
+            render("YearPromotions/newYearPromotion.html", promotions, yearPromotion);
         }
 
-        yearPromotionService.create(yearPromotion, yearCoursesFromSelect, YearCourseHelper.getCurrentYear());
+        yearPromotionService.create(yearPromotion, yearCourses, YearCourseHelper.getCurrentYear());
 
         flashSuccess("yearPromotions.create.success");
         index();
