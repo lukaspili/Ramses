@@ -177,6 +177,13 @@ user.show.is_desactivated=L'utilisateur est désactivé et ne peut pas se connec
 usersadmin.list=Liste des utilisateurs
 
 
+# Courses
+coursesadmin=Matières
+
+# CoursesAdmin.list
+coursesadmin.list=Liste des matières
+
+
 # JobOrders
 jobOrders.error.contract_not_signed=Votre contrat cadre n'a pas encore été signé
 

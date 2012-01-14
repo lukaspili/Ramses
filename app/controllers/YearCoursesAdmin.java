@@ -26,13 +26,6 @@ public class YearCoursesAdmin extends AppController {
     @Inject
     private static YearCourseService yearCourseService;
 
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("yearcourses", renderArgs);
-    }
-
     public static void edit(Long yearCourseId) {
 
         YearCourse yearCourse = YearCourse.findById(yearCourseId);

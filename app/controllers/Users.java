@@ -2,7 +2,6 @@ package controllers;
 
 import controllers.abstracts.AppController;
 import controllers.filters.UserFirstLogin;
-import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import controllers.security.PublicAccess;
@@ -10,7 +9,6 @@ import models.school.Course;
 import models.user.User;
 import org.apache.commons.lang3.StringUtils;
 import play.data.validation.Required;
-import play.mvc.Before;
 import play.mvc.Util;
 import service.CourseService;
 import service.UserService;
@@ -32,17 +30,10 @@ public class Users extends AppController {
     @Inject
     private static CourseService courseService;
 
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("users", renderArgs);
-    }
-
     @PublicAccess(only = true)
     public static void login() {
 
-        pageHelper.uniqueTitle("users.login");
+        pageHelper().addActionTitle();
 
         render();
     }
@@ -92,7 +83,7 @@ public class Users extends AppController {
     @UserFirstLogin(only = true)
     public static void firstLogin() {
 
-        pageHelper.uniqueTitle("users.firstLogin");
+        pageHelper().addActionTitle();
 
         List<Course> courses = courseService.getCourses();
         List<Long> skills = new ArrayList<Long>();
@@ -140,7 +131,7 @@ public class Users extends AppController {
     @LoggedAccess
     public static void editPersonalInfo() {
 
-        pageHelper.uniqueTitle("users.editPersonalInfo");
+        pageHelper().addActionTitle();
 
         User user = Auth.getCurrentUser();
         render(user);
@@ -168,7 +159,7 @@ public class Users extends AppController {
     @LoggedAccess
     public static void editPassword() {
 
-        pageHelper.uniqueTitle("users.editPassword");
+        pageHelper().addActionTitle();
 
         render();
     }
@@ -197,7 +188,7 @@ public class Users extends AppController {
     @LoggedAccess
     public static void editSkills() {
 
-        pageHelper.uniqueTitle("users.editSkills");
+        pageHelper().addActionTitle();
 
         List<Course> courses = courseService.getCourses();
         List<Long> skills = collectionHelper.getIdsFromModel(Auth.getCurrentUser().skills);

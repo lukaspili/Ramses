@@ -18,18 +18,11 @@ import javax.inject.Inject;
 @LoggedAccess(Profile.ADMIN)
 public class ContractsAdmin extends AppController {
 
-    private static PageHelper pageHelper;
-
     @Inject
     private static ContractService contractService;
 
     @Inject
     private static YearCourseService yearCourseService;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("contractsAdmin", renderArgs);
-    }
 
     public static void signedBySTA(long contractId) {
 

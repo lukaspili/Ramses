@@ -1,14 +1,12 @@
 package controllers;
 
 import controllers.abstracts.AppController;
-import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import helpers.YearCourseHelper;
 import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
-import play.mvc.Before;
 import service.ContractService;
 import service.YearCourseService;
 
@@ -24,13 +22,6 @@ public class YearCourses extends AppController {
 
     @Inject
     private static ContractService contractService;
-
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("yearcourses", renderArgs);
-    }
 
     @LoggedAccess
     public static void candidate(Long yearCourseId) {
@@ -98,7 +89,7 @@ public class YearCourses extends AppController {
             notFound();
         }
 
-        pageHelper.uniqueTitle(yearCourse.course.getFullName());
+        pageHelper().directTitle(yearCourse.course.getFullName());
 
         if (yearCourse.hasProfessor() && !yearCourse.professor.hasContract()) {
             flashErrorSamePage("yearcourses.info.waitingContractCadre");

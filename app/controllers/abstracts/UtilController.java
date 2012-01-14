@@ -1,14 +1,9 @@
 package controllers.abstracts;
 
-import controllers.Application;
-import controllers.filters.UserFirstLoginFilter;
 import controllers.helper.CollectionHelper;
 import controllers.helper.PageHelper;
-import controllers.security.Auth;
-import org.apache.commons.lang3.StringUtils;
 import play.i18n.Messages;
 import play.mvc.Controller;
-import play.mvc.With;
 import validation.EnhancedValidator;
 
 /**
@@ -17,14 +12,12 @@ import validation.EnhancedValidator;
 
 public abstract class UtilController extends Controller {
 
+    private static PageHelper pageHelper;
+
     protected static CollectionHelper collectionHelper = new CollectionHelper();
 
     protected static EnhancedValidator validator() {
         return new EnhancedValidator(validation, params);
-    }
-
-    protected static PageHelper pageHelper(String page) {
-        return new PageHelper(page, renderArgs);
     }
 
     protected static void flashInfo(String message, Object... args) {
@@ -79,5 +72,14 @@ public abstract class UtilController extends Controller {
 
     protected static void flashSuccess(String message, Object... args) {
         flash.put("success_box", Messages.get(message, args));
+    }
+
+    protected static PageHelper pageHelper() {
+
+        if (null == pageHelper) {
+            pageHelper = new PageHelper();
+        }
+
+        return pageHelper;
     }
 }

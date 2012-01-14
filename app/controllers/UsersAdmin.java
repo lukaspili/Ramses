@@ -1,7 +1,6 @@
 package controllers;
 
 import controllers.abstracts.AppController;
-import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import exceptions.CoreException;
@@ -9,7 +8,6 @@ import models.user.Profile;
 import models.user.User;
 import notifiers.Mails;
 import play.data.validation.Required;
-import play.mvc.Before;
 import service.ProfileService;
 import service.UserService;
 import validation.EnhancedValidator;
@@ -29,16 +27,9 @@ public class UsersAdmin extends AppController {
     @Inject
     private static ProfileService profileService;
 
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("usersadmin", renderArgs);
-    }
-
     public static void create() {
 
-        pageHelper.title("create");
+        pageHelper().addActionTitle();
 
         List<Profile> profiles = profileService.getProfilesList();
         render(profiles);
@@ -82,7 +73,7 @@ public class UsersAdmin extends AppController {
 
     public static void list() {
 
-        pageHelper.title("list");
+        pageHelper().addActionTitle();
 
         long inactiveCount = User.count("byActive", false);
         long staCount = User.count("byProfileAndactive", Profile.STA, true);
@@ -109,7 +100,7 @@ public class UsersAdmin extends AppController {
             title = "Utilisateur " + user.getFullName();
         }
 
-        pageHelper.uniqueTitle(title);
+        pageHelper().addActionTitle();
 
         if (user.desactivated) {
             flashErrorSamePage("user.show.is_desactivated");

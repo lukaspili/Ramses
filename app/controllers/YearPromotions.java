@@ -1,14 +1,12 @@
 package controllers;
 
 import controllers.abstracts.AppController;
-import controllers.helper.PageHelper;
 import controllers.security.LoggedAccess;
 import helpers.YearCourseHelper;
 import models.school.Promotion;
 import models.school.YearCourse;
 import models.school.YearPromotion;
 import models.user.Profile;
-import play.mvc.Before;
 import service.YearCourseService;
 import service.YearPromotionService;
 import validation.EnhancedValidator;
@@ -29,13 +27,6 @@ public class YearPromotions extends AppController {
 
     @Inject
     private static YearCourseService yearCourseService;
-
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("yearPromotions", renderArgs);
-    }
 
     public static void index() {
         List<YearPromotion> yearPromotions = yearPromotionService.getYearPromotionsForYear(YearCourseHelper.getCurrentYear());

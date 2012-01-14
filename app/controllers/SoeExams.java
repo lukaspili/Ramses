@@ -1,16 +1,11 @@
 package controllers;
 
 import controllers.abstracts.AppController;
-import controllers.helper.PageHelper;
-import controllers.security.Auth;
 import controllers.security.LoggedAccess;
-import models.school.Course;
 import models.school.SoeExam;
 import models.school.SoeExamState;
-import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
-import play.mvc.Before;
 import service.SoeExamService;
 import service.UserService;
 
@@ -30,13 +25,6 @@ public class SoeExams extends AppController {
     @Inject
     private static UserService userService;
 
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("soeExam", renderArgs);
-    }
-
     @LoggedAccess(Profile.ADMIN)
     public static void show(long soeId) {
 
@@ -44,7 +32,7 @@ public class SoeExams extends AppController {
 
         notFoundIfNull(soe);
 
-        pageHelper.uniqueTitle("SOE " + soe.course.course.getFullName());
+        pageHelper().directTitle("SOE " + soe.course.course.getFullName());
 
         render(soe);
     }
@@ -56,7 +44,7 @@ public class SoeExams extends AppController {
 
         notFoundIfNull(soe);
 
-        pageHelper.uniqueTitle("SOE " + soe.course.course.getFullName());
+        pageHelper().directTitle("SOE " + soe.course.course.getFullName());
 
         List<SoeExamState> states = soeExamService.getStatesList();
         List<User> users = userService.getActiveUsers();

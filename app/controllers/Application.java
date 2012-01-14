@@ -14,23 +14,16 @@ import play.mvc.Controller;
 @LoggedAccess
 public class Application extends AppController {
 
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("users", renderArgs);
-    }
-
     public static void about() {
 
-        pageHelper.uniqueTitle("application.about");
+        pageHelper().addActionTitle();
 
         render();
     }
 
     public static void reportBug() {
 
-        pageHelper.uniqueTitle("application.reportBug");
+        pageHelper().addActionTitle();
 
         render();
     }

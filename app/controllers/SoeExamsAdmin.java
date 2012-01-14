@@ -35,13 +35,6 @@ public class SoeExamsAdmin extends AppController {
     @Inject
     private static UserService userService;
 
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("soeExamsAdmin", renderArgs);
-    }
-
     public static void saveFromCourse(SoeExam soeExam, @Required Date date, long courseId) {
 
         if (validator().validate(soeExam).hasErrors()) {

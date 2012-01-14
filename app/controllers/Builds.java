@@ -20,19 +20,12 @@ public class Builds extends AppController {
     @Inject
     private static BuildService buildService;
 
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("builds", renderArgs);
-    }
-
     public static void show(long buildId) {
 
         Build build = Build.findById(buildId);
         notFoundIfNull(build);
 
-        pageHelper.uniqueTitle("Build " + build.getFormattedNumber());
+        pageHelper().directTitle("Build " + build.getFormattedNumber());
 
         List<Build> builds = buildService.getBuildsShortHistory();
 

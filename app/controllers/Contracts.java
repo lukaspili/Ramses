@@ -1,14 +1,12 @@
 package controllers;
 
 import controllers.abstracts.AppController;
-import controllers.helper.PageHelper;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import helpers.YearCourseHelper;
 import models.contracts.ContractState;
 import models.school.YearCourse;
 import models.user.User;
-import play.mvc.Before;
 import service.ContractService;
 import service.YearCourseService;
 
@@ -26,13 +24,6 @@ public class Contracts extends AppController {
 
     @Inject
     private static YearCourseService yearCourseService;
-
-    private static PageHelper pageHelper;
-
-    @Before
-    public static void before() {
-        pageHelper = new PageHelper("contracts", renderArgs);
-    }
 
     public static void view() {
 
