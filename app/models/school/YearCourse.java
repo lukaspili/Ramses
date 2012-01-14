@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,16 +39,16 @@ public class YearCourse extends Model {
     public User professor;
 
     @ManyToMany
-    public Set<User> candidates;
+    public List<User> candidates;
 
     @OneToMany(mappedBy = "course")
-    public Set<SoeExam> soeExams;
+    public List<SoeExam> soeExams;
 
     @ManyToMany(mappedBy = "courses")
-    public Set<JobOrder> orders;
+    public List<JobOrder> orders;
 
     @ManyToMany(mappedBy = "yearCourses")
-    public Set<YearPromotion> yearPromotions;
+    public List<YearPromotion> yearPromotions;
 
     public boolean hasProfessor() {
         return null != professor;

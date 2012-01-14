@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -24,7 +24,7 @@ public class YearPromotion extends Model {
     public Promotion promotion;
 
     @ManyToMany
-    public Set<YearCourse> yearCourses;
+    public List<YearCourse> yearCourses;
 
     public String getFullName() {
         return promotion.getLabel() + name;
