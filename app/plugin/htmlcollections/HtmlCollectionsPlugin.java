@@ -39,7 +39,9 @@ public class HtmlCollectionsPlugin extends PlayPlugin {
                     throw new HtmlCollectionPluginException("The collection has no type : Collection<???>");
                 }
 
-                populateCollection(collection, collectionType, params.get(name));
+                String[] joins = ((IsHtmlCollection) annotation).joins();
+
+                populateCollection(collection, collectionType, params.get(name), joins);
 
                 return collection;
             }
@@ -73,11 +75,16 @@ public class HtmlCollectionsPlugin extends PlayPlugin {
         }
     }
 
-    private void populateCollection(Collection collection, Class collectionType, String[] params) {
+    private void populateCollection(Collection collection, Class collectionType, String[] params, String[] joins) {
 
         if (null == params) {
             return;
         }
+        
+//        String join = "";
+//        for(int i = 0; i < joins.length; i++) {
+//            join += " join m" + i + ;
+//        }
 
         for (String param : params) {
 
@@ -89,7 +96,6 @@ public class HtmlCollectionsPlugin extends PlayPlugin {
             }
 
             String name = collectionType.getName().substring(collectionType.getName().lastIndexOf(".") + 1);
-            Logger.debug(name);
             Query query = Model.em().createQuery("SELECT m FROM " + name + " m WHERE m.id = :id");
             query.setParameter("id", id);
 
