@@ -9,7 +9,7 @@
 </div>
 
 <div class="box grid_10">
-	<h2 class="box_head grad_colour ">Nouvelle promotion</h2>
+	<h2 class="box_head grad_colour ">Modifier la promotion ${yearPromotion.getFullName()}</h2>
 	<a href="#" class="grabber">&nbsp;</a>
 	<a href="#" class="toggle">&nbsp;</a>
 
@@ -18,7 +18,7 @@
 
 		#{include 'helpers/form_validation.html' /}
 
-        #{form @create(), id:'yearPromotion-create-form', enctype:'multipart/form-data' }
+        #{form @YearPromotions.update(), id:'yearPromotion-create-form', enctype:'multipart/form-data' }
 			#{include 'YearPromotions/_yearPromotion_form.html' /}
 		#{/form}
 		</div>

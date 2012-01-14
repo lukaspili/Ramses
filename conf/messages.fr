@@ -76,8 +76,9 @@ yearcourses.validateCandidature.success=La candidature a été validée avec suc
 
 # YearPromotions
 yearPromotions.error.course_not_in_promotion=Un ou plusieurs des cours ajoutés n'appartiennent pas au niveau de la promotion selectionée
-
+yearPromotions.create.error.already_exists=Cette promotion existe déjà
 yearPromotions.create.success=La promotion a été créé avec succès
+yearPromotions.update.success=La promotion a été mise à jour avec succès
 
 # SoeExam
 soeExam.date=Date

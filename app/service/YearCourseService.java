@@ -2,17 +2,14 @@ package service;
 
 import exceptions.CoreException;
 import helpers.YearCourseHelper;
-import models.contracts.Contract;
-import models.school.Course;
 import models.school.Promotion;
 import models.school.YearCourse;
 import models.user.User;
-import org.joda.time.LocalDate;
 
-import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -141,5 +138,20 @@ public class YearCourseService extends AbstractService<YearCourse> {
         }
 
         return true;
+    }
+
+    public List<YearCourse> getYearCoursesByIdsAndPromotion(Collection<Long> ids, Promotion promotion) {
+
+        if (null == ids || ids.isEmpty()) {
+            return new ArrayList<YearCourse>();
+        }
+
+        Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
+                "where yc.id in :ids and yc.course.promotion = :promotion");
+
+        query.setParameter("ids", ids);
+        query.setParameter("promotion", promotion);
+
+        return query.getResultList();
     }
 }

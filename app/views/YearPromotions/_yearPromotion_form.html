@@ -1,17 +1,26 @@
+#{if request.actionMethod == 'edit' || request.actionMethod == 'update'}
+#{field 'yearPromotion.id'}
+<input type="hidden" id="${field.id}" name="${field.name}" value="${field.value}"/>
+#{/}
+#{/if}
+
+#{if request.actionMethod != 'edit' && request.actionMethod != 'update'}
 #{field 'yearPromotion.name'}
 <label for="${field.id}">&{field.name} <span style="color:red">*</span></label></label>
 <input type="text" id="${field.id}" name="${field.name}" value="${field.value}"
-       class="medium ${field.errorClass}"/>
+	   class="medium ${field.errorClass}"/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}
+#{/if}
 
 #{field 'yearPromotion.studentsNumber'}
 <label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
 <input type="text" id="${field.id}" name="${field.name}" value="${field.value}"
-       class="medium ${field.errorClass}"/>
+	   class="medium ${field.errorClass}"/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}
 
+#{if request.actionMethod != 'edit' && request.actionMethod != 'update'}
 #{field 'yearPromotion.promotion'}
 <label for="${field.id}">&{field.name}</label>
 
@@ -20,6 +29,7 @@
 </div>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
 #{/}
+#{/if}
 
 #{field 'yearCourses'}
 <label for="${field.id}">&{field.name}</label>
@@ -27,12 +37,12 @@
 
 <select name="${field.name}" multiple="multiple" class="multiselect" style="margin-bottom: 10px">
 #{list items:yearCoursesModel, as:'yearCourse'}
-    <option value="${yearCourse.id}" ${(field.value.contains(yearCourse.id)).yesno('selected', '')}>${yearCourse.course.fullName}</option>
+	<option value="${yearCourse.id}" ${field.value.contains(yearCourse.id).yesno('selected', '')}>${yearCourse.course.fullName}</option>
 #{/list}
 </select>
 #{/}
 
 <button class="button_colour round_all">
-    <img height="24" width="24" alt="&{'submit.save'}"
-         src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+	<img height="24" width="24" alt="&{'submit.save'}"
+		 src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
 </button>

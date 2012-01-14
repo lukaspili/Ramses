@@ -1,11 +1,13 @@
 package service;
 
+import models.school.Promotion;
 import models.school.YearCourse;
 import models.school.YearPromotion;
 
 import javax.persistence.Query;
 import java.util.List;
-import java.util.Set;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -23,7 +25,7 @@ public class YearPromotionService {
         return query.getResultList();
     }
 
-    public YearPromotion create(YearPromotion yearPromotion, Set<YearCourse> yearCourses, int year) {
+    public YearPromotion create(YearPromotion yearPromotion, List<YearCourse> yearCourses, int year) {
 
         YearPromotion promotion = new YearPromotion();
 
@@ -37,5 +39,22 @@ public class YearPromotionService {
         promotion.save();
 
         return promotion;
+    }
+
+    public YearPromotion update(YearPromotion yearPromotionModel, YearPromotion yearPromotion, List<YearCourse> yearCourses) {
+
+        checkNotNull(yearPromotionModel);
+        checkNotNull(yearPromotion);
+        checkNotNull(yearCourses);
+
+        yearPromotionModel.studentsNumber = yearPromotion.studentsNumber;
+        yearPromotionModel.yearCourses = yearCourses;
+        yearPromotionModel.save();
+
+        return yearPromotionModel;
+    }
+
+    public YearPromotion getByNamePromotionAndYear(String name, Promotion promotion, int year) {
+        return YearPromotion.find("byNameAndPromotionAndYear", name, promotion, year).first();
     }
 }
