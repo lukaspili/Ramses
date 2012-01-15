@@ -22,6 +22,8 @@ public class Dashboard extends AppController {
 
     public static void index() {
 
+        pageHelper().addControllerTitle();
+
         List<YearCourse> yearCourses;
 
         if (Auth.getCurrentUser().profile == Profile.ADMIN) {
