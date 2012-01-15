@@ -1,0 +1,35 @@
+#{if request.actionMethod == 'edit' || request.actionMethod == 'update'}
+#{field 'course.id'}
+<input type="hidden" id="${field.id}" name="${field.name}" value="${field.value}"/>
+#{/}
+#{/if}
+
+#{field 'course.name'}
+<label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}"
+	   class="medium ${field.errorClass}"/>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'course.code'}
+<label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}"
+	   class="medium ${field.errorClass}"/>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{if request.actionMethod != 'edit' && request.actionMethod != 'update'}
+#{field 'course.promotion'}
+<label for="${field.id}">&{field.name}</label>
+
+<div class="input_group">
+#{select field.name, items:promotions, valueProperty:'value', labelProperty:'label', id:field.id, value:field.value /}
+</div>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+#{/if}
+
+<button class="button_colour round_all">
+	<img height="24" width="24" alt="&{'submit.save'}"
+		 src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+</button>

@@ -73,6 +73,9 @@ yearcourses.cancelCandidature.success=Votre candidature a bien été annulée
 # YearCourses.validate
 yearcourses.validateCandidature.success=La candidature a été validée avec succès
 
+yearcoursesadmin.index=Liste des cours
+yearcoursesadmin.newYearCourse=Nouveau cours
+
 
 # YearPromotions
 yearPromotions.error.course_not_in_promotion=Un ou plusieurs des cours ajoutés n'appartiennent pas au niveau de la promotion selectionée
@@ -178,10 +181,12 @@ usersadmin.list=Liste des utilisateurs
 
 
 # Courses
-coursesadmin=Matières
+coursesadmin=Gestion des matières
 
-# CoursesAdmin.list
-coursesadmin.list=Liste des matières
+# CoursesAdmin
+coursesadmin.index=Liste des matières
+coursesadmin.newCourse=Nouvelle matière
+coursesadmin.create.error.code_already_exists=Ce code de matière existe déjà
 
 
 # JobOrders

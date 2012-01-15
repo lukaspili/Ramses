@@ -12,8 +12,6 @@ import validation.EnhancedValidator;
 
 public abstract class UtilController extends Controller {
 
-    private static PageHelper pageHelper;
-
     protected static CollectionHelper collectionHelper = new CollectionHelper();
 
     protected static EnhancedValidator validator() {
@@ -75,11 +73,6 @@ public abstract class UtilController extends Controller {
     }
 
     protected static PageHelper pageHelper() {
-
-        if (null == pageHelper) {
-            pageHelper = new PageHelper();
-        }
-
-        return pageHelper;
+        return new PageHelper();
     }
 }
