@@ -1,19 +1,15 @@
 package service;
 
 import models.contracts.JobOrder;
-import models.school.Course;
 import models.school.SoeExam;
 import models.school.SoeExamState;
 import models.school.YearCourse;
-import models.user.Profile;
 import models.user.User;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -24,7 +20,7 @@ public class SoeExamService {
         return Arrays.asList(SoeExamState.values());
     }
 
-    public void update(SoeExam soe, Set<User> users) {
+    public void update(SoeExam soe, List<User> users) {
 
         soe.examinators = users;
 
@@ -36,7 +32,7 @@ public class SoeExamService {
         soe.save();
     }
 
-    public SoeExam create(SoeExam soe, YearCourse course, Set<User> users) {
+    public SoeExam create(SoeExam soe, YearCourse course, List<User> users) {
 
         soe.examinators = users;
         soe.course = course;

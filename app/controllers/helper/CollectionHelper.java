@@ -60,24 +60,24 @@ public class CollectionHelper {
 //        return new HashSet<T>();
 //    }
 
-    public <T extends Model> Set<T> getFromIds(Class<T> model, List<Long> ids) {
+    public <T extends Model> List<T> getFromIds(Class<T> model, List<Long> ids) {
 
-        Set<T> set = new HashSet<T>();
+        List<T> list = new ArrayList<T>();
 
         if (null == ids) {
-            return set;
+            return list;
         }
 
         for (Long id : ids) {
 
             T t = Model.em().find(model, id);
 
-            if (null != t) {
-                set.add(t);
+            if (null != t && !list.contains(t)) {
+                list.add(t);
             }
         }
 
-        return set;
+        return list;
     }
 
     public <T extends Model> Set<T> getFromIds(Class<T> model, List<Long> ids, String... joins) {

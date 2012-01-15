@@ -20,7 +20,7 @@ public class YearCourseService extends AbstractService<YearCourse> {
     public List<YearCourse> getUserCoursesForYear(User user, int year) {
 
         Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
-                "where yc.professor = :user " +
+                "where yc.id in (select ycp.yearCourse.id from YearCoursesProfessors ycp where ycp.professor = :user) " +
                 "and yc.year = :year");
 
         query.setParameter("user", user)
@@ -77,7 +77,7 @@ public class YearCourseService extends AbstractService<YearCourse> {
 
     public void validateCandidature(YearCourse course, User user) {
         course.candidates.remove(user);
-        course.professor = user;
+//        course.professor = user;
         course.save();
     }
 

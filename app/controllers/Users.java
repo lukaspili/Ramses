@@ -17,7 +17,6 @@ import validation.EnhancedValidator;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -121,7 +120,7 @@ public class Users extends AppController {
             render("Users/firstLogin.html", courses, user, skills);
         }
 
-        Set<Course> courses = collectionHelper.getFromIds(Course.class, skills);
+        List<Course> courses = collectionHelper.getFromIds(Course.class, skills);
 
         userService.updateFromFirstLogin(user, courses, Auth.getCurrentUser());
 
@@ -199,7 +198,7 @@ public class Users extends AppController {
     @LoggedAccess
     public static void saveSkills(List<Long> skills) {
 
-        Set<Course> courses = collectionHelper.getFromIds(Course.class, skills);
+        List<Course> courses = collectionHelper.getFromIds(Course.class, skills);
 
         userService.updateFromSkills(courses, Auth.getCurrentUser());
 

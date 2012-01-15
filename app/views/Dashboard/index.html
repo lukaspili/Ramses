@@ -31,9 +31,9 @@
                         <td>${course.course.fullName}</td>
 
                         <td>
-                            #{if course.professor != null}
-                            ${course.professor.fullName}
-                            #{/if}
+                            *{#{if course.professor != null}}*
+                            *{${course.professor.fullName}}*
+                            *{#{/if}}*
                             #{else}
                                 Non defini
                             #{/else}

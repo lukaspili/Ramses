@@ -5,7 +5,7 @@ import org.joda.time.LocalDate;
 import play.db.jpa.Model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -28,7 +28,7 @@ public class SoeExam extends Model {
     public YearCourse course;
 
     @ManyToMany
-    public Set<User> examinators;
+    public List<User> examinators;
 
     public float getTotal() {
         return plannifiedDuration * SoeExam.PRICE;

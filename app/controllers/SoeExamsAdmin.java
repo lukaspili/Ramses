@@ -1,8 +1,6 @@
 package controllers;
 
-import controllers.YearCourses;
 import controllers.abstracts.AppController;
-import controllers.helper.PageHelper;
 import controllers.security.LoggedAccess;
 import models.contracts.JobOrderState;
 import models.school.SoeExam;
@@ -10,17 +8,14 @@ import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
 import org.joda.time.LocalDate;
-import play.data.binding.As;
 import play.data.validation.Required;
-import play.mvc.Before;
 import play.mvc.Util;
 import service.SoeExamService;
 import service.UserService;
-import validation.EnhancedValidator;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -46,7 +41,7 @@ public class SoeExamsAdmin extends AppController {
         YearCourse course = YearCourse.findById(courseId);
         notFoundIfNull(course);
 
-        soeExamService.create(soeExam, course, new HashSet<User>());
+        soeExamService.create(soeExam, course, new ArrayList<User>());
 
         flashSuccess("soeExamsAdmin.save.sucess");
         YearCourses.show(courseId);

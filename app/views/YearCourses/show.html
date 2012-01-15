@@ -8,13 +8,13 @@
     </button>
     #{/a}
 
-    <h2>${yearCourse.course.fullName}</h2>
+    <h2>Cours ${yearCourse.course.fullName} ${yearCourse.year}</h2>
 
     #{include 'helpers/flash_box.html' /}
 
     <ul>
-        <li>Cours : ${yearCourse.course.fullName}</li>
-        <li>Type de cours : &{yearCourse.course.type.name} (${yearCourse.course.type.price} euros / heure)</li>
+        <li>Matière : ${yearCourse.course.fullName}</li>
+        <li>Type de cours : &{yearCourse.type.name} (${yearCourse.type.price} euros / heure)</li>
         #{if yearCourse.isPlannified()}
         <li>Durée : ${yearCourse.duration} heures</li>
         <li>Date de début : ${yearCourse.startDate.format()}</li>

@@ -26,6 +26,18 @@ public class YearCoursesAdmin extends AppController {
     @Inject
     private static YearCourseService yearCourseService;
 
+    public static void index() {
+
+    }
+
+    public static void newYearCourse() {
+
+    }
+
+    public static void create() {
+
+    }
+
     public static void edit(Long yearCourseId) {
 
         YearCourse yearCourse = YearCourse.findById(yearCourseId);

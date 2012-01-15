@@ -60,7 +60,7 @@ public class SoeExams extends AppController {
             examinators = new ArrayList<Long>();
         }
 
-        Set<User> users = collectionHelper.getFromIds(User.class, examinators);
+        List<User> users = collectionHelper.getFromIds(User.class, examinators);
 
         try {
             soeExamService.update(soe, users);

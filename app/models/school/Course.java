@@ -1,13 +1,10 @@
 package models.school;
 
 import models.user.User;
-import org.hibernate.annotations.*;
 import play.db.jpa.Model;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -23,10 +20,10 @@ public class Course extends Model {
     public Promotion promotion;
 
     @ManyToMany(mappedBy = "skills")
-    public Set<User> users;
+    public List<User> users;
 
     @OneToMany(mappedBy = "course")
-    public Set<YearCourse> yearCourses;
+    public List<YearCourse> yearCourses;
 
     public Course() {
     }
@@ -38,6 +35,10 @@ public class Course extends Model {
     }
 
     public String getFullName() {
-        return code + " - " + name;
+        return getFullCode() + " - " + name;
+    }
+
+    public String getFullCode() {
+        return promotion.level + code;
     }
 }

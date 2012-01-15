@@ -9,7 +9,9 @@ import play.Logger;
 import service.ContractService;
 import service.UserService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -397,7 +399,7 @@ public class DatabaseInitializer {
 
         test3.save();
 
-        Set<Course> skills = new HashSet<Course>();
+        List<Course> skills = new ArrayList<Course>();
         skills.add(course1ADS1);
         skills.add(course1ADS3);
         skills.add(course1APL1);
@@ -424,10 +426,10 @@ public class DatabaseInitializer {
         yearCourse0ABC.year = 2012;
         yearCourse0ABC.startDate = new LocalDate(2011, 11, 10);
         yearCourse0ABC.endDate = new LocalDate(2011, 11, 20);
-        yearCourse0ABC.professor = test2;
+//        yearCourse0ABC.professor = test2;
         yearCourse0ABC.save();
 
-        Set<User> examinatorsTest = new HashSet<User>();
+        List<User> examinatorsTest = new ArrayList<User>();
         examinatorsTest.add(test2);
 
         SoeExam soe0ABC1 = new SoeExam();

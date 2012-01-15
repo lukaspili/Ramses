@@ -11,13 +11,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
 @Entity
 public class YearCourse extends Model {
+
+    public String name;
 
     public int year;
 
@@ -35,8 +36,8 @@ public class YearCourse extends Model {
     @ManyToOne
     public Course course;
 
-    @ManyToOne
-    public User professor;
+    @OneToMany(mappedBy = "yearCourse")
+    public List<YearCoursesProfessors> professors;
 
     @ManyToMany
     public List<User> candidates;
@@ -50,8 +51,12 @@ public class YearCourse extends Model {
     @ManyToMany(mappedBy = "yearCourses")
     public List<YearPromotion> yearPromotions;
 
+    public String getFullName() {
+        return course.getFullName() + " - " + name;
+    }
+
     public boolean hasProfessor() {
-        return null != professor;
+        return null != professors && !professors.isEmpty();
     }
 
     /**

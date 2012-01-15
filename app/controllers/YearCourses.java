@@ -91,9 +91,9 @@ public class YearCourses extends AppController {
 
         pageHelper().directTitle(yearCourse.course.getFullName());
 
-        if (yearCourse.hasProfessor() && !yearCourse.professor.hasContract()) {
-            flashErrorSamePage("yearcourses.info.waitingContractCadre");
-        }
+//        if (yearCourse.hasProfessor() && !yearCourse.professor.hasContract()) {
+//            flashErrorSamePage("yearcourses.info.waitingContractCadre");
+//        }
 
         render(yearCourse);
     }

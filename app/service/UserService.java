@@ -80,7 +80,7 @@ public class UserService extends AbstractService<User> {
         return user;
     }
 
-    public void updateFromFirstLogin(User newUser, Set<Course> courses, User existingUser) {
+    public void updateFromFirstLogin(User newUser, List<Course> courses, User existingUser) {
 
         existingUser.active = true;
         existingUser.skills = courses;
@@ -107,7 +107,7 @@ public class UserService extends AbstractService<User> {
         user.save();
     }
 
-    public void updateFromSkills(Set<Course> courses, User user) {
+    public void updateFromSkills(List<Course> courses, User user) {
         user.skills = courses;
         user.save();
     }
