@@ -6,6 +6,7 @@ import models.school.YearCourse;
 import models.user.User;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -55,6 +56,10 @@ public class CourseService extends AbstractService<Course> {
     }
 
     public List<Course> getAvailableCoursesByUserAndYear(User user, int year) {
+
+        if(null == user.skills || user.skills.isEmpty()) {
+            return new ArrayList<Course>();
+        }
 
         Query query = Course.em().createQuery("select distinct c from Course c " +
                 "join c.yearCourses yc " +

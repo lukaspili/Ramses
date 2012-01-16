@@ -7,7 +7,7 @@
 </div>
 
 <div class="box grid_10 round_all">
-    <h2 class="box_head grad_colour">Modifier le SOE ${soe.course.course.code} du ${soe.date}</h2>
+    <h2 class="box_head grad_colour">Modifier le SOE ${soeExam.course.course.code} du ${soeExam.date.format()}</h2>
 
     <div class="toggle_container">
         <div class="block">
@@ -16,23 +16,23 @@
 
             #{form @SoeExams.update(), id:'edit-soe', enctype:'multipart/form-data' }
 
-            #{field 'soe.id'}
+            #{field 'soeExam.id'}
             <input type="hidden" id="${field.id}" name="${field.name}" value="${field.value}"/>
             #{/}
 
-            #{field 'soe.plannifiedDuration'}
+            #{field 'soeExam.plannifiedDuration'}
             <label for="${field.id}">&{field.name}</label>
             <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
             #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
             #{/}
 
-            #{field 'soe.realDuration'}
+            #{field 'soeExam.realDuration'}
             <label for="${field.id}">&{field.name}</label>
             <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="medium ${field.errorClass}"/>
             #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
             #{/}
 
-            #{field 'soe.state'}
+            #{field 'soeExam.state'}
             <label for="${field.id}">&{field.name}</label>
 
             <div class="input_group">

@@ -90,6 +90,10 @@ public class PrestationService {
 
     public void addJobOrderToPrestations(JobOrder jobOrder, List<Prestation> prestations) {
 
+        if (null == prestations || prestations.isEmpty()) {
+            return;
+        }
+
         Query query = Prestation.em().createQuery("update Prestation p set p.jobOrder = :jobOrder where p in :prestations");
         query.setParameter("jobOrder", jobOrder)
                 .setParameter("prestations", prestations);

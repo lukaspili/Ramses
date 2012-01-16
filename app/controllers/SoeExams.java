@@ -40,21 +40,21 @@ public class SoeExams extends AppController {
     @LoggedAccess(Profile.ADMIN)
     public static void edit(long soeId) {
 
-        SoeExam soe = SoeExam.findById(soeId);
+        SoeExam soeExam = SoeExam.findById(soeId);
 
-        notFoundIfNull(soe);
+        notFoundIfNull(soeExam);
 
-        pageHelper().directTitle("SOE " + soe.course.course.getFullName());
+        pageHelper().directTitle("SOE " + soeExam.course.course.getFullName());
 
         List<SoeExamState> states = soeExamService.getStatesList();
         List<User> users = userService.getActiveUsers();
-        List<Long> examinators = collectionHelper.getIdsFromModel(soe.examinators);
+        List<Long> examinators = collectionHelper.getIdsFromModel(soeExam.examinators);
 
-        render(soe, states, users, examinators);
+        render(soeExam, states, users, examinators);
     }
 
     @LoggedAccess(Profile.ADMIN)
-    public static void update(SoeExam soe, List<Long> examinators) {
+    public static void update(SoeExam soeExam, List<Long> examinators) {
 
         if (null == examinators) {
             examinators = new ArrayList<Long>();
@@ -63,11 +63,12 @@ public class SoeExams extends AppController {
         List<User> users = collectionHelper.getFromIds(User.class, examinators);
 
         try {
-            soeExamService.update(soe, users);
+            soeExamService.update(soeExam, users);
         } catch (RuntimeException e) {
-            flashError("soe.update.error");
+            flashError("soeexams.update.error");
         }
 
-        edit(soe.id);
+        flashSuccess("soeexams.update.success");
+        show(soeExam.id);
     }
 }

@@ -31,7 +31,7 @@
             <label for="${field.id}" style="margin-top: 10px">&{field.name}</label>
             <select name="${field.name}" multiple="multiple" class="multiselect">
                 #{list items:soes, as:'soe'}
-                <option value="${soe.id}">${soe.course.course.code} ${soe.date}</option>
+                <option value="${soe.id}">SOE ${soe.course.course.fullCode} du ${soe.date.format()}</option>
                 #{/list}
             </select>
             #{/}
@@ -63,7 +63,7 @@
                 <tbody>
                 #{list items:orders, as:'order'}
                 <tr class="gradeX">
-                    <td>#{a @show(order.id)}${order.creationDate}#{/a}</td>
+                    <td>#{a @show(order.id)}${order.creationDate.format()}#{/a}</td>
                     <td>${order.total}</td>
                     <td>${order.state.label}</td>
                     <td>#{a @download(order.id)}Télécharger#{/a}</td>

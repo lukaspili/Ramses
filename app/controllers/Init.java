@@ -2,16 +2,10 @@ package controllers;
 
 import controllers.abstracts.UtilController;
 import controllers.security.PublicAccess;
-import init.DatabaseInitializer;
-import models.contracts.ContractState;
-import models.user.Profile;
 import models.user.User;
-import notifiers.Mails;
 import play.Logger;
 import play.Play;
 import service.ContractService;
-
-import java.util.List;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -27,7 +21,7 @@ public class Init extends UtilController {
         }
 
         if (User.count() == 0) {
-            DatabaseInitializer.initDatabaseForDev();
+//            DatabaseInitializer.initDatabaseForDev();
         }
 
         Dashboard.index();

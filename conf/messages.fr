@@ -103,6 +103,12 @@ soeExam.date=Date
 soeExam.plannifiedDuration=Durée planifiée
 soeExam.realDuration=Durée réelle
 soeExam.state=État
+soeExam.plannified=Plannifié
+soeExam.completed=Complété
+soeExam.waiting=En attente
+
+soeexams.edit=Modifier le SOE
+soeexams.update.success=SOE mis à jour avec succès
 
 # JobOrder
 

@@ -32,16 +32,18 @@ public class SoeExamsAdmin extends AppController {
 
     public static void saveFromCourse(SoeExam soeExam, @Required Date date, long courseId) {
 
+        YearCourse yearCourse = YearCourse.findById(courseId);
+        notFoundIfNull(yearCourse);
+
         if (validator().validate(soeExam).hasErrors()) {
-            invalidateSave(soeExam);
+            List<JobOrderState> states = JobOrderState.getList();
+            List<User> users = userService.getActiveUsers();
+            render("YearCoursesAdmin/show.html", states, users, soeExam, yearCourse);
         }
 
         soeExam.date = new LocalDate(date.getTime());
 
-        YearCourse course = YearCourse.findById(courseId);
-        notFoundIfNull(course);
-
-        soeExamService.create(soeExam, course, new ArrayList<User>());
+        soeExamService.create(soeExam, yearCourse, new ArrayList<User>());
 
         flashSuccess("soeExamsAdmin.save.sucess");
         YearCoursesAdmin.show(courseId);
@@ -49,8 +51,6 @@ public class SoeExamsAdmin extends AppController {
 
     @Util
     private static void invalidateSave(SoeExam soeExam) {
-        List<JobOrderState> states = JobOrderState.getList();
-        List<User> users = userService.getActiveUsers();
-        render("JobOrderAdmin/create.html", states, users, soeExam);
+
     }
 }
