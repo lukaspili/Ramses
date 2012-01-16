@@ -2,15 +2,15 @@
 
 <div class="flat_area grid_16">
 
-    <h2>Cours ${promotionCourse.yearCourse.fullName} ${promotionCourse.yearCourse.year}</h2>
+	<h2>Cours ${promotionCourse.yearCourse.fullName} ${promotionCourse.yearCourse.year}</h2>
 
-    #{include 'helpers/flash_box.html' /}
+#{include 'helpers/flash_box.html' /}
 
 	<div class="flat_area grid_16">
 
 		<p>
 			Heures restantes à programmer pour ce cours : <strong>${promotionCourse.notPlannifiedHours} heures</strong> <br/>
-			Vous devez plannifier les dates du cours avant d'ajouter un ou plusieurs professeurs.
+			Vous devez plannifier les dates du cours avant d'ajouter des prestataires.
 		</p>
 
 	</div>
@@ -27,23 +27,23 @@
 
 			#{form @PromotionCoursesAdmin.update(), id:'edit-promotioncourse-form', enctype:'multipart/form-data' }
 
-				#{field 'promotionCourse.id'}
-					<input type="hidden" id="${field.id}" name="${field.name}" value="${promotionCourse.id}"/>
-				#{/}
+			#{field 'promotionCourse.id'}
+				<input type="hidden" id="${field.id}" name="${field.name}" value="${promotionCourse.id}"/>
+			#{/}
 
-				#{field 'startDate'}
+			#{field 'startDate'}
 				<label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
 				<input type="text" id="${field.id}" name="${field.name}" value="${field.value?.format()}"
-				class="medium ${field.errorClass}"/>
-				#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
-				#{/}
+					   class="medium ${field.errorClass}"/>
+			#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+			#{/}
 
-				#{field 'endDate'}
+			#{field 'endDate'}
 				<label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
 				<input type="text" id="${field.id}" name="${field.name}" value="${field.value?.format()}"
-				class="medium ${field.errorClass}"/>
-				#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
-				#{/}
+					   class="medium ${field.errorClass}"/>
+			#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+			#{/}
 
 				<button class="button_colour round_all">
 					<img height="24" width="24" alt="Save" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
@@ -75,24 +75,24 @@
 						<td>${prestation.professor.idBooster}</td>
 						<td>${prestation.professor.fullName}</td>
 						<td style="text-align: center; padding-top: 1px; padding-bottom: 1px;">
-							#{if promotionCourse.plannified}
-								#{form @PromotionCoursesAdmin.updateOrAddProfessor(), id:'edit-prestation-form-'+prestation.professor.id, enctype:'multipart/form-data' }
+						#{if promotionCourse.plannified}
+						#{form @PromotionCoursesAdmin.updateOrAddProfessor(), id:'edit-prestation-form-'+prestation.professor.id, enctype:'multipart/form-data' }
 
-								#{field 'userId'}
-									<input type="hidden" id="${field.id}" name="${field.name}" value="${prestation.professor.id}"/>
-								#{/}
+						#{field 'userId'}
+							<input type="hidden" id="${field.id}" name="${field.name}" value="${prestation.professor.id}"/>
+						#{/}
 
-								#{field 'promotionId'}
-									<input type="hidden" id="${field.id}" name="${field.name}" value="${promotionCourse.id}"/>
-								#{/}
+						#{field 'promotionId'}
+							<input type="hidden" id="${field.id}" name="${field.name}" value="${promotionCourse.id}"/>
+						#{/}
 
-								#{field 'hours'}
-									<input type="text" id="${field.id}" name="${field.name}" value="${prestation.hours}" class="small" style="display: inline; height:1.8em;"/>
-								#{/}
+						#{field 'hours'}
+							<input type="text" id="${field.id}" name="${field.name}" value="${prestation.hours}" class="small" style="display: inline; height:1.8em;"/>
+						#{/}
 
-								<input type="submit" value="Valider" style="display: inline; height:2.0em;" />
-								#{/form}
-							#{/if}
+							<input type="submit" value="Valider" style="display: inline; height:2.0em;"/>
+						#{/form}
+						#{/if}
 						</td>
 					</tr>
 					#{/list}
