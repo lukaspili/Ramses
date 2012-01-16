@@ -9,6 +9,7 @@ import pdf.JobOrderPdfGenerator;
 import play.libs.MimeTypes;
 import plugin.s3.model.S3Blob;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,14 +69,15 @@ public class JobOrderService {
         new PrestationService().addJobOrderToPrestations(order, prestations);
     }
 
-    public JobOrder findForUser(long orderId, User user) {
+    public JobOrder getByIdAndUser(long id, User user) {
 
-        Query query = JobOrder.em().createQuery("select jo from JobOrder jo where jo.user = :user");
-        query.setParameter("user", user);
+        Query query = JobOrder.em().createQuery("select jo from JobOrder jo where jo.user = :user and jo.id = :id");
+        query.setParameter("user", user)
+                .setParameter("id", id);
 
         try {
             return (JobOrder) query.getSingleResult();
-        } catch (Exception e) {
+        } catch (NoResultException e) {
             return null;
         }
 

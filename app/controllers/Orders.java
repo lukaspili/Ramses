@@ -130,7 +130,7 @@ public class Orders extends AppController {
         if (user.profile == Profile.ADMIN) {
             order = JobOrder.findById(orderId);
         } else {
-            order = jobOrderService.findForUser(orderId, user);
+            order = jobOrderService.getByIdAndUser(orderId, user);
         }
 
         notFoundIfNull(order);
