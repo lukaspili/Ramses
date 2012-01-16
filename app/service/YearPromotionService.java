@@ -17,7 +17,7 @@ public class YearPromotionService {
 
         Query query = YearPromotion.em().createQuery("select yp from YearPromotion yp " +
                 "where yp.year = :year " +
-                "order by yp.name");
+                "order by yp.promotion, yp.name");
 
         query.setParameter("year", year);
 
