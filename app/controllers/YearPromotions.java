@@ -29,14 +29,21 @@ public class YearPromotions extends AppController {
     private static YearCourseService yearCourseService;
 
     public static void index() {
+
+        pageHelper().addActionTitle();
+
         List<YearPromotion> yearPromotions = yearPromotionService.getYearPromotionsForYear(YearCourseHelper.getCurrentYear());
         render(yearPromotions);
     }
 
     public static void newYearPromotion() {
+
+        pageHelper().addActionTitle();
+
         List<Promotion> promotions = Arrays.asList(Promotion.values());
         List<YearCourse> yearCoursesModel = yearCourseService.getYearCoursesForYear(YearCourseHelper.getCurrentYear());
         List<Long> yearCourses = new ArrayList<Long>();
+
         render(promotions, yearCourses, yearCoursesModel);
     }
 
@@ -57,6 +64,7 @@ public class YearPromotions extends AppController {
         }
 
         if (validator.hasErrors()) {
+            pageHelper().addTitleWithController("newYearPromotion");
             List<Promotion> promotions = Arrays.asList(Promotion.values());
             render("YearPromotions/newYearPromotion.html", promotions, yearPromotion);
         }
@@ -68,8 +76,12 @@ public class YearPromotions extends AppController {
     }
 
     public static void edit(long id) {
+
         YearPromotion yearPromotion = YearPromotion.findById(id);
         notFoundIfNull(yearPromotion);
+
+        pageHelper().addActionTitle(yearPromotion.getFullName());
+
         render(yearPromotion);
     }
 
@@ -88,6 +100,7 @@ public class YearPromotions extends AppController {
         }
 
         if (validator.hasErrors()) {
+            pageHelper().directTitle("Modifier la promotion " + yearPromotionModel.getFullName());
             render("YearPromotions/edit.html", yearPromotion);
         }
 

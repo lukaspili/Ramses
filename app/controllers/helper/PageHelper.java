@@ -9,20 +9,20 @@ public class PageHelper extends AbstractHelper {
 
     private static final String TAG = "page_title";
 
-    public void addActionTitle() {
-        title(request().controller.toLowerCase() + "." + request().actionMethod);
+    public void addActionTitle(String... args) {
+        title(request().controller.toLowerCase() + "." + request().actionMethod, args);
     }
 
     public void addControllerTitle() {
         title(request().controller.toLowerCase());
     }
 
-    public void addTitleWithController(String title) {
-        title(request().controller.toLowerCase() + "." + title);
+    public void addTitleWithController(String title, String... args) {
+        title(request().controller.toLowerCase() + "." + title, args);
     }
 
-    public void title(String title) {
-        renderArgs().put(TAG, Messages.get(title));
+    public void title(String title, String... args) {
+        renderArgs().put(TAG, Messages.get(title, args));
     }
 
     public void directTitle(String title) {
