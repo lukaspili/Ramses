@@ -44,7 +44,7 @@ public class SoeExamsAdmin extends AppController {
         soeExamService.create(soeExam, course, new ArrayList<User>());
 
         flashSuccess("soeExamsAdmin.save.sucess");
-        YearCourses.show(courseId);
+        YearCoursesAdmin.show(courseId);
     }
 
     @Util

@@ -17,6 +17,10 @@ public class PageHelper extends AbstractHelper {
         title(request().controller.toLowerCase());
     }
 
+    public void addTitleWithController(String title) {
+        title(request().controller.toLowerCase() + "." + title);
+    }
+
     public void title(String title) {
         renderArgs().put(TAG, Messages.get(title));
     }

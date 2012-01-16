@@ -1,7 +1,6 @@
 package service;
 
 import models.school.Promotion;
-import models.school.YearCourse;
 import models.school.YearPromotion;
 
 import javax.persistence.Query;
@@ -25,15 +24,13 @@ public class YearPromotionService {
         return query.getResultList();
     }
 
-    public YearPromotion create(YearPromotion yearPromotion, List<YearCourse> yearCourses, int year) {
+    public YearPromotion create(YearPromotion yearPromotion, int year) {
 
         YearPromotion promotion = new YearPromotion();
 
         promotion.name = yearPromotion.name;
         promotion.studentsNumber = yearPromotion.studentsNumber;
         promotion.promotion = yearPromotion.promotion;
-
-        promotion.yearCourses = yearCourses;
         promotion.year = year;
 
         promotion.save();
@@ -41,14 +38,12 @@ public class YearPromotionService {
         return promotion;
     }
 
-    public YearPromotion update(YearPromotion yearPromotionModel, YearPromotion yearPromotion, List<YearCourse> yearCourses) {
+    public YearPromotion update(YearPromotion yearPromotionModel, YearPromotion yearPromotion) {
 
         checkNotNull(yearPromotionModel);
         checkNotNull(yearPromotion);
-        checkNotNull(yearCourses);
 
         yearPromotionModel.studentsNumber = yearPromotion.studentsNumber;
-        yearPromotionModel.yearCourses = yearCourses;
         yearPromotionModel.save();
 
         return yearPromotionModel;
@@ -56,5 +51,16 @@ public class YearPromotionService {
 
     public YearPromotion getByNamePromotionAndYear(String name, Promotion promotion, int year) {
         return YearPromotion.find("byNameAndPromotionAndYear", name, promotion, year).first();
+    }
+
+    public List<YearPromotion> getYearPromotionsByPromotionAndYear(Promotion promotion, int year) {
+
+        Query query = YearPromotion.em().createQuery("select yp from YearPromotion yp " +
+                "where yp.promotion = :promotion and yp.year = :year");
+
+        query.setParameter("promotion", promotion)
+                .setParameter("year", year);
+
+        return query.getResultList();
     }
 }

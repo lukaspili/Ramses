@@ -1,0 +1,43 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+	<h2>${page_title}</h2>
+
+	#{include 'helpers/flash_box.html' /}
+
+	#{a @YearCoursesAdmin.newYearCourse()}
+		<button class="button_colour round_all" style="float: right;">
+			<img height="24" width="24" alt="&{'yearcoursesadmin.newYearCourse'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'yearcoursesadmin.newYearCourse'}</span>
+		</button>
+	#{/a}
+
+	<p>Il y'a actuellement ${yearCourses.size} cours enregistrés dans l'application pour l'année 2011 / 2012.</p>
+
+</div>
+
+<div class="box grid_16 round_all">
+	<table class="display datatable">
+		<thead>
+		<tr>
+			<th>&{'course.code'}</th>
+			<th>&{'course.name'}</th>
+		</tr>
+		</thead>
+		<tbody>
+
+		#{list items:yearCourses, as: 'yearCourse'}
+		<tr>
+			<td>
+				#{a @YearCoursesAdmin.show(yearCourse.id)}<strong>${yearCourse.course.fullCode}</strong>#{/a}
+			</td>
+			<td>${yearCourse.fullName}</td>
+		</tr>
+		#{/list}
+
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript" src="@{'public/js/DataTables/jquery.dataTables.js'}"></script>
+<script type="text/javascript" src="@{'public/js/adminica/adminica_datatables.js'}"></script>

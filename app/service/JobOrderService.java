@@ -1,8 +1,8 @@
 package service;
 
 import models.contracts.JobOrder;
+import models.school.Prestation;
 import models.school.SoeExam;
-import models.school.YearCourse;
 import models.user.User;
 import org.joda.time.LocalDate;
 import pdf.JobOrderPdfGenerator;
@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -29,19 +28,19 @@ public class JobOrderService {
         return query.getResultList();
     }
 
-    public void createOrder(Set<YearCourse> courses, Set<SoeExam> soeExams, User user) {
+    public void createOrder(List<Prestation> prestations, List<SoeExam> soeExams, User user) {
 
         JobOrder order = new JobOrder();
         order.creationDate = new LocalDate();
         order.user = user;
         order.contract = user.contract;
         order.soeExams = soeExams;
-        order.courses = courses;
+        order.realCoursesProfessors = prestations;
 
         order.total = 0;
 
-        for (YearCourse course : courses) {
-            order.total += course.getTotal();
+        for (Prestation rcp : prestations) {
+            order.total += rcp.getTotal();
         }
 
         for (SoeExam soe : soeExams) {
@@ -65,6 +64,8 @@ public class JobOrderService {
         }
 
         order.save();
+
+        new PrestationService().addJobOrderToPrestations(order, prestations);
     }
 
     public JobOrder findForUser(long orderId, User user) {

@@ -47,32 +47,42 @@ course.promotion=&{promotion}
 course.users=Utilisateurs compétents
 
 # YearCourse
+yearCourse.name=Nom complémentaire
 yearCourse.duration=Durée du cours
 yearCourse.duration.validate.positive=La durée
+yearCourse.startDate=Date de début du cours
+yearCourse.endDate=Date de fin du cours
+yearCourse.course=Matière
 
 # Course type
-coursetype.coursewithtp=Cours avec TP
+courseType=Type de cours
+courseType.coursewithtp=Cours avec TP
+
+courses.error.noSkills=Vous n'avez pas les compétences requises pour ce cours
+courses.error.candidatureAlreadyExists=Vous avez déjà candidaté pour ce cours
+courses.candidate.success=Votre candidature a été enregistrée avec succès
+courses.cancelCandidature.success=Votre candidature a bien été annulée
+
+
 
 # YearCourses
-yearCourses=Cours
+yearcourses=Cours
+yearcourses.index=Liste des cours
 yearcourses.edit=Modifier le cours
 yearcourses.error.wrongYear=L'année du cours est invalide
-yearcourses.error.noSkills=Vous n'avez pas les compétences requises pour ce cours
 yearcourses.error.professorAlreadyExists=Un candidat a déjà été choisi pour ce cours
-yearcourses.error.candidatureAlreadyExists=Vous avez déjà candidaté pour ce cours
 yearcourses.info.waitingContractCadre=En attente du contrat cadre du STA
 yearcourses.error.userDontCandidate=Cet utilisateur n'a pas candidaté pour le cours
 yearcourses.error.userHaveNoSkill=Cet utilisateur n'a pas les compétences requises pour ce cours
 
-# YearCourses.candidate
-yearcourses.candidate.success=Votre candidature a été enregistrée avec succès
 
 # YearCourses.cancelCandidature
-yearcourses.cancelCandidature.success=Votre candidature a bien été annulée
+
 
 # YearCourses.validate
-yearcourses.validateCandidature.success=La candidature a été validée avec succès
 
+
+yearcoursesadmin=Gestion des cours
 yearcoursesadmin.index=Liste des cours
 yearcoursesadmin.newYearCourse=Nouveau cours
 
@@ -82,6 +92,11 @@ yearPromotions.error.course_not_in_promotion=Un ou plusieurs des cours ajoutés 
 yearPromotions.create.error.already_exists=Cette promotion existe déjà
 yearPromotions.create.success=La promotion a été créé avec succès
 yearPromotions.update.success=La promotion a été mise à jour avec succès
+
+promotionscoursesadmin.update.success=Le cours a été mis à jour avec succès
+promotionscoursesadmin.updateOrAddProfessor.error.hours_superior_than_remaining=Vous ne pouvez pas assigner plus d'heure que disponible à un STA
+promotionscoursesadmin.updateOrAddProfessor.error.cannot_assign_0_hours_to_candidate=Vous ne pouvez pas assigner 0 heures à un candidat
+promotionscoursesadmin.updateOrAddProfessor.success=Plannification effectuée avec succès
 
 # SoeExam
 soeExam.date=Date
@@ -181,12 +196,16 @@ usersadmin.list=Liste des utilisateurs
 
 
 # Courses
+courses.candidatures=Cours et candidatures
+
 coursesadmin=Gestion des matières
 
 # CoursesAdmin
 coursesadmin.index=Liste des matières
 coursesadmin.newCourse=Nouvelle matière
 coursesadmin.create.error.code_already_exists=Ce code de matière existe déjà
+coursesadmin.create.success=Matière créé avec succès
+coursesadmin.validateCandidature.success=La candidature a été validée avec succès
 
 
 # JobOrders
@@ -225,6 +244,7 @@ validation.required=Cette information est requise
 validation.email=L'email n'est pas valide
 validation.numeric=Ne doit contenir que des caractères numériques
 validation.invalidDate=La date n'est pas valide
+validation.invalidDate.startBeforeEnd=La date de début doit être supérieur à la date de fin
 
 # Misc
 date=Date (jj/mm/aaaa)

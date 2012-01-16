@@ -3,7 +3,8 @@ package models.user;
 import models.contracts.Contract;
 import models.contracts.JobOrder;
 import models.school.Course;
-import models.school.YearCoursesProfessors;
+import models.school.Prestation;
+import models.school.SoeExam;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import play.data.validation.CheckWith;
@@ -54,8 +55,11 @@ public class User extends Model {
     @ManyToMany
     public List<Course> skills;
 
+    @ManyToMany(mappedBy = "examinators")
+    public List<SoeExam> soeExams;
+
     @OneToMany(mappedBy = "professor")
-    public List<YearCoursesProfessors> yearCourses;
+    public List<Prestation> realCourses;
 
     @OneToMany(mappedBy = "user")
     public List<JobOrder> orders;

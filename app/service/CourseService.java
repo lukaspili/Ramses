@@ -2,6 +2,8 @@ package service;
 
 import exceptions.UniqueConstraintException;
 import models.school.Course;
+import models.school.YearCourse;
+import models.user.User;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -13,15 +15,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class CourseService extends AbstractService<Course> {
 
-    public List<Course> getClasses() {
-        List<Course> courses = Course.findAll();
-        return detach(courses);
-    }
+    public List<Course> getAllCourses() {
 
-    public List<Course> getCourses() {
+        Query query = Course.em().createQuery("select c from Course c " +
+                "order by c.promotion, c.code");
 
-        List<Course> courses = Course.findAll();
-        return courses;
+        return query.getResultList();
     }
 
     public List<Course> getCoursesWithUsers() {
@@ -53,5 +52,28 @@ public class CourseService extends AbstractService<Course> {
         courseToSave.save();
 
         return courseToSave;
+    }
+
+    public List<Course> getAvailableCoursesByUserAndYear(User user, int year) {
+
+        Query query = Course.em().createQuery("select distinct c from Course c " +
+                "join c.yearCourses yc " +
+                "where c in :skills and yc.year = :year " +
+                "order by c.promotion, c.code");
+
+        query.setParameter("skills", user.skills)
+                .setParameter("year", year);
+
+        return query.getResultList();
+    }
+
+    public void candidate(Course course, User user) {
+        course.candidates.add(user);
+        course.save();
+    }
+
+    public void cancelCandidature(Course course, User user) {
+        course.candidates.remove(user);
+        course.save();
     }
 }

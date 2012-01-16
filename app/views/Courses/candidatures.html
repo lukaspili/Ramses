@@ -1,0 +1,49 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+	<h2>${page_title}</h2>
+
+	#{include 'helpers/flash_box.html' /}
+	
+	<p>Vous ne pouvez candidater que dans les matières dans lesquelles vous vous êtes déclarés comme compétent.</p>
+
+</div>
+
+<div class="box grid_16 round_all">
+	<table class="display datatable">
+		<thead>
+		<tr>
+			<th>&{'course.code'}</th>
+			<th>&{'course.name'}</th>
+			<th>&{'course.promotion'}</th>
+			<th>Candidature</th>
+		</tr>
+		</thead>
+		<tbody>
+
+		#{list items:courses, as: 'course'}
+		<tr>
+			<td>
+				<strong>${course.fullCode}</strong>
+			</td>
+			<td>${course.name}</td>
+			<td>${course.promotion}</td>
+			<td>
+				#{if course.candidates.contains(currentUser)}
+					Vous êtes candidats.
+					#{a @Courses.cancelCandidature(course.id)}Annuler#{/a}
+				#{/if}
+				#{else}
+					#{a @Courses.candidate(course.id)}Candidater#{/a}
+				#{/else}
+			</td>
+		</tr>
+		#{/list}
+
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript" src="@{'public/js/DataTables/jquery.dataTables.js'}"></script>
+<script type="text/javascript" src="@{'public/js/adminica/adminica_datatables.js'}"></script>

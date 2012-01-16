@@ -2,41 +2,72 @@
 
 <div class="flat_area grid_16">
 
-    #{a @YearCoursesAdmin.edit(yearCourse.id)}
-    <button class="button_colour round_all" style="float: right;">
-        <img height="24" width="24" alt="&{'usersadmin.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'yearcourses.edit'}</span>
-    </button>
-    #{/a}
+    *{#{a @YearCoursesAdmin.edit(yearCourse.id)}}*
+    *{<button class="button_colour round_all" style="float: right;">}*
+        *{<img height="24" width="24" alt="&{'usersadmin.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'yearcourses.edit'}</span>}*
+    *{</button>}*
+    *{#{/a}}*
 
-    <h2>Cours ${yearCourse.course.fullName} ${yearCourse.year}</h2>
+    <h2>Cours ${yearCourse.fullName} ${yearCourse.year}</h2>
 
     #{include 'helpers/flash_box.html' /}
 
-    <ul>
-        <li>Matière : ${yearCourse.course.fullName}</li>
-        <li>Type de cours : &{yearCourse.type.name} (${yearCourse.type.price} euros / heure)</li>
-        #{if yearCourse.isPlannified()}
-        <li>Durée : ${yearCourse.duration} heures</li>
-        <li>Date de début : ${yearCourse.startDate.format()}</li>
-        <li>Date de fin : ${yearCourse.endDate.format()}</li>
-        #{/if}
-        <li>
-            Professeur :
+	<div class="flat_area grid_9">
 
-            #{if yearCourse.hasProfessor()}
-            #{a @UsersAdmin.show(yearCourse.professor.id)}${yearCourse.professor.fullName}#{/a} (${yearCourse.professor.profile.label})
-            #{/if}
+		<ul style="padding-bottom: 20px;">
+			<li>Matière : ${yearCourse.course.fullName}</li>
+			<li>Type de cours : &{yearCourse.type.name}</li>
+			<li>Durée : ${yearCourse.duration} heures</li>
+		</ul>
 
-            #{else}
-            Non défini
-            #{/else}
-        </li>
-    </ul>
+	</div>
+
+	<div class="box grid_7">
+		<h2 class="box_head grad_colour ">Promotions</h2>
+		<a href="#" class="grabber">&nbsp;</a>
+		<a href="#" class="toggle">&nbsp;</a>
+
+		<div class="toggle_container">
+			<div class="block no_padding">
+				<table class="static">
+					<thead>
+					<tr>
+						<th class="first">Promotion</th>
+						<th>Heures à programmer</th>
+						<th>Début</th>
+						<th>Fin</th>
+						<th class="last">Actions</th>
+					</tr>
+					</thead>
+					<tbody>
+
+					#{list items:yearCourse.promotionCourses, as:'promotionCourse'}
+					<tr>
+						<td>${promotionCourse.yearPromotion.fullName}</td>
+						<td>${promotionCourse.notPlannifiedHours}</td>
+						#{if promotionCourse.isPlannified()}
+							<td>${promotionCourse.startDate.format()}</td>
+							<td>${promotionCourse.endDate.format()}</td>
+						#{/if}
+						#{else}
+							<td colspan="2">Non plannifié</td>
+						#{/else}
+						<td>
+							#{a @PromotionCoursesAdmin.edit(promotionCourse.id)}Plannifier#{/a}
+						</td>
+					</tr>
+					#{/list}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
 </div>
 
 <div class="box grid_8">
-    <h2 class="box_head grad_colour ">Candidats pour la matière (${yearCourse.candidates.size()})</h2>
+    <h2 class="box_head grad_colour ">Candidats pour la matière (${yearCourse.course.candidates.size()})</h2>
     <a href="#" class="grabber">&nbsp;</a>
     <a href="#" class="toggle">&nbsp;</a>
 
@@ -46,19 +77,19 @@
                 <thead>
                 <tr>
                     <th class="first">&{'user.idBooster'}</th>
-                    <th class="last">&{'user.lastName'}</th>
+                    <th>&{'user.lastName'}</th>
                     <th class="last">Candidature</th>
                 </tr>
                 </thead>
                 <tbody>
 
-                #{list items:yearCourse.candidates, as:'user'}
+                #{list items:yearCourse.course.candidates, as:'user'}
                 <tr>
                     <td>${user.idBooster}</td>
                     <td>${user.fullName}</td>
                     <td>
-                        #{a @YearCourses.validateCandidature(yearCourse.id, user.id)}Valider#{/a}
-                    </td>
+						#{a @CoursesAdmin.validateCandidature(yearCourse.course.id, user.id, yearCourse.id)}Valider#{/a}
+					</td>
                 </tr>
                 #{/list}
 

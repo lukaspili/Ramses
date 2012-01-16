@@ -23,8 +23,8 @@ public class YearPromotion extends Model {
     @Enumerated(EnumType.STRING)
     public Promotion promotion;
 
-    @ManyToMany
-    public List<YearCourse> yearCourses;
+//    @ManyToMany(mappedBy = "yearPromotions")
+//    public List<YearCourse> yearCourses;
 
     public String getFullName() {
         return promotion.getLabel() + name;

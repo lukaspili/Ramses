@@ -84,7 +84,7 @@ public class Users extends AppController {
 
         pageHelper().addActionTitle();
 
-        List<Course> courses = courseService.getCourses();
+        List<Course> courses = courseService.getAllCourses();
         List<Long> skills = new ArrayList<Long>();
 
         render(courses, skills);
@@ -107,7 +107,7 @@ public class Users extends AppController {
 
         if (validator.hasErrors()) {
             user.password = null;
-            List<Course> courses = courseService.getCourses();
+            List<Course> courses = courseService.getAllCourses();
             render("Users/firstLogin.html", courses, user, skills);
         }
 
@@ -116,7 +116,7 @@ public class Users extends AppController {
             validator.addError("passwordConfirmation", "users.edit.error.passwordConfirmation", true);
 
             user.password = null;
-            List<Course> courses = courseService.getCourses();
+            List<Course> courses = courseService.getAllCourses();
             render("Users/firstLogin.html", courses, user, skills);
         }
 
@@ -189,7 +189,7 @@ public class Users extends AppController {
 
         pageHelper().addActionTitle();
 
-        List<Course> courses = courseService.getCourses();
+        List<Course> courses = courseService.getAllCourses();
         List<Long> skills = collectionHelper.getIdsFromModel(Auth.getCurrentUser().skills);
 
         render(courses, skills);

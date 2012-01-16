@@ -1,7 +1,7 @@
 package models.contracts;
 
+import models.school.Prestation;
 import models.school.SoeExam;
-import models.school.YearCourse;
 import models.user.User;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
@@ -9,7 +9,7 @@ import play.db.jpa.Model;
 import plugin.s3.model.S3Blob;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -34,10 +34,10 @@ public class JobOrder extends Model {
     public User user;
 
     @ManyToMany
-    public Set<SoeExam> soeExams;
+    public List<SoeExam> soeExams;
 
-    @ManyToMany
-    public Set<YearCourse> courses;
+    @OneToMany(mappedBy = "jobOrder")
+    public List<Prestation> realCoursesProfessors;
 
     /**
      * Add 0 before if the order id is in 1 -> 99, in case to have id number like 001, 002, 010, etc...

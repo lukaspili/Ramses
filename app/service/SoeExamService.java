@@ -78,4 +78,16 @@ public class SoeExamService {
             return null;
         }
     }
+
+    public List<SoeExam> getSoeExamsByExaminatorAndYear(User examinator, int year) {
+
+        Query query = SoeExam.em().createQuery("select se from SoeExam se " +
+                "join se.course yc join yc.course c " +
+                "where se.id in (select  and yc.year = :year");
+
+        query.setParameter("examinator", examinator)
+                .setParameter("year", year);
+
+        return query.getResultList();
+    }
 }

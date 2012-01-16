@@ -1,0 +1,28 @@
+#{extends 'template/template.html' /}
+#{include 'helpers/multiselect.html' /}
+
+<div class="flat_area grid_16">
+
+	<h2>&{'yearcoursesadmin'}</h2>
+	#{include 'helpers/flash_box.html' /}
+
+</div>
+
+<div class="box grid_10">
+	<h2 class="box_head grad_colour ">${page_title}</h2>
+	<a href="#" class="grabber">&nbsp;</a>
+	<a href="#" class="toggle">&nbsp;</a>
+
+	<div class="toggle_container">
+		<div class="block">
+
+		#{include 'helpers/form_validation.html' /}
+
+        #{form @YearCoursesAdmin.create(), id:'yearcourse-create-form', enctype:'multipart/form-data' }
+			#{include 'YearCoursesAdmin/_yearCourse_form.html' /}
+		#{/form}
+		</div>
+	</div>
+</div>
+
+#{include 'YearCoursesAdmin/_yearCourse_form_help.html' /}

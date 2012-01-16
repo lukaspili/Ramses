@@ -21,9 +21,8 @@
             #{field 'availableCourses'}
             <label for="${field.id}">&{field.name}</label>
             <select name="${field.name}" multiple="multiple" class="multiselect">
-                #{list items:courses, as:'course'}
-                <option value="${course.id}">${course.course.code}
-                </option>
+                #{list items:prestations, as:'prestation'}
+                <option value="${prestation.realCourse.id}">${prestation.realCourse.yearCourse.fullName}</option>
                 #{/list}
             </select>
             #{/}

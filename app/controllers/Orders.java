@@ -5,21 +5,19 @@ import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import models.contracts.ContractState;
 import models.contracts.JobOrder;
+import models.school.Prestation;
 import models.school.SoeExam;
 import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
-import play.Logger;
 import service.JobOrderService;
+import service.PrestationService;
 import service.SoeExamService;
 import service.YearCourseService;
 
 import javax.inject.Inject;
-import java.net.IDN;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -34,6 +32,9 @@ public class Orders extends AppController {
     private static YearCourseService yearCourseService;
 
     @Inject
+    private static PrestationService prestationService;
+
+    @Inject
     private static SoeExamService soeExamService;
 
     public static void view() {
@@ -46,14 +47,14 @@ public class Orders extends AppController {
         List<JobOrder> orders = jobOrderService.getOrdersForUser(user);
 
         // list courses not in orders
-        List<YearCourse> courses = yearCourseService.getNotOrderedCoursesForUser(user);
+        List<Prestation> prestations = prestationService.getNotOrderedPrestationsByUser(Auth.getCurrentUser());
         List<Long> availableCourses = new ArrayList<Long>();
 
         // list SOEs not in orders
         List<YearCourse> soes = soeExamService.getNotOrderedSoesForUser(user);
         List<Long> availableSoes = new ArrayList<Long>();
 
-        render(orders, courses, availableCourses, soes, availableSoes);
+        render(orders, prestations, availableCourses, soes, availableSoes);
     }
 
     public static void create(List<Long> availableCourses, List<Long> availableSoes) {
@@ -75,21 +76,21 @@ public class Orders extends AppController {
 
         User user = Auth.getCurrentUser();
 
-        Set<YearCourse> courses = new HashSet<YearCourse>();
+        List<Prestation> rcps = new ArrayList<Prestation>();
 
         for (long id : availableCourses) {
 
-            YearCourse course = yearCourseService.getNotOrderedCourseForUser(id, user);
+            Prestation rcp = prestationService.getNotOrderedRcpByIdAndUser(id, user);
 
-            if (null == course) {
+            if (null == rcp || rcps.contains(rcp)) {
                 flashError("jobOrders.create.error.invalid_ordered_course");
                 view();
             }
 
-            courses.add(course);
+            rcps.add(rcp);
         }
 
-        Set<SoeExam> soeExams = new HashSet<SoeExam>();
+        List<SoeExam> soeExams = new ArrayList<SoeExam>();
 
         for (long id : availableSoes) {
 
@@ -103,7 +104,7 @@ public class Orders extends AppController {
             soeExams.add(soe);
         }
 
-        jobOrderService.createOrder(courses, soeExams, user);
+        jobOrderService.createOrder(rcps, soeExams, user);
 
         flashSuccess("jobOrders.create.success");
         view();

@@ -3,10 +3,17 @@ package controllers;
 import controllers.abstracts.AppController;
 import controllers.security.LoggedAccess;
 import exceptions.UniqueConstraintException;
+import helpers.YearCourseHelper;
 import models.school.Course;
 import models.school.Promotion;
+import models.school.PromotionCourse;
+import models.school.YearCourse;
 import models.user.Profile;
+import models.user.User;
+import service.ContractService;
 import service.CourseService;
+import service.PrestationService;
+import service.YearCourseService;
 import validation.EnhancedValidator;
 
 import javax.inject.Inject;
@@ -21,6 +28,15 @@ public class CoursesAdmin extends AppController {
 
     @Inject
     private static CourseService courseService;
+
+    @Inject
+    private static YearCourseService yearCourseService;
+
+    @Inject
+    private static ContractService contractService;
+
+    @Inject
+    private static PrestationService prestationService;
 
     public static void index() {
 
@@ -59,6 +75,41 @@ public class CoursesAdmin extends AppController {
 
         flashSuccess("coursesadmin.create.success");
         index();
+    }
+
+    public static void validateCandidature(long courseId, long userId, long fromYearCourse) {
+
+        Course course = Course.findById(courseId);
+        notFoundIfNull(course);
+
+        User user = User.findById(userId);
+        notFoundIfNull(user);
+
+        List<YearCourse> yearCourses = yearCourseService.getYearCoursesByCourseAndYear(course, YearCourseHelper.getCurrentYear());
+
+        for (YearCourse yearCourse : yearCourses) {
+            for (PromotionCourse promotionCourse : yearCourse.promotionCourses) {
+                if (null == prestationService.getPrestationByProfessorAndPromotion(user, promotionCourse)) {
+                    prestationService.create(user, promotionCourse, 0);
+                }
+            }
+        }
+
+
+        if (!user.hasContract()) {
+            contractService.createForUser(user);
+        }
+
+        course.candidates.remove(user);
+        course.save();
+
+        flashSuccess("coursesadmin.validateCandidature.success");
+
+        if (fromYearCourse != 0) {
+            YearCoursesAdmin.show(fromYearCourse);
+        }
+
+        Dashboard.index();
     }
 
 

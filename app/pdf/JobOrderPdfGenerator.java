@@ -5,17 +5,15 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import models.contracts.JobOrder;
+import models.school.Prestation;
 import models.school.SoeExam;
-import models.school.YearCourse;
 import org.joda.time.LocalDate;
 import play.Logger;
-import play.db.jpa.Blob;
 import play.libs.I18N;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -150,57 +148,57 @@ public class JobOrderPdfGenerator extends PdfGenerator {
             table.addCell(cell);
 
 
-            for (YearCourse course : order.courses) {
+            for (Prestation rcp : order.realCoursesProfessors) {
 
-                phrase = new Phrase(course.course.name, textFont);
+                phrase = new Phrase(rcp.realCourse.yearCourse.getFullName(), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
                 table.addCell(cell);
 
-                phrase = new Phrase(course.course.code, textFont);
-                phrase.setLeading(textLeading);
-                cell = new PdfPCell();
-                cell.setPhrase(phrase);
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                table.addCell(cell);
-
-                phrase = new Phrase(course.course.promotion.getLabel(), textFont);
+                phrase = new Phrase(rcp.realCourse.yearCourse.course.code, textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(course.startDate.toString(I18N.getDateFormat()), textFont);
+                phrase = new Phrase(rcp.realCourse.yearPromotion.getFullName(), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(course.endDate.toString(I18N.getDateFormat()), textFont);
+                phrase = new Phrase(rcp.realCourse.startDate.toString(I18N.getDateFormat()), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(String.valueOf(course.duration), textFont);
+                phrase = new Phrase(rcp.realCourse.endDate.toString(I18N.getDateFormat()), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(String.valueOf(course.type.price), textFont);
+                phrase = new Phrase(String.valueOf(rcp.hours), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(String.valueOf(course.getTotal()), textFont);
+                phrase = new Phrase(String.valueOf(rcp.realCourse.yearCourse.type.getPriceForYearPromotion(rcp.realCourse.yearPromotion)), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(rcp.getTotal()), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);

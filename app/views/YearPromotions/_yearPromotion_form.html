@@ -31,16 +31,16 @@
 #{/}
 #{/if}
 
-#{field 'yearCourses'}
-<label for="${field.id}">&{field.name}</label>
-#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+*{#{field 'yearCourses'}}*
+*{<label for="${field.id}">&{field.name}</label>}*
+*{#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}}*
 
-<select name="${field.name}" multiple="multiple" class="multiselect" style="margin-bottom: 10px">
-#{list items:yearCoursesModel, as:'yearCourse'}
-	<option value="${yearCourse.id}" ${field.value.contains(yearCourse.id).yesno('selected', '')}>${yearCourse.course.fullName}</option>
-#{/list}
-</select>
-#{/}
+*{<select name="${field.name}" multiple="multiple" class="multiselect" style="margin-bottom: 10px">}*
+*{#{list items:yearCoursesModel, as:'yearCourse'}}*
+	*{<option value="${yearCourse.id}" ${field.value.contains(yearCourse.id).yesno('selected', '')}>${yearCourse.course.fullName}</option>}*
+*{#{/list}}*
+*{</select>}*
+*{#{/}}*
 
 <button class="button_colour round_all">
 	<img height="24" width="24" alt="&{'submit.save'}"

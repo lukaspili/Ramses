@@ -22,6 +22,9 @@ public class Course extends Model {
     @ManyToMany(mappedBy = "skills")
     public List<User> users;
 
+    @ManyToMany
+    public List<User> candidates;
+
     @OneToMany(mappedBy = "course")
     public List<YearCourse> yearCourses;
 

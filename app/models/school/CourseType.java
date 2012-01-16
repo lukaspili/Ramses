@@ -3,8 +3,6 @@ package models.school;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -14,20 +12,17 @@ public class CourseType extends Model {
 
     public String name;
 
-    public float price;
+    public float priceHigh;
 
-    @Enumerated(EnumType.STRING)
-    public Level level;
+    public float priceLow;
 
-    public CourseType() {
-    }
+    public float getPriceForYearPromotion(YearPromotion yearPromotion) {
 
-    public CourseType(String name, float price) {
-        this.name = name;
-        this.price = price;
-    }
+        if (yearPromotion.studentsNumber > 75) {
+            return priceHigh;
+        }
 
-    public enum Level {
-        LEVEL1, LEVEL2, LEVEL3
+        return priceLow;
+
     }
 }

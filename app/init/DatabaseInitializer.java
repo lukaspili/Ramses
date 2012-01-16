@@ -36,11 +36,11 @@ public class DatabaseInitializer {
 
         // COURSES TYPE
 
-        CourseType courseTypeWithoutTP = new CourseType("Cours sans TP noté ni mini projet en EUR TTC par heure", 30F);
-        courseTypeWithoutTP.save();
-
-        CourseType courseTypeWithTP = new CourseType("Cours avec TP ou mini projet en EUR TTC par heure", 37.5F);
-        courseTypeWithTP.save();
+//        CourseType courseTypeWithoutTP = new CourseType("Cours sans TP noté ni mini projet en EUR TTC par heure", 30F);
+//        courseTypeWithoutTP.save();
+//
+//        CourseType courseTypeWithTP = new CourseType("Cours avec TP ou mini projet en EUR TTC par heure", 37.5F);
+//        courseTypeWithTP.save();
 
 
         // COURSES
@@ -227,7 +227,7 @@ public class DatabaseInitializer {
             YearCourse yearCourse = new YearCourse();
             yearCourse.course = course;
             yearCourse.year = 2012;
-            yearCourse.type = courseTypeWithTP;
+//            yearCourse.type = courseTypeWithTP;
             yearCourse.save();
         }
 
@@ -424,8 +424,8 @@ public class DatabaseInitializer {
         yearCourse0ABC.course = course0ABC;
         yearCourse0ABC.duration = 56;
         yearCourse0ABC.year = 2012;
-        yearCourse0ABC.startDate = new LocalDate(2011, 11, 10);
-        yearCourse0ABC.endDate = new LocalDate(2011, 11, 20);
+//        yearCourse0ABC.startDate = new LocalDate(2011, 11, 10);
+//        yearCourse0ABC.endDate = new LocalDate(2011, 11, 20);
 //        yearCourse0ABC.professor = test2;
         yearCourse0ABC.save();
 

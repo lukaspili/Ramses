@@ -40,11 +40,7 @@ public class YearPromotions extends AppController {
         render(promotions, yearCourses, yearCoursesModel);
     }
 
-    public static void create(YearPromotion yearPromotion, List<Long> yearCourses) {
-
-        if (null == yearCourses) {
-            yearCourses = new ArrayList<Long>();
-        }
+    public static void create(YearPromotion yearPromotion) {
 
         EnhancedValidator validator = validator();
 
@@ -62,39 +58,28 @@ public class YearPromotions extends AppController {
 
         if (validator.hasErrors()) {
             List<Promotion> promotions = Arrays.asList(Promotion.values());
-            List<YearCourse> yearCoursesModel = yearCourseService.getYearCoursesForYear(YearCourseHelper.getCurrentYear());
-            render("YearPromotions/newYearPromotion.html", promotions, yearPromotion, yearCourses, yearCoursesModel);
+            render("YearPromotions/newYearPromotion.html", promotions, yearPromotion);
         }
 
-        List<YearCourse> yearCoursesFromSelect = yearCourseService.getYearCoursesByIdsAndPromotion(yearCourses, yearPromotion.promotion);
-
-        yearPromotionService.create(yearPromotion, yearCoursesFromSelect, YearCourseHelper.getCurrentYear());
+        yearPromotionService.create(yearPromotion, YearCourseHelper.getCurrentYear());
 
         flashSuccess("yearPromotions.create.success");
         index();
     }
 
     public static void edit(long id) {
-
         YearPromotion yearPromotion = YearPromotion.findById(id);
         notFoundIfNull(yearPromotion);
-
-        List<YearCourse> yearCoursesModel = yearCourseService.getYearCoursesForYear(YearCourseHelper.getCurrentYear());
-        List<Long> yearCourses = collectionHelper.getIdsFromModel(yearPromotion.yearCourses);
-        render(yearPromotion, yearCourses, yearCoursesModel);
+        render(yearPromotion);
     }
 
-    public static void update(YearPromotion yearPromotion, List<Long> yearCourses) {
+    public static void update(YearPromotion yearPromotion) {
 
         notFoundIfNull(yearPromotion);
         notFoundIfNull(yearPromotion.id);
 
         YearPromotion yearPromotionModel = YearPromotion.findById(yearPromotion.id);
         notFoundIfNull(yearPromotionModel);
-
-        if (null == yearCourses) {
-            yearCourses = new ArrayList<Long>();
-        }
 
         EnhancedValidator validator = validator().validate(yearPromotion);
 
@@ -103,13 +88,10 @@ public class YearPromotions extends AppController {
         }
 
         if (validator.hasErrors()) {
-            List<YearCourse> yearCoursesModel = yearCourseService.getYearCoursesForYear(YearCourseHelper.getCurrentYear());
-            render("YearPromotions/edit.html", yearPromotion, yearCourses, yearCoursesModel);
+            render("YearPromotions/edit.html", yearPromotion);
         }
 
-        List<YearCourse> yearCoursesFromSelect = yearCourseService.getYearCoursesByIdsAndPromotion(yearCourses, yearPromotion.promotion);
-
-        yearPromotionService.update(yearPromotionModel, yearPromotion, yearCoursesFromSelect);
+        yearPromotionService.update(yearPromotionModel, yearPromotion);
 
         flashSuccess("yearPromotions.update.success");
         index();
