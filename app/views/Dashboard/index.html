@@ -53,12 +53,12 @@
 				</tr>
 				</thead>
 				<tbody>
-				*{#{list items:soeExams, as:'soeExam'}}*
-				*{<tr>}*
-					*{<td>${soeExam.course.fullName}</td>}*
-					*{<td>${soeExam.state.label}</td>}*
-				*{</tr>}*
-				*{#{/list}}*
+				#{list items:soeExams, as:'soeExam'}
+				<tr>
+					<td>${soeExam.course.fullName}</td>
+					<td>${soeExam.state.label}</td>
+				</tr>
+				#{/list}
 				</tbody>
 			</table>
 		</div>

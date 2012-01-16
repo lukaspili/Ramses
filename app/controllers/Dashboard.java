@@ -43,7 +43,7 @@ public class Dashboard extends AppController {
 //        }
 
         List<Prestation> prestations = prestationService.getPrestationsByProfessorAndYear(Auth.getCurrentUser(), YearCourseHelper.getCurrentYear());
-//        List<SoeExam> soeExams = soeExamService.getSoeExamsByExaminatorAndYear(Auth.getCurrentUser(), YearCourseHelper.getCurrentYear());
+        List<SoeExam> soeExams = soeExamService.getSoeExamsByExaminatorAndYear(Auth.getCurrentUser(), YearCourseHelper.getCurrentYear());
 
         render(prestations);
     }

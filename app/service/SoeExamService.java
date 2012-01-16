@@ -83,7 +83,7 @@ public class SoeExamService {
 
         Query query = SoeExam.em().createQuery("select se from SoeExam se " +
                 "join se.course yc join yc.course c " +
-                "where se.id in (select  and yc.year = :year");
+                "where :examinator member of se.examinators and yc.year = :year");
 
         query.setParameter("examinator", examinator)
                 .setParameter("year", year);
