@@ -40,6 +40,9 @@ public class JobOrder extends Model {
     public List<SoeExam> soeExams;
 
     @OneToMany(mappedBy = "jobOrder")
+    public List<SpecificPrestation> specificPrestations;
+
+    @OneToMany(mappedBy = "jobOrder")
     public List<Prestation> realCoursesProfessors;
 
     /**

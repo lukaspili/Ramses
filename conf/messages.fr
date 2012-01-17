@@ -40,13 +40,14 @@ profile.admin=Administrateur
 profile.admin.many=Administrateurs
 
 # Course
-course=Cours
+course=Matière
 course.code=Code
 course.name=Nom
 course.promotion=&{promotion}
 course.users=Utilisateurs compétents
 
 # YearCourse
+yearCourse=Cours
 yearCourse.name=Nom complémentaire
 yearCourse.duration=Durée du cours
 yearCourse.duration.validate.positive=La durée
@@ -243,6 +244,19 @@ contractsadmin.signedBySTA.success=Le contrat cadre est maintenant signé par le
 contractsadmin.signedBySupinfo.success=Le contrat cadre est maintenant signé par SUPINFO
 contractsadmin.regenerate.error.contract_not_for_current_year=Vous ne pouvez pas regenerer un contrat d'une année précédente
 
+specificPrestation=Prestation ponctuelle
+specificPrestation.title=Objet
+specificPrestation.hours=Nombre d'heures
+specificPrestation.price=Prix de l'heure
+specificPrestation.users=Prestataire(s)
+specificPrestation.date=Date &{date.format.help}
+
+specificprestations=Prestations ponctuelles
+specificprestationsadmin=Gestion des prestations ponctuelles
+specificprestationsadmin.index=Liste des prestations ponctuelles
+specificprestationsadmin.newPrestation=Nouvelle prestation ponctuelle
+specificprestationsadmin.create.success=La prestation ponctuelle a été créé avec succès
+
 # Application
 
 # Application.reportBug
@@ -267,6 +281,7 @@ validation.invalidDate.startBeforeEnd=La date de début doit être supérieur à
 
 # Misc
 date=Date (jj/mm/aaaa)
+date.format.help= (jj/mm/aaaa)
 startDate=Date de début (jj/mm/aaaa)
 endDate=Date de fin (jj/mm/aaaa)
 skills=Matières dans lesquelles vous êtes validés

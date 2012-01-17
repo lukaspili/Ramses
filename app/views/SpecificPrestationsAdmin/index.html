@@ -1,0 +1,47 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+    <h2>${page_title}</h2>
+
+    #{include 'helpers/flash_box.html' /}
+
+    #{a @SpecificPrestationsAdmin.newPrestation()}
+    <button class="button_colour round_all" style="float: right;">
+        <img height="24" width="24" alt="&{'specificprestationsadmin.newPrestation'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'specificprestationsadmin.newPrestation'}</span>
+    </button>
+    #{/a}
+
+</div>
+
+<div class="box grid_16 round_all">
+    <table class="display datatable">
+        <thead>
+        <tr>
+            <th class="first">&{'specificPrestation.date'}</th>
+            <th>&{'specificPrestation.title'}</th>
+            <th>&{'course'}</th>
+            <th>&{'specificPrestation.hours'}</th>
+            <th>&{'specificPrestation.price'}</th>
+            <th class="last">&{'user.lastName'}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        #{list items:specificPrestations, as: 'specificPrestation'}
+        <tr>
+            <td>${specificPrestation.date.format()}</td>
+            <td>${specificPrestation.title}</td>
+            <td>${specificPrestation.yearCourse.course.fullName}</td>
+            <td>${specificPrestation.hours}</td>
+            <td>${specificPrestation.price}</td>
+            <td>${specificPrestation.user.fullName}</td>
+        </tr>
+        #{/list}
+
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" src="@{'public/js/DataTables/jquery.dataTables.js'}"></script>
+<script type="text/javascript" src="@{'public/js/adminica/adminica_datatables.js'}"></script>

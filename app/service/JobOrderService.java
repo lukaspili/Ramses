@@ -1,13 +1,13 @@
 package service;
 
 import models.contracts.JobOrder;
+import models.contracts.SpecificPrestation;
 import models.school.Prestation;
 import models.school.SoeExam;
 import models.user.User;
 import org.joda.time.LocalDate;
 import pdf.JobOrderPdfGenerator;
 import play.libs.MimeTypes;
-import plugin.s3.model.S3Blob;
 import plugin.s3.model.impl.S3RealBlob;
 
 import javax.persistence.NoResultException;
@@ -30,7 +30,7 @@ public class JobOrderService {
         return query.getResultList();
     }
 
-    public void createOrder(List<Prestation> prestations, List<SoeExam> soeExams, User user) {
+    public void createOrder(List<Prestation> prestations, List<SoeExam> soeExams, List<SpecificPrestation> specificPrestations, User user) {
 
         JobOrder order = new JobOrder();
         order.creationDate = new LocalDate();
@@ -38,6 +38,7 @@ public class JobOrderService {
         order.contract = user.contract;
         order.soeExams = soeExams;
         order.realCoursesProfessors = prestations;
+        order.specificPrestations = specificPrestations;
 
         order.total = 0;
 
@@ -49,7 +50,23 @@ public class JobOrderService {
             order.total += soe.getTotal();
         }
 
-        JobOrder last = JobOrder.find("order by jobOrderNumber desc limit 1").first();
+        for (SpecificPrestation specificPrestation : specificPrestations) {
+            order.total += specificPrestation.getTotal();
+        }
+
+
+        JobOrder last;
+
+        try {
+            last = (JobOrder) JobOrder.em().createQuery("select jo from JobOrder jo " +
+                    "where jo.user = :user " +
+                    "order by jo.jobOrderNumber desc")
+                    .setParameter("user", user)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            last = null;
+        }
 
         if (null == last) {
             order.jobOrderNumber = 1;

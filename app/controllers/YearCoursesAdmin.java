@@ -8,7 +8,6 @@ import models.school.Course;
 import models.school.CourseType;
 import models.school.YearCourse;
 import models.user.Profile;
-import models.user.User;
 import play.data.validation.Required;
 import service.ContractService;
 import service.CourseService;
@@ -38,7 +37,7 @@ public class YearCoursesAdmin extends AppController {
 
         pageHelper().addActionTitle();
 
-        List<YearCourse> yearCourses = yearCourseService.getAllCoursesForYear(YearCourseHelper.getCurrentYear());
+        List<YearCourse> yearCourses = yearCourseService.getYearCoursesByYear(YearCourseHelper.getCurrentYear());
         render(yearCourses);
     }
 

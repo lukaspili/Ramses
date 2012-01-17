@@ -54,24 +54,12 @@ public class YearCourseService extends AbstractService<YearCourse> {
         return query.getResultList();
     }
 
-    public List<YearCourse> getAllCoursesForYear(int year) {
+    public List<YearCourse> getYearCoursesByYear(int year) {
 
         Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
                 "join yc.course c " +
                 "where yc.year = :year " +
-                "order by c.code");
-
-        query.setParameter("year", year);
-
-        return query.getResultList();
-    }
-
-    public List<YearCourse> getYearCoursesForYear(int year) {
-
-        Query query = YearCourse.em().createQuery("select yc from YearCourse yc " +
-                "join yc.course c " +
-                "where yc.year = :year " +
-                "order by yc.course.code");
+                "order by yc.course.promotion, yc.course.code");
 
         query.setParameter("year", year);
 

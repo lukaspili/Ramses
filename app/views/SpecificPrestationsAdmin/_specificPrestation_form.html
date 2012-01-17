@@ -1,0 +1,59 @@
+#{include 'helpers/multiselect.html' /}
+
+#{if request.actionMethod == 'edit' || request.actionMethod == 'update'}
+#{field 'specificPrestation.id'}
+<input type="hidden" id="${field.id}" name="${field.name}" value="${field.value}"/>
+#{/}
+#{/if}
+
+#{field 'specificPrestation.title'}
+<label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}"
+	   class="medium ${field.errorClass}"/>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'specificPrestation.hours'}
+<label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}"
+	   class="medium ${field.errorClass}"/>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'specificPrestation.price'}
+<label for="${field.id}">&{field.name} <span style="color:red">*</span></label>
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value}"
+	   class="medium ${field.errorClass}"/>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'date'}
+<label for="${field.id}">&{'specificPrestation.date'} <span style="color:red">*</span></label>
+<input type="text" id="${field.id}" name="${field.name}" value="${field.value?.format()}"
+class="medium ${field.errorClass}"/>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'yearCourse'}
+<label for="${field.id}">&{field.name}</label>
+
+<div class="input_group">
+#{select field.name, items:yearCourses, valueProperty:'id', labelProperty:'fullName', id:field.id, value:field.value /}
+</div>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+#{/}
+
+#{field 'users'}
+<label for="${field.id}">&{'specificPrestation.users'}</label>
+#{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}
+
+<select name="${field.name}" multiple="multiple" class="multiselect">
+#{list items:usersModel, as:'user'}
+	<option value="${user.id}" ${(field.value.contains(user.id)).yesno('selected', '')}>${user.idBoosterAndFullname}</option>
+#{/list}
+</select>
+#{/}
+
+<button class="button_colour round_all">
+	<img height="24" width="24" alt="&{'submit.save'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'submit.save'}</span>
+</button>

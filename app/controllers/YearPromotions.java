@@ -41,7 +41,7 @@ public class YearPromotions extends AppController {
         pageHelper().addActionTitle();
 
         List<Promotion> promotions = Arrays.asList(Promotion.values());
-        List<YearCourse> yearCoursesModel = yearCourseService.getYearCoursesForYear(YearCourseHelper.getCurrentYear());
+        List<YearCourse> yearCoursesModel = yearCourseService.getYearCoursesByYear(YearCourseHelper.getCurrentYear());
         List<Long> yearCourses = new ArrayList<Long>();
 
         render(promotions, yearCourses, yearCoursesModel);

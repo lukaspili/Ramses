@@ -6,15 +6,14 @@ import controllers.security.LoggedAccess;
 import models.contracts.ContractState;
 import models.contracts.JobOrder;
 import models.contracts.JobOrderState;
+import models.contracts.SpecificPrestation;
 import models.school.Prestation;
 import models.school.SoeExam;
 import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
-import service.JobOrderService;
-import service.PrestationService;
-import service.SoeExamService;
-import service.YearCourseService;
+import play.Logger;
+import service.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -38,6 +37,9 @@ public class Orders extends AppController {
     @Inject
     private static SoeExamService soeExamService;
 
+    @Inject
+    private static SpecificPrestationService specificPrestationService;
+
     public static void view() {
 
         pageHelper().addActionTitle();
@@ -50,17 +52,20 @@ public class Orders extends AppController {
         List<JobOrder> orders = jobOrderService.getOrdersForUser(user);
 
         // list courses not in orders
-        List<Prestation> prestations = prestationService.getNotOrderedPrestationsByUser(Auth.getCurrentUser());
+        List<Prestation> prestations = prestationService.getNotOrderedPrestationsByUser(user);
         List<Long> availableCourses = new ArrayList<Long>();
 
         // list SOEs not in orders
         List<YearCourse> soes = soeExamService.getNotOrderedSoesForUser(user);
         List<Long> availableSoes = new ArrayList<Long>();
+        
+        List<SpecificPrestation> specificPrestationsModel = specificPrestationService.getNotOrderedSpecificPrestationsByUser(user);
+        List<Long> specificPrestations = new ArrayList<Long>();
 
-        render(orders, prestations, availableCourses, soes, availableSoes);
+        render(orders, prestations, availableCourses, soes, availableSoes, specificPrestations, specificPrestationsModel);
     }
 
-    public static void create(List<Long> availableCourses, List<Long> availableSoes) {
+    public static void create(List<Long> availableCourses, List<Long> availableSoes, List<Long> specificPrestations) {
 
         checkContractSigned();
 
@@ -71,13 +76,19 @@ public class Orders extends AppController {
         if (null == availableSoes) {
             availableSoes = new ArrayList<Long>();
         }
-
-        if (!(!availableCourses.isEmpty() || !availableSoes.isEmpty())) {
-            flashError("joborders.create.error.empty");
-            view();
+        
+        if(null == specificPrestations) {
+            specificPrestations = new ArrayList<Long>();
         }
 
         User user = Auth.getCurrentUser();
+
+        List<SpecificPrestation> specificPrestationsFromSelect = specificPrestationService.getNotOrderedSpecificPrestationsByUserAndIds(user, specificPrestations);
+
+        if (!(!availableCourses.isEmpty() || !availableSoes.isEmpty() || !specificPrestationsFromSelect.isEmpty())) {
+            flashError("joborders.create.error.empty");
+            view();
+        }
 
         List<Prestation> rcps = new ArrayList<Prestation>();
 
@@ -107,7 +118,7 @@ public class Orders extends AppController {
             soeExams.add(soe);
         }
 
-        jobOrderService.createOrder(rcps, soeExams, user);
+        jobOrderService.createOrder(rcps, soeExams, specificPrestationsFromSelect, user);
 
         flashSuccess("joborders.create.success");
         view();

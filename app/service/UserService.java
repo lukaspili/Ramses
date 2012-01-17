@@ -28,7 +28,7 @@ public class UserService extends AbstractService<User> {
         }
 
         User last = User.find("order by staNumber desc limit 1").first();
-        
+
         if (null == last) {
             user.staNumber = 1;
         } else {
@@ -52,7 +52,21 @@ public class UserService extends AbstractService<User> {
     }
 
     public List<User> getActiveUsers() {
-        return User.em().createQuery("select u from User u where u.active = true").getResultList();
+        return User.em().createQuery("select u from User u where u.active = true " +
+                "order by u.idBooster").getResultList();
+    }
+
+    public List<User> getActiveUsersByIds(List<Long> ids) {
+
+        if(null == ids || ids.isEmpty()) {
+            return new ArrayList<User>();
+        }
+
+        return User.em().createQuery("select u from User u " +
+                "where u.active = true and u.id in (:ids)" +
+                "order by u.idBooster")
+                .setParameter("ids", ids)
+                .getResultList();
     }
 
     public User getFromLogin(String idBooster, String password) {

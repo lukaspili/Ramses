@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import models.contracts.JobOrder;
+import models.contracts.SpecificPrestation;
 import models.school.Prestation;
 import models.school.SoeExam;
 import org.joda.time.LocalDate;
@@ -103,7 +104,13 @@ public class JobOrderPdfGenerator extends PdfGenerator {
                     today = soeExam.date;
                 }
             }
-            
+
+            for(SpecificPrestation specificPrestation : order.specificPrestations) {
+                if (today.isAfter(specificPrestation.date)) {
+                    today = specificPrestation.date;
+                }
+            }
+
             String month = String.valueOf(today.getMonthOfYear());
             if(month.length() == 1) {
                 month = "0" + month;
@@ -294,6 +301,66 @@ public class JobOrderPdfGenerator extends PdfGenerator {
                 table.addCell(cell);
 
                 phrase = new Phrase(String.valueOf(soeExam.getTotal()), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+            }
+
+            for (SpecificPrestation specificPrestation : order.specificPrestations) {
+
+                Logger.debug("Add specific prestation to joborder");
+
+                phrase = new Phrase("SOE " + specificPrestation.title, textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                table.addCell(cell);
+
+                phrase = new Phrase(specificPrestation.yearCourse.course.getFullCode(), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(specificPrestation.yearCourse.course.promotion.getLabel(), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(specificPrestation.date.toString(I18N.getDateFormat()), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(specificPrestation.date.toString(I18N.getDateFormat()), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(specificPrestation.hours), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(specificPrestation.price), textFont);
+                phrase.setLeading(textLeading);
+                cell = new PdfPCell();
+                cell.setPhrase(phrase);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                phrase = new Phrase(String.valueOf(specificPrestation.getTotal()), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);

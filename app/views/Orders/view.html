@@ -36,6 +36,15 @@
             </select>
             #{/}
 
+			#{field 'specificPrestations'}
+				<label for="${field.id}" style="margin-top: 10px">&{'specificprestations'}</label>
+				<select name="${field.name}" multiple="multiple" class="multiselect">
+				#{list items:specificPrestationsModel, as:'specificPrestation'}
+					<option value="${specificPrestation.id}">${specificPrestation.title} de ${specificPrestation.yearCourse.course.fullCode} du ${specificPrestation.date.format()}</option>
+				#{/list}
+				</select>
+			#{/}
+
             <button class="button_colour round_all" style="margin-top: 15px">
                 <img height="24" width="24" alt="&{'joborders.create'}" src="@{'/public/images/icons/small/white/bended_arrow_right.png'}"><span>&{'joborders.create'}</span>
             </button>

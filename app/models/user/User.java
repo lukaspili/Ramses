@@ -71,6 +71,10 @@ public class User extends Model {
         this.idBooster = idBooster;
         this.profile = profile;
     }
+    
+    public String getIdBoosterAndFullname() {
+        return idBooster + " - " + getFullName();
+    }
 
     public String getOfficialFullName() {
 

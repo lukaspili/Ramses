@@ -22,6 +22,13 @@
 			</ul>
 		</li>
 
+		<li><a href="#"><img src="@{'/public/images/icons/small/grey/create_write.png'}"/>Comptabilité</a>
+			<ul class="dropdown">
+				<li>#{a @SpecificPrestationsAdmin.index()}&{'specificprestationsadmin.index'}#{/a}</li>
+				<li>#{a @SpecificPrestationsAdmin.newPrestation()}&{'specificprestationsadmin.newPrestation'}#{/a}</li>
+			</ul>
+		</li>
+
 		<li><a href="#"><img src="@{'/public/images/icons/small/grey/create_write.png'}"/>Administration</a>
 			<ul class="dropdown">
 				<li>#{a @Builds.manage()}Gestion des builds#{/a}</li>
