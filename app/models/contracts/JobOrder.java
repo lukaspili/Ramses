@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import play.db.jpa.Model;
 import plugin.s3.model.S3Blob;
+import plugin.s3.model.impl.S3RealBlob;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,7 +20,7 @@ public class JobOrder extends Model {
 
     public float total;
 
-    public S3Blob pdf;
+    public S3RealBlob pdf;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
     public LocalDate creationDate;

@@ -88,10 +88,9 @@ public class UsersAdmin extends AppController {
     public static void show(long userId) {
 
         User user = userService.findUserWithContratAndOrders(userId);
-
         notFoundIfNull(user);
 
-        String title = null;
+        String title;
 
         if (!user.active) {
             flashInfoSamePage("user.info.not_yet_active");
@@ -100,7 +99,7 @@ public class UsersAdmin extends AppController {
             title = "Utilisateur " + user.getFullName();
         }
 
-        pageHelper().addActionTitle();
+        pageHelper().directTitle(title);
 
         if (user.desactivated) {
             flashErrorSamePage("user.show.is_desactivated");

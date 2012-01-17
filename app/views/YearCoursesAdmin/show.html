@@ -148,7 +148,7 @@
 
                 #{list items:yearCourse.soeExams, as:'soeExam'}
                 <tr>
-                    <td>#{a @SoeExams.show(soeExam.id)}${soeExam.date}#{/a}</td>
+                    <td>#{a @SoeExams.show(soeExam.id)}${soeExam.date.format()}#{/a}</td>
                     <td>${soeExam.plannifiedDuration}</td>
                     <td>${soeExam.realDuration}</td>
                     <td>${soeExam.state.label}</td>

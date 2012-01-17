@@ -17,7 +17,7 @@ public class PrestationService {
     public Prestation getNotOrderedRcpByIdAndUser(long id, User user) {
 
         Query query = Prestation.em().createQuery("select p from Prestation p " +
-                "join p.realCourse pc " +
+                "join p.realCourse pc join pc.yearCourse yc join yc.course c " +
                 "where p.jobOrder = null and pc.id = :id and p.professor = :professor");
 
         query.setParameter("id", id);

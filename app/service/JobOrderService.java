@@ -8,6 +8,7 @@ import org.joda.time.LocalDate;
 import pdf.JobOrderPdfGenerator;
 import play.libs.MimeTypes;
 import plugin.s3.model.S3Blob;
+import plugin.s3.model.impl.S3RealBlob;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -57,7 +58,7 @@ public class JobOrderService {
             File file = File.createTempFile("order", ".pdf");
             new JobOrderPdfGenerator().generate(order, file);
 
-            order.pdf = new S3Blob();
+            order.pdf = new S3RealBlob();
             order.pdf.set(new FileInputStream(file), MimeTypes.getContentType(file.getName()));
 
         } catch (IOException e) {

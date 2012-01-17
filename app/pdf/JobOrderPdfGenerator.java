@@ -65,6 +65,17 @@ public class JobOrderPdfGenerator extends PdfGenerator {
             cell.setBorder(PdfPCell.NO_BORDER);
             table.addCell(cell);
 
+            cell = new PdfPCell();
+            phrase = new Phrase("Campus de Paris");
+            cell.setPhrase(phrase);
+            cell.setIndent(35);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+
+            cell = new PdfPCell();
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+
             document.add(table);
 
             int leftIndent = 360;
@@ -81,7 +92,29 @@ public class JobOrderPdfGenerator extends PdfGenerator {
             document.add(paragraph);
 
             LocalDate today = new LocalDate();
-            paragraph = new Paragraph("Paris, le " + today.getDayOfMonth() + " / " + today.getMonthOfYear() + " / " + today.getYear(), textFont);
+            for (Prestation prestation : order.realCoursesProfessors) {
+                if (today.isAfter(prestation.realCourse.startDate)) {
+                    today = prestation.realCourse.startDate;
+                }
+            }
+
+            for(SoeExam soeExam : order.soeExams) {
+                if (today.isAfter(soeExam.date)) {
+                    today = soeExam.date;
+                }
+            }
+            
+            String month = String.valueOf(today.getMonthOfYear());
+            if(month.length() == 1) {
+                month = "0" + month;
+            }
+
+            String day = String.valueOf(today.getDayOfMonth());
+            if(day.length() == 1) {
+                day = "0" + day;
+            }
+
+            paragraph = new Paragraph("Paris, le " + day + " / " + month + " / " + today.getYear(), textFont);
             paragraph.setIndentationLeft(leftIndent);
             paragraph.setSpacingBefore(2);
             paragraph.setSpacingAfter(20);
@@ -150,13 +183,15 @@ public class JobOrderPdfGenerator extends PdfGenerator {
 
             for (Prestation rcp : order.realCoursesProfessors) {
 
+                Logger.debug("Add prestation to joborder");
+
                 phrase = new Phrase(rcp.realCourse.yearCourse.getFullName(), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
                 table.addCell(cell);
 
-                phrase = new Phrase(rcp.realCourse.yearCourse.course.code, textFont);
+                phrase = new Phrase(rcp.realCourse.yearCourse.course.getFullCode(), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
@@ -208,13 +243,15 @@ public class JobOrderPdfGenerator extends PdfGenerator {
 
             for (SoeExam soeExam : order.soeExams) {
 
+                Logger.debug("Add soe exam to joborder");
+
                 phrase = new Phrase("SOE " + soeExam.course.course.name, textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
                 table.addCell(cell);
 
-                phrase = new Phrase(soeExam.course.course.code, textFont);
+                phrase = new Phrase(soeExam.course.course.getFullCode(), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);
@@ -235,7 +272,7 @@ public class JobOrderPdfGenerator extends PdfGenerator {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                phrase = new Phrase(soeExam.date.toString(), textFont);
+                phrase = new Phrase(soeExam.date.toString(I18N.getDateFormat()), textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);

@@ -6,6 +6,7 @@ import models.user.User;
 import pdf.ContractPdfGenerator;
 import play.libs.MimeTypes;
 import plugin.s3.model.S3Blob;
+import plugin.s3.model.impl.S3RealBlob;
 
 import java.io.*;
 
@@ -26,7 +27,7 @@ public class ContractService {
             File file = File.createTempFile("contract", ".pdf");
             new ContractPdfGenerator().generate(user, file);
 
-            contract.pdf = new S3Blob();
+            contract.pdf = new S3RealBlob();
             contract.pdf.set(new FileInputStream(file), MimeTypes.getContentType(file.getName()));
 
         } catch (IOException e) {

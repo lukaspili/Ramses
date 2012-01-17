@@ -220,13 +220,14 @@ coursesadmin.validateCandidature.success=La candidature a été validée avec su
 
 
 # JobOrders
-jobOrders.error.contract_not_signed=Votre contrat cadre n'a pas encore été signé
+joborders.error.contract_not_signed=Votre contrat cadre n'a pas encore été signé
 
-# JobOrders.create
-jobOrders.create.error.empty=Veuillez inclure au moins une prestation dans le bon de commande
-jobOrders.create.error.invalid_ordered_soe=Un ou plusieurs SOE inclus dans le bon de commande ne sont pas valides
-jobOrders.create.error.invalid_ordered_course=Un ou plusieurs cours inclus dans le bon de commande ne sont pas valides
-jobOrders.create.success=Le bon de commande a été créé avec succès
+orders.view=Vos bons de commande
+joborders.create=Créer le bon de commande
+joborders.create.error.empty=Veuillez inclure au moins une prestation dans le bon de commande
+joborders.create.error.invalid_ordered_soe=Un ou plusieurs SOE inclus dans le bon de commande ne sont pas valides
+joborders.create.error.invalid_ordered_course=Un ou plusieurs cours inclus dans le bon de commande ne sont pas valides
+joborders.create.success=Le bon de commande a été créé avec succès
 
 
 # Contracts

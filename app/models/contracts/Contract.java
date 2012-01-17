@@ -3,6 +3,7 @@ package models.contracts;
 import models.user.User;
 import play.db.jpa.Model;
 import plugin.s3.model.S3Blob;
+import plugin.s3.model.impl.S3RealBlob;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,7 +18,7 @@ public class Contract extends Model {
 
     public int year;
 
-    public S3Blob pdf;
+    public S3RealBlob pdf;
 
     @Enumerated(EnumType.STRING)
     public ContractState state = ContractState.CREATED;

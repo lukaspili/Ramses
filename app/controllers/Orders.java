@@ -39,6 +39,8 @@ public class Orders extends AppController {
 
     public static void view() {
 
+        pageHelper().addActionTitle();
+
         checkContractSigned();
 
         User user = Auth.getCurrentUser();
@@ -70,7 +72,7 @@ public class Orders extends AppController {
         }
 
         if (!(!availableCourses.isEmpty() || !availableSoes.isEmpty())) {
-            flashError("jobOrders.create.error.empty");
+            flashError("joborders.create.error.empty");
             view();
         }
 
@@ -83,7 +85,7 @@ public class Orders extends AppController {
             Prestation rcp = prestationService.getNotOrderedRcpByIdAndUser(id, user);
 
             if (null == rcp || rcps.contains(rcp)) {
-                flashError("jobOrders.create.error.invalid_ordered_course");
+                flashError("joborders.create.error.invalid_ordered_course");
                 view();
             }
 
@@ -97,7 +99,7 @@ public class Orders extends AppController {
             SoeExam soe = soeExamService.getNotOrderedSoeForUser(id, user);
 
             if (null == soe) {
-                flashError("jobOrders.create.error.invalid_ordered_soe");
+                flashError("joborders.create.error.invalid_ordered_soe");
                 view();
             }
 
@@ -106,7 +108,7 @@ public class Orders extends AppController {
 
         jobOrderService.createOrder(rcps, soeExams, user);
 
-        flashSuccess("jobOrders.create.success");
+        flashSuccess("joborders.create.success");
         view();
     }
 
@@ -144,7 +146,7 @@ public class Orders extends AppController {
         User user = Auth.getCurrentUser();
 
         if (user.hasContract() && user.contract.state != ContractState.SIGNED_BY_SUPINFO) {
-            flashError("jobOrders.error.contract_not_signed");
+            flashError("joborders.error.contract_not_signed");
             Dashboard.index();
         }
     }
