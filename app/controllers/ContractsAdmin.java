@@ -2,15 +2,20 @@ package controllers;
 
 import controllers.abstracts.AppController;
 import controllers.helper.PageHelper;
+import controllers.security.Auth;
 import controllers.security.LoggedAccess;
+import helpers.YearCourseHelper;
 import models.contracts.Contract;
 import models.contracts.ContractState;
+import models.school.YearCourse;
 import models.user.Profile;
+import models.user.User;
 import play.mvc.Before;
 import service.ContractService;
 import service.YearCourseService;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -65,5 +70,26 @@ public class ContractsAdmin extends AppController {
 
         response.setContentTypeIfNotSet(contract.pdf.type());
         renderBinary(contract.pdf.get(), "Contrat cadre.pdf");
+    }
+
+    public static void regenerate(long contractId) {
+
+        Contract contract = Contract.findById(contractId);
+        notFoundIfNull(contract);
+
+        if (contract.state != ContractState.CREATED) {
+            flashError("contract.regenerate.contractAlreadySigned");
+            UsersAdmin.show(contract.user.id);
+        }
+        
+        if(contract.year != YearCourseHelper.getCurrentYear()) {
+            flashError("contractsadmin.regenerate.error.contract_not_for_current_year");
+            UsersAdmin.show(contract.user.id);
+        }
+
+        contractService.createForUser(contract.user);
+
+        flashSuccess("contracts.regenerate.success");
+        UsersAdmin.show(contract.user.id);
     }
 }

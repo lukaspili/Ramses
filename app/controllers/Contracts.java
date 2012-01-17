@@ -27,6 +27,8 @@ public class Contracts extends AppController {
 
     public static void view() {
 
+        pageHelper().addActionTitle();
+
         User user = Auth.getCurrentUser();
 
         // user have no contract
@@ -73,7 +75,7 @@ public class Contracts extends AppController {
 
         contractService.createForUser(user);
 
-        flashSuccess("contract.regenerate.success");
+        flashSuccess("contracts.regenerate.success");
         view();
     }
 

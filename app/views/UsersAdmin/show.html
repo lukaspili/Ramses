@@ -94,15 +94,17 @@
             <tr class="gradeX">
                 <td>2011 / 2012</td>
                 <td>${user.contract.state.label}</td>
-                <td>
+                <td style="text-align: right">
                     #{if user.contract.state == models.contracts.ContractState.CREATED}
-                    #{a @ContractsAdmin.signedBySTA(user.contract.id)}Signé par le STA#{/a}
+                    #{a @ContractsAdmin.signedBySTA(user.contract.id)}Signé par le STA#{/a} -
+					#{a @ContractsAdmin.regenerate(user.contract.id)}Regénérer le pdf#{/a}
                     #{/if}
+
                     #{elseif user.contract.state == models.contracts.ContractState.SIGNED_BY_STA}
                     #{a @ContractsAdmin.signedBySupinfo(user.contract.id)}Signé par SUPINFO#{/a}
                     #{/elseif}
-                </td>
-                <td>
+
+					-
                     #{a @ContractsAdmin.download(user.contract.id)}Télécharger#{/a}
                 </td>
             </tr>
