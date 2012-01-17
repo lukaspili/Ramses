@@ -30,4 +30,6 @@ public class Prestation extends GenericModel {
     public float getTotal() {
         return hours * realCourse.yearCourse.type.getPriceForYearPromotion(realCourse.yearPromotion);
     }
+
+
 }

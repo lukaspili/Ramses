@@ -22,7 +22,7 @@
             <label for="${field.id}">&{field.name}</label>
             <select name="${field.name}" multiple="multiple" class="multiselect">
                 #{list items:prestations, as:'prestation'}
-                <option value="${prestation.realCourse.id}">${prestation.realCourse.yearCourse.fullName}</option>
+                <option value="${prestation.realCourse.id}">${prestation.realCourse.yearCourse.fullName} ${prestation.realCourse.yearPromotion.fullName}</option>
                 #{/list}
             </select>
             #{/}
