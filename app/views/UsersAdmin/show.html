@@ -61,12 +61,11 @@
                 <td>${order.total}</td>
                 <td>${order.state.label}</td>
 
-                <td>
+                <td style="text-align: right">
                     #{if order.state == models.contracts.JobOrderState.CREATED}
-                    #{a @OrdersAdmin.signed(order.id)}Signé#{/a}
-                    #{/if}
-                </td>
-                <td>
+                    	#{a @OrdersAdmin.signed(order.id)}Signé#{/a} -
+						#{a @Orders.delete(order.id), onclick:'return confirm(\'La suppression du bon de commande sera définitive. Confirmez vous la suppression ?\')'}Supprimer#{/a} -
+					#{/if}
                     #{a @Orders.download(order.id)}Télécharger#{/a}
                 </td>
             </tr>

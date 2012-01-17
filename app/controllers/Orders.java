@@ -5,6 +5,7 @@ import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import models.contracts.ContractState;
 import models.contracts.JobOrder;
+import models.contracts.JobOrderState;
 import models.school.Prestation;
 import models.school.SoeExam;
 import models.school.YearCourse;
@@ -127,7 +128,7 @@ public class Orders extends AppController {
 
         User user = Auth.getCurrentUser();
 
-        JobOrder order = null;
+        JobOrder order;
 
         if (user.profile == Profile.ADMIN) {
             order = JobOrder.findById(orderId);
@@ -139,6 +140,31 @@ public class Orders extends AppController {
 
         response.setContentTypeIfNotSet(order.pdf.type());
         renderBinary(order.pdf.get(), "Bon de commande.pdf");
+    }
+
+    public static void delete(long jobOrderId) {
+
+        User user = Auth.getCurrentUser();
+
+        JobOrder jobOrder;
+
+        if (user.profile == Profile.ADMIN) {
+            jobOrder = JobOrder.findById(jobOrderId);
+        } else {
+            jobOrder = jobOrderService.getByIdAndUser(jobOrderId, user);
+        }
+
+        notFoundIfNull(jobOrder);
+
+        if(jobOrder.state != JobOrderState.CREATED) {
+            flashError("orders.delete.error.job_order_already_signed");
+            view();
+        }
+
+        jobOrderService.delete(jobOrder);
+
+        flashSuccess("orders.delete.success");
+        view();
     }
 
     private static void checkContractSigned() {

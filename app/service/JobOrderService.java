@@ -91,4 +91,14 @@ public class JobOrderService {
         }
 
     }
+
+    public void delete(JobOrder jobOrder) {
+
+        Query query = JobOrder.em().createQuery("update Prestation p set p.jobOrder = null " +
+                "where p.jobOrder = :jobOrder");
+        query.setParameter("jobOrder", jobOrder);
+        query.executeUpdate();
+
+        jobOrder.delete();
+    }
 }

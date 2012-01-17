@@ -58,7 +58,7 @@
                     <th>Date de création</th>
                     <th>Total</th>
                     <th>Etat</th>
-                    <th class="last">Actions</th>
+                    <th class="last" style="text-align: right">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -68,7 +68,12 @@
                     <td>${order.creationDate.format()}</td>
                     <td>${order.total}</td>
                     <td>${order.state.label}</td>
-                    <td>#{a @download(order.id)}Télécharger#{/a}</td>
+                    <td style="text-align: right">
+						#{if order.state == models.contracts.JobOrderState.CREATED}
+							#{a @Orders.delete(order.id), onclick:'return confirm(\'La suppression du bon de commande sera définitive. Confirmez vous la suppression ?\')'}Supprimer#{/a} -
+						#{/if}
+						#{a @download(order.id)}Télécharger#{/a}
+					</td>
                 </tr>
                 </tbody>
                 #{/list}

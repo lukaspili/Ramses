@@ -223,6 +223,10 @@ coursesadmin.validateCandidature.success=La candidature a été validée avec su
 joborders.error.contract_not_signed=Votre contrat cadre n'a pas encore été signé
 
 orders.view=Vos bons de commande
+
+orders.delete.error.job_order_already_signed=Vous ne pouvez pas supprimer un bon de commande déjà signé
+orders.delete.success=Votre bon de commande a été supprimé avec succès
+
 joborders.create=Créer le bon de commande
 joborders.create.error.empty=Veuillez inclure au moins une prestation dans le bon de commande
 joborders.create.error.invalid_ordered_soe=Un ou plusieurs SOE inclus dans le bon de commande ne sont pas valides
@@ -235,6 +239,8 @@ contracts.view=Votre contrat cadre
 contracts.view.download=Télécharger votre contract cadre
 
 contracts.regenerate.success=Le contrat a été regénéré avec succès
+contractsadmin.signedBySTA.success=Le contrat cadre est maintenant signé par le STA
+contractsadmin.signedBySupinfo.success=Le contrat cadre est maintenant signé par SUPINFO
 contractsadmin.regenerate.error.contract_not_for_current_year=Vous ne pouvez pas regenerer un contrat d'une année précédente
 
 # Application

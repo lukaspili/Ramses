@@ -42,7 +42,7 @@ public class ContractsAdmin extends AppController {
         contract.state = ContractState.SIGNED_BY_STA;
         contract.save();
 
-        flashSuccess("contractsAdmin.signedBySTA.success");
+        flashSuccess("contractsadmin.signedBySTA.success");
         UsersAdmin.show(contract.user.id);
     }
 
@@ -59,7 +59,7 @@ public class ContractsAdmin extends AppController {
         contract.state = ContractState.SIGNED_BY_SUPINFO;
         contract.save();
 
-        flashSuccess("contractsAdmin.signedBySupinfo.success");
+        flashSuccess("contractsadmin.signedBySupinfo.success");
         UsersAdmin.show(contract.user.id);
     }
 
