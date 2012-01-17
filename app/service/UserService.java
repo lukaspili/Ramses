@@ -41,19 +41,16 @@ public class UserService extends AbstractService<User> {
         return user;
     }
 
-    public User getById(long id) {
-        User user = User.findById(id);
-        return user;
-    }
-
     public User getByIdBooster(String idBooser) {
         checkNotNull(idBooser, "ID booster is required");
         return User.find("byIdBooster", idBooser).first();
     }
 
     public List<User> getActiveUsers() {
-        return User.em().createQuery("select u from User u where u.active = true " +
-                "order by u.idBooster").getResultList();
+        return User.em().createQuery("select u from User u " +
+                "where u.active = true " +
+                "order by u.idBooster desc")
+                .getResultList();
     }
 
     public List<User> getActiveUsersByIds(List<Long> ids) {
@@ -64,7 +61,7 @@ public class UserService extends AbstractService<User> {
 
         return User.em().createQuery("select u from User u " +
                 "where u.active = true and u.id in (:ids)" +
-                "order by u.idBooster")
+                "order by u.idBooster desc")
                 .setParameter("ids", ids)
                 .getResultList();
     }
