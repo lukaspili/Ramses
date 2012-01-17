@@ -54,7 +54,8 @@
             <table class="static">
                 <thead>
                 <tr>
-                    <th class="first">Date de création</th>
+                    <th class="first">Numéro</th>
+                    <th>Date de création</th>
                     <th>Total</th>
                     <th>Etat</th>
                     <th class="last">Actions</th>
@@ -63,7 +64,8 @@
                 <tbody>
                 #{list items:orders, as:'order'}
                 <tr class="gradeX">
-                    <td>#{a @show(order.id)}${order.creationDate.format()}#{/a}</td>
+                    <td>${order.formattedNumber}</td>
+                    <td>${order.creationDate.format()}</td>
                     <td>${order.total}</td>
                     <td>${order.state.label}</td>
                     <td>#{a @download(order.id)}Télécharger#{/a}</td>

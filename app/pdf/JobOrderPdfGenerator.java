@@ -56,7 +56,7 @@ public class JobOrderPdfGenerator extends PdfGenerator {
 
 
             phrase = new Phrase("BON DE COMMANDE\n" +
-                    "N°" + order.getFormattedId() + "\n" +
+                    "N°" + order.getFormattedNumber() + "\n" +
                     "Contrat N°2012-PAR-" + order.user.getFormattedStaNumber(), titleFont);
             phrase.setLeading(25);
             cell.setPhrase(phrase);

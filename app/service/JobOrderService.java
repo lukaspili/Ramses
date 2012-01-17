@@ -49,6 +49,14 @@ public class JobOrderService {
             order.total += soe.getTotal();
         }
 
+        JobOrder last = JobOrder.find("order by jobOrderNumber desc limit 1").first();
+
+        if (null == last) {
+            order.jobOrderNumber = 1;
+        } else {
+            order.jobOrderNumber = last.jobOrderNumber + 1;
+        }
+
         order.save();
 
         try {

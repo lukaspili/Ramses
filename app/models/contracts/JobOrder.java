@@ -18,6 +18,8 @@ import java.util.List;
 @Entity
 public class JobOrder extends Model {
 
+    public long jobOrderNumber;
+
     public float total;
 
     public S3RealBlob pdf;
@@ -43,14 +45,14 @@ public class JobOrder extends Model {
     /**
      * Add 0 before if the order id is in 1 -> 99, in case to have id number like 001, 002, 010, etc...
      */
-    public String getFormattedId() {
+    public String getFormattedNumber() {
 
-        if (id < 10) {
-            return "00" + id;
+        if (jobOrderNumber < 10) {
+            return "00" + jobOrderNumber;
         } else if (id < 100) {
-            return "0" + id;
+            return "0" + jobOrderNumber;
         }
 
-        return String.valueOf(id);
+        return String.valueOf(jobOrderNumber);
     }
 }
