@@ -64,7 +64,7 @@
                 <td style="text-align: right">
                     #{if order.state == models.contracts.JobOrderState.CREATED}
                     	#{a @OrdersAdmin.signed(order.id)}Signé#{/a} -
-						#{a @Orders.delete(order.id), onclick:'return confirm(\'La suppression du bon de commande sera définitive. Confirmez vous la suppression ?\')'}Supprimer#{/a} -
+						#{a @Orders.delete(order.id, user.id), onclick:'return confirm(\'La suppression du bon de commande sera définitive. Confirmez vous la suppression ?\')'}Supprimer#{/a} -
 					#{/if}
                     #{a @Orders.download(order.id)}Télécharger#{/a}
                 </td>
@@ -96,14 +96,13 @@
                 <td style="text-align: right">
                     #{if user.contract.state == models.contracts.ContractState.CREATED}
                     #{a @ContractsAdmin.signedBySTA(user.contract.id)}Signé par le STA#{/a} -
-					#{a @ContractsAdmin.regenerate(user.contract.id)}Regénérer le pdf#{/a}
+					#{a @ContractsAdmin.regenerate(user.contract.id)}Regénérer le pdf#{/a} -
                     #{/if}
 
                     #{elseif user.contract.state == models.contracts.ContractState.SIGNED_BY_STA}
-                    #{a @ContractsAdmin.signedBySupinfo(user.contract.id)}Signé par SUPINFO#{/a}
+                    #{a @ContractsAdmin.signedBySupinfo(user.contract.id)}Signé par SUPINFO#{/a} -
                     #{/elseif}
 
-					-
                     #{a @ContractsAdmin.download(user.contract.id)}Télécharger#{/a}
                 </td>
             </tr>

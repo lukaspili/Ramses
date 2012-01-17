@@ -142,7 +142,7 @@ public class Orders extends AppController {
         renderBinary(order.pdf.get(), "Bon de commande.pdf");
     }
 
-    public static void delete(long jobOrderId) {
+    public static void delete(long jobOrderId, long fromUserId) {
 
         User user = Auth.getCurrentUser();
 
@@ -164,6 +164,11 @@ public class Orders extends AppController {
         jobOrderService.delete(jobOrder);
 
         flashSuccess("orders.delete.success");
+
+        if(fromUserId != 0 && user.profile == Profile.ADMIN) {
+            UsersAdmin.show(fromUserId);
+        }
+
         view();
     }
 

@@ -225,7 +225,7 @@ joborders.error.contract_not_signed=Votre contrat cadre n'a pas encore été sig
 orders.view=Vos bons de commande
 
 orders.delete.error.job_order_already_signed=Vous ne pouvez pas supprimer un bon de commande déjà signé
-orders.delete.success=Votre bon de commande a été supprimé avec succès
+orders.delete.success=Le bon de commande a été supprimé avec succès
 
 joborders.create=Créer le bon de commande
 joborders.create.error.empty=Veuillez inclure au moins une prestation dans le bon de commande
