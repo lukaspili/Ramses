@@ -249,7 +249,7 @@ specificPrestation.title=Objet
 specificPrestation.hours=Nombre d'heures
 specificPrestation.price=Prix de l'heure
 specificPrestation.users=Prestataire(s)
-specificPrestation.date=Date &{date.format.help}
+specificPrestation.date=Date
 
 specificprestations=Prestations ponctuelles
 specificprestationsadmin=Gestion des prestations ponctuelles

@@ -95,11 +95,6 @@ public class CoursesAdmin extends AppController {
             }
         }
 
-
-        if (!user.hasContract()) {
-            contractService.createForUser(user);
-        }
-
         course.candidates.remove(user);
         course.save();
 

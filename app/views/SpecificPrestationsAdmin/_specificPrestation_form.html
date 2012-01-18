@@ -28,7 +28,7 @@
 #{/}
 
 #{field 'date'}
-<label for="${field.id}">&{'specificPrestation.date'} <span style="color:red">*</span></label>
+<label for="${field.id}">&{'specificPrestation.date'} &{'date.format.help'} <span style="color:red">*</span></label>
 <input type="text" id="${field.id}" name="${field.name}" value="${field.value?.format()}"
 class="medium ${field.errorClass}"/>
 #{if field.error}<span class="LV_validation_message LV_invalid">${field.error}</span>#{/}

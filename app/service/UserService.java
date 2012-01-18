@@ -2,17 +2,13 @@ package service;
 
 import exceptions.CoreException;
 import models.school.Course;
-import models.school.YearCourse;
 import models.user.User;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.jasypt.util.password.StrongPasswordEncryptor;
-import play.db.jpa.Model;
 
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -55,7 +51,7 @@ public class UserService extends AbstractService<User> {
 
     public List<User> getActiveUsersByIds(List<Long> ids) {
 
-        if(null == ids || ids.isEmpty()) {
+        if (null == ids || ids.isEmpty()) {
             return new ArrayList<User>();
         }
 
@@ -98,6 +94,8 @@ public class UserService extends AbstractService<User> {
         existingUser.password = new StrongPasswordEncryptor().encryptPassword(newUser.password);
 
         updateFromPersonalInfo(newUser, existingUser);
+
+        new ContractService().createForUser(existingUser);
     }
 
     public void updateFromPersonalInfo(User newUser, User existingUser) {
