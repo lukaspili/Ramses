@@ -10,6 +10,7 @@ import models.contracts.ContractState;
 import models.school.YearCourse;
 import models.user.Profile;
 import models.user.User;
+import org.apache.commons.lang3.StringUtils;
 import play.mvc.Before;
 import service.ContractService;
 import service.YearCourseService;
@@ -22,6 +23,8 @@ import java.util.List;
  */
 @LoggedAccess(Profile.ADMIN)
 public class ContractsAdmin extends AppController {
+    
+    public static final String FROM_CONTRACTS_INDEX = "contractsadmin_index";
 
     @Inject
     private static ContractService contractService;
@@ -29,7 +32,16 @@ public class ContractsAdmin extends AppController {
     @Inject
     private static YearCourseService yearCourseService;
 
-    public static void signedBySTA(long contractId) {
+    public static void index() {
+
+        pageHelper().addActionTitle();
+
+        List<Contract> contracts = contractService.getContractsWithUserByYear(YearCourseHelper.getCurrentYear());
+
+        render(contracts);
+    }
+
+    public static void signedBySTA(long contractId, String from) {
 
         Contract contract = Contract.findById(contractId);
         notFoundIfNull(contract);
@@ -43,10 +55,15 @@ public class ContractsAdmin extends AppController {
         contract.save();
 
         flashSuccess("contractsadmin.signedBySTA.success");
+
+        if(StringUtils.equals(from, FROM_CONTRACTS_INDEX)) {
+            index();
+        }
+
         UsersAdmin.show(contract.user.id);
     }
 
-    public static void signedBySupinfo(long contractId) {
+    public static void signedBySupinfo(long contractId, String from) {
 
         Contract contract = Contract.findById(contractId);
         notFoundIfNull(contract);
@@ -60,6 +77,11 @@ public class ContractsAdmin extends AppController {
         contract.save();
 
         flashSuccess("contractsadmin.signedBySupinfo.success");
+
+        if(StringUtils.equals(from, FROM_CONTRACTS_INDEX)) {
+            index();
+        }
+
         UsersAdmin.show(contract.user.id);
     }
 
@@ -72,7 +94,7 @@ public class ContractsAdmin extends AppController {
         renderBinary(contract.pdf.get(), "Contrat cadre.pdf");
     }
 
-    public static void regenerate(long contractId) {
+    public static void regenerate(long contractId, String from) {
 
         Contract contract = Contract.findById(contractId);
         notFoundIfNull(contract);
@@ -90,6 +112,11 @@ public class ContractsAdmin extends AppController {
         contractService.createForUser(contract.user);
 
         flashSuccess("contracts.regenerate.success");
+        
+        if(StringUtils.equals(from, FROM_CONTRACTS_INDEX)) {
+            index();
+        }
+
         UsersAdmin.show(contract.user.id);
     }
 }

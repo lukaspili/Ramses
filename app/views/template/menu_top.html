@@ -23,9 +23,16 @@
 		</li>
 
 		<li><a href="#"><img src="@{'/public/images/icons/small/grey/create_write.png'}"/>Comptabilité</a>
-			<ul class="dropdown">
-				<li>#{a @SpecificPrestationsAdmin.index()}&{'specificprestationsadmin.index'}#{/a}</li>
-				<li>#{a @SpecificPrestationsAdmin.newPrestation()}&{'specificprestationsadmin.newPrestation'}#{/a}</li>
+
+			<ul class="dropdown ui-accordion ui-widget ui-helper-reset" role="tablist">
+				<li class="ui-accordion-li-fix"><a class="has_slide ui-accordion-header ui-helper-reset ui-state-active ui-corner-top" href="#" role="tab" aria-expanded="true" aria-selected="true" tabindex="0">P. ponctuelles</a>
+					<ul class="slideout ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" role="tabpanel" style="display: block; ">
+						<li>#{a @SpecificPrestationsAdmin.index()}Liste#{/a}</li>
+						<li>#{a @SpecificPrestationsAdmin.newPrestation()}Nouvelle#{/a}</li>
+					</ul>
+				</li>
+
+				<li>#{a @ContractsAdmin.index()}Contrats cadre#{/a}</li>
 			</ul>
 		</li>
 

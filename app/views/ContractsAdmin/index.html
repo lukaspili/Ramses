@@ -1,0 +1,48 @@
+#{extends 'template/template.html' /}
+
+<div class="flat_area grid_16">
+
+    <h2>${page_title}</h2>
+
+    #{include 'helpers/flash_box.html' /}
+
+</div>
+
+<div class="box grid_16 round_all">
+    <table class="display datatable">
+        <thead>
+        <tr>
+            <th class="first">&{'user.staNumber'}</th>
+            <th>&{'user.lastName'}</th>
+            <th>&{'contractState'}</th>
+            <th class="last" style="text-align: right">&{'misc.actions'}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        #{list items:contracts, as: 'contract'}
+        <tr>
+            <td>${contract.user.staNumber}</td>
+            <td>#{a @UsersAdmin.show(contract.user.id)}<strong>${contract.user.fullName}</strong>#{/a}</td>
+            <td>${contract.state.label}</td>
+			<td style="text-align: right">
+				#{if contract.state == models.contracts.ContractState.CREATED}
+					#{a @ContractsAdmin.signedBySTA(contract.id, 'contractsadmin_index')}Signé par le STA#{/a} -
+					#{a @ContractsAdmin.regenerate(contract.id, 'contractsadmin_index')}Regénérer le pdf#{/a} -
+				#{/if}
+
+				#{elseif contract.state == models.contracts.ContractState.SIGNED_BY_STA}
+					#{a @ContractsAdmin.signedBySupinfo(contract.id, 'contractsadmin_index')}Signé par SUPINFO#{/a} -
+				#{/elseif}
+
+				#{a @ContractsAdmin.download(contract.id)}Télécharger#{/a}
+			</td>
+        </tr>
+        #{/list}
+
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" src="@{'public/js/DataTables/jquery.dataTables.js'}"></script>
+<script type="text/javascript" src="@{'public/js/adminica/adminica_datatables.js'}"></script>

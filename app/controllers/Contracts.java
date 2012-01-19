@@ -4,6 +4,7 @@ import controllers.abstracts.AppController;
 import controllers.security.Auth;
 import controllers.security.LoggedAccess;
 import helpers.YearCourseHelper;
+import models.contracts.Contract;
 import models.contracts.ContractState;
 import models.school.YearCourse;
 import models.user.User;

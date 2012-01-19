@@ -5,10 +5,12 @@ import models.contracts.Contract;
 import models.user.User;
 import pdf.ContractPdfGenerator;
 import play.libs.MimeTypes;
-import plugin.s3.model.S3Blob;
 import plugin.s3.model.impl.S3RealBlob;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
@@ -43,5 +45,16 @@ public class ContractService {
         user.save();
 
         return contract;
+    }
+
+
+    public List<Contract> getContractsWithUserByYear(int year) {
+
+        return Contract.em().createQuery("select c from Contract c " +
+                "join c.user u " +
+                "where c.year = :year " +
+                "order by u.staNumber")
+                .setParameter("year", year)
+                .getResultList();
     }
 }

@@ -125,6 +125,7 @@ jobOrderState.created=Créé
 # Contract
 
 # ContractState
+contractState=Etat du contrat
 contractState.created=Créé
 contractState.signed_by_sta=Signé par le STA
 contractState.signed_by_supinfo=Signé par SUPINFO
@@ -240,6 +241,7 @@ contracts.view=Votre contrat cadre
 contracts.view.download=Télécharger votre contract cadre
 
 contracts.regenerate.success=Le contrat a été regénéré avec succès
+contractsadmin.index=Liste des contrats cadre
 contractsadmin.signedBySTA.success=Le contrat cadre est maintenant signé par le STA
 contractsadmin.signedBySupinfo.success=Le contrat cadre est maintenant signé par SUPINFO
 contractsadmin.regenerate.error.contract_not_for_current_year=Vous ne pouvez pas regenerer un contrat d'une année précédente
@@ -289,6 +291,7 @@ availableCourses=Cours à ajouter au bon de commande
 availableSoes=SOE à ajouter au bon de commande
 passwordConfirmation=Confirmation du mot de passe
 error.functionnality_not_implemented_yet=Fonctionnalité non implementée
+misc.actions=Actions
 
 # Commons
 not_filled=Non renseigné
