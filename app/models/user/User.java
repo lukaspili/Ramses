@@ -7,6 +7,8 @@ import models.school.Prestation;
 import models.school.SoeExam;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
 import play.data.validation.CheckWith;
 import play.db.jpa.Model;
 import validation.check.NumericCheck;
@@ -42,6 +44,11 @@ public class User extends Model {
 
     public String rcs;
 
+    public String passwordResetKey;
+
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
+    public LocalDate passwordResetDate;
+
     public boolean active;
 
     public boolean desactivated;
@@ -71,7 +78,7 @@ public class User extends Model {
         this.idBooster = idBooster;
         this.profile = profile;
     }
-    
+
     public String getIdBoosterAndFullname() {
         return idBooster + " - " + getFullName();
     }
@@ -100,6 +107,10 @@ public class User extends Model {
 
     public boolean hasContract() {
         return null != contract;
+    }
+
+    public boolean hasPasswordReset() {
+        return null != passwordResetKey && null != passwordResetDate;
     }
 
     /**

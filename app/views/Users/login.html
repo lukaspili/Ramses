@@ -11,6 +11,8 @@
 
     #{include 'helpers/form_validation.html' /}
 
+	<h3 style="padding-top: 20px; padding-bottom: 10px; text-align: center">Bienvenue sur Eunomie.</h3>
+
     #{form @authenticate(), id:'login-form', enctype:'multipart/form-data' }
 
     #{field 'user.idBooster'}
@@ -34,7 +36,7 @@
     </button>
 
     <div id="bar" class="round_bottom" style="text-align: right;">
-        <a href="#">&{'users.login.password'}</a>
+        #{a @Users.forgotPassword()}&{'users.login.password'}#{/a}
     </div>
 
     #{/form}

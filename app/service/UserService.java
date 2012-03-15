@@ -5,8 +5,11 @@ import models.school.Course;
 import models.user.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.joda.time.LocalDate;
 
 import javax.persistence.Query;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,5 +156,24 @@ public class UserService extends AbstractService<User> {
     public void changeActivationState(User user) {
         user.desactivated = !user.desactivated;
         user.save();
+    }
+
+    public User forgotPasswordRequest(User user) {
+
+        user.passwordResetKey = new BigInteger(130, new SecureRandom()).toString(32);
+        user.passwordResetDate = new LocalDate();
+        user.save();
+
+        return user;
+    }
+
+    public User resetPassword(User user, String password) {
+
+        user.password = new StrongPasswordEncryptor().encryptPassword(password);
+        user.passwordResetDate = null;
+        user.passwordResetKey = null;
+        user.save();
+
+        return user;
     }
 }

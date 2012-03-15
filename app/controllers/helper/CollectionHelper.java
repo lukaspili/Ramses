@@ -26,40 +26,6 @@ public class CollectionHelper {
         renderArgs.put(name, getIdsFromModel(selected));
     }
 
-//    public <T extends Model> Set<T> getFromHtmlCollection(List<Long> htmlCollection) {
-//
-//        Method method;
-//
-//        try {
-//            method = this.getClass().getMethod("getFromHtmlCollection", List.class);
-//        } catch (Exception e) {
-//            throw new RuntimeException();
-//        }
-//
-//        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-//        Class[] parameterTypes = method.getParameterTypes();
-//
-//        int i = 0;
-//        for (Annotation[] annotations : parameterAnnotations) {
-//
-//            Logger.debug("Annotations : " + annotations.length);
-//
-//            Class parameterType = parameterTypes[i++];
-//
-//            for (Annotation annotation : annotations) {
-//
-//                Logger.debug("Annotation : " + annotation.getClass().getName());
-//
-//                if (annotation instanceof IsHtmlCollection) {
-//                    IsHtmlCollection myAnnotation = (IsHtmlCollection) annotation;
-//                    Logger.debug("param: " + parameterType.getName());
-//                }
-//            }
-//        }
-//
-//        return new HashSet<T>();
-//    }
-
     public <T extends Model> List<T> getFromIds(Class<T> model, List<Long> ids) {
 
         List<T> list = new ArrayList<T>();

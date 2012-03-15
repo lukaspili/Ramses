@@ -7,6 +7,7 @@ import controllers.security.LoggedAccess;
 import controllers.security.PublicAccess;
 import models.school.Course;
 import models.user.User;
+import notifiers.Mails;
 import org.apache.commons.lang3.StringUtils;
 import play.data.validation.Required;
 import play.mvc.Util;
@@ -76,6 +77,80 @@ public class Users extends AppController {
         Auth.logoutUser();
         flash.clear();
         Users.login();
+    }
+
+    @PublicAccess(only = true)
+    public static void forgotPassword() {
+
+        pageHelper().addActionTitle();
+
+        render();
+    }
+
+    @PublicAccess(only = true)
+    public static void forgotPasswordRequest(@Required String idBooster) {
+
+        if (validation.hasErrors()) {
+            render("Users/forgotPassword.html");
+        }
+
+        User user = User.find("byIdBooster", idBooster).first();
+        notFoundIfNull(user);
+
+        userService.forgotPasswordRequest(user);
+
+        Mails.forgotPasswordRequest(user);
+
+        flashSuccess("users.forgotPasswordRequest.success");
+        login();
+    }
+
+    @PublicAccess(only = true)
+    public static void resetPassword(@Required String idBooster, @Required String key) {
+
+        if (validation.hasErrors()) {
+            notFound();
+        }
+
+        User user = checkValidResetPassword(idBooster, key);
+
+        renderArgs.put("idBooster", idBooster);
+        renderArgs.put("key", key);
+
+        render(user);
+    }
+
+    @PublicAccess(only = true)
+    public static void resetPasswordRequest(@Required String idBooster, @Required String key, @Required String password, @Required String passwordConfirm) {
+
+        if (validation.hasErrors()) {
+            render("Users/resetPassword.html", idBooster, key);
+        }
+
+        if (!password.equals(passwordConfirm)) {
+            validation.addError("passwordConfirm", "users.error.passwordConfirmation");
+            render("Users/resetPassword.html", idBooster, key);
+        }
+
+        User user = checkValidResetPassword(idBooster, key);
+
+        userService.resetPassword(user, password);
+
+        flashSuccess("users.resetPasswordRequest.success");
+        login();
+    }
+
+    @Util
+    public static User checkValidResetPassword(String idBooster, String key) {
+
+        User user = User.find("byIdBooster", idBooster).first();
+        notFoundIfNull(user);
+
+        if (!user.hasPasswordReset() || !user.passwordResetKey.equals(key) || user.passwordResetDate.isAfter(user.passwordResetDate.plusDays(1))) {
+            notFound();
+        }
+
+        return user;
     }
 
     @LoggedAccess
@@ -173,7 +248,7 @@ public class Users extends AppController {
         }
 
         if (!StringUtils.equals(user.password, passwordConfirmation)) {
-            validator.addError("passwordConfirmation", "users.error.passwordConfirmation", true).save();
+            validator.addError("passwordConfirmation", "users.error.passwordConfirmation", true);
             render("Users/editPassword.html");
         }
 

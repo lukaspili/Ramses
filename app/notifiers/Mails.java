@@ -9,10 +9,19 @@ import play.mvc.Mailer;
  */
 public class Mails extends Mailer {
 
+    private static final String FROM = "Eunomie SUPINFO Paris <eunomie@supinfo.com>";
+
     public static void register(User user) {
         setSubject(Messages.get("mail.register.subject"));
         addRecipient(user.getEmail());
-        setFrom("Eunomie SUPINFO Paris <eunomie@supinfo.com>");
+        setFrom(FROM);
+        send(user);
+    }
+
+    public static void forgotPasswordRequest(User user) {
+        setSubject(Messages.get("mail.resetPasswordRequest.subject"));
+        addRecipient(user.getEmail());
+        setFrom(FROM);
         send(user);
     }
 }

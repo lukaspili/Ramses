@@ -23,7 +23,7 @@ public class Init extends UtilController {
 //        }
 //
 //        if (User.count() == 0) {
-////            DatabaseInitializer.initDatabaseForDev();
+//            DatabaseInitializer.initDatabaseForDev();
 //        }
 //
 //        Dashboard.index();

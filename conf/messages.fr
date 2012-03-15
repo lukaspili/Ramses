@@ -17,6 +17,8 @@ user.activity=Activité du compte
 user.activity.active=Actif
 user.activity.inactive=Inactif
 
+user.passwordConfirm=Confirmation
+
 user.error.have_no_contract=Votre contrat cadre n'a pas encore été généré
 user.info.not_yet_active=L'utilisateur n'a pas encore activé son compte
 
@@ -147,16 +149,25 @@ yearPromotion.promotion=Niveau
 # Dashboard
 dashboard=Dashboard
 
-# Users
+
 users.error.passwordConfirmation=Les mots de passe sont differents
 
-# Users.login
 users.login=Authentification
 users.login.submit=Connexion
 users.login.password=Mot de passe oublié ?
 users.login.remember=Connexion auto.
 users.login.authentication.failure=Identifiants incorrects
 users.authenticate.error.user_is_desactivated=Votre compte a été désactivé, la connexion à l'application vous est interdite
+
+users.forgotPassword=Mot de passe oublié
+users.forgotPassword.submit=Réinitialiser
+users.forgotPassword.cancel=Retourner à la connexion
+
+users.forgotPasswordRequest.success=Un email de réinitialisation vous a été envoyé
+
+users.resetPassword.submit=Nouveau mot de passe
+
+users.resetPasswordRequest.success=Votre mot de passe a été réinitialisé avec succès
 
 # Users.firstLogin
 users.firstLogin=Activation de votre compte
@@ -305,6 +316,9 @@ mail.register.introduction=Votre compte vient d'être activé sur la plateforme.
 mail.register.url=Vous pouvez vous y connecter dès à présent avec votre idbooster %s, à l'adresse
 mail.register.password=Votre mot de passe généré de manière automatique est
 mail.register.process=Lors de votre première connexion, vous devrez renseigner vos informations personnelles nécessaires à l'édition de vos contrats ainsi que redéfinir votre mot de passe.
+
+mail.resetPasswordRequest.subject=Demande de réinitialisation de mot de passe sur Eunomie SUPINFO Paris
+
 
 
 # Auth
