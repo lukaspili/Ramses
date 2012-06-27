@@ -76,12 +76,18 @@ public class UserService extends AbstractService<User> {
             return null;
         }
 
-        boolean isPasswordValid = new StrongPasswordEncryptor().checkPassword(password, user.password);
+        boolean isPasswordValid = false;
+
+        if (!user.active) {
+            isPasswordValid = password.equals(user.password);
+        } else {
+            isPasswordValid = new StrongPasswordEncryptor().checkPassword(password, user.password);
+        }
 
         // if user change the password and is not yet active, ugly fix
-        if (!user.active && !isPasswordValid) {
-            isPasswordValid = password.equals(user.password);
-        }
+//        if (!user.active && !isPasswordValid) {
+//            isPasswordValid = password.equals(user.password);
+//        }
 
         if (!isPasswordValid) {
             return null;

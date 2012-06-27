@@ -139,6 +139,7 @@ promotion.b2=B2
 promotion.b3=B3
 promotion.m1=M1
 promotion.m2=M2
+promotion.pro=SMSC
 
 # YearPromotion
 yearPromotion=Promotion

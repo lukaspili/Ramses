@@ -97,6 +97,11 @@ public class Users extends AppController {
         User user = User.find("byIdBooster", idBooster).first();
         notFoundIfNull(user);
 
+        // reject not active users
+        if (!user.active) {
+            notFound("Vous devez d'abord activer votre compte avant de changer de mot de passe.");
+        }
+
         userService.forgotPasswordRequest(user);
 
         Mails.forgotPasswordRequest(user);

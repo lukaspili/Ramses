@@ -99,25 +99,25 @@ public class JobOrderPdfGenerator extends PdfGenerator {
                 }
             }
 
-            for(SoeExam soeExam : order.soeExams) {
+            for (SoeExam soeExam : order.soeExams) {
                 if (today.isAfter(soeExam.date)) {
                     today = soeExam.date;
                 }
             }
 
-            for(SpecificPrestation specificPrestation : order.specificPrestations) {
+            for (SpecificPrestation specificPrestation : order.specificPrestations) {
                 if (today.isAfter(specificPrestation.date)) {
                     today = specificPrestation.date;
                 }
             }
 
             String month = String.valueOf(today.getMonthOfYear());
-            if(month.length() == 1) {
+            if (month.length() == 1) {
                 month = "0" + month;
             }
 
             String day = String.valueOf(today.getDayOfMonth());
-            if(day.length() == 1) {
+            if (day.length() == 1) {
                 day = "0" + day;
             }
 
@@ -312,7 +312,7 @@ public class JobOrderPdfGenerator extends PdfGenerator {
 
                 Logger.debug("Add specific prestation to joborder");
 
-                phrase = new Phrase("SOE " + specificPrestation.title, textFont);
+                phrase = new Phrase(specificPrestation.title, textFont);
                 phrase.setLeading(textLeading);
                 cell = new PdfPCell();
                 cell.setPhrase(phrase);

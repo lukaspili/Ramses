@@ -27,6 +27,10 @@ public class YearPromotion extends Model {
 //    public List<YearCourse> yearCourses;
 
     public String getFullName() {
+        if (promotion == Promotion.PRO) {
+            return promotion.getLabel() + " " + name;
+        }
+
         return promotion.getLabel() + name;
     }
 }

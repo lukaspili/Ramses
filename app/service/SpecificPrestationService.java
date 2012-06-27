@@ -1,9 +1,11 @@
 package service;
 
+import models.contracts.JobOrder;
 import models.contracts.SpecificPrestation;
 import models.school.Prestation;
 import models.user.User;
 
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,5 +57,17 @@ public class SpecificPrestationService {
                 .setParameter("user", user)
                 .setParameter("ids", ids)
                 .getResultList();
+    }
+
+    public void addJobOrderToSpecificPrestations(JobOrder jobOrder, List<SpecificPrestation> specificPrestations) {
+        if (null == specificPrestations || specificPrestations.isEmpty()) {
+            return;
+        }
+
+        Query query = SpecificPrestation.em().createQuery("update SpecificPrestation p set p.jobOrder = :jobOrder where p in :specificPrestations")
+                .setParameter("jobOrder", jobOrder)
+                .setParameter("specificPrestations", specificPrestations);
+
+        query.executeUpdate();
     }
 }

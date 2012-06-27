@@ -6,7 +6,7 @@ import play.i18n.Messages;
  * @author Lukasz Piliszczuk <lukasz.piliszczuk AT zenika.com>
  */
 public enum Promotion {
-    B1(1), B2(2), B3(3), M1(4), M2(5);
+    B1(1), B2(2), B3(3), M1(4), M2(5), PRO(6);
 
     Promotion(int level) {
         this.level = level;

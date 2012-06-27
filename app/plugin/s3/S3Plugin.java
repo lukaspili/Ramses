@@ -29,7 +29,7 @@ public class S3Plugin extends PlayPlugin {
 
             S3Blob.mode = S3Blob.Mode.REAL;
 
-            S3RealBlob.s3Bucket = Play.configuration.getProperty("plugin.s3.real.bucket");
+            S3RealBlob.s3Bucket = Play.configuration.getProperty("plugin.s3.real.bucket", null);
             String accessKey = Play.configuration.getProperty("plugin.s3.real.aws.access.key");
             String secretKey = Play.configuration.getProperty("plugin.s3.real.aws.secret.key");
 

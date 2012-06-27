@@ -93,6 +93,7 @@ public class JobOrderService {
         order.save();
 
         new PrestationService().addJobOrderToPrestations(order, prestations);
+        new SpecificPrestationService().addJobOrderToSpecificPrestations(order, specificPrestations);
     }
 
     public JobOrder getByIdAndUser(long id, User user) {
