@@ -117,6 +117,11 @@ public class JobOrderService {
         query.setParameter("jobOrder", jobOrder);
         query.executeUpdate();
 
+        query = JobOrder.em().createQuery("update SpecificPrestation p set p.jobOrder = null " +
+                "where p.jobOrder = :jobOrder");
+        query.setParameter("jobOrder", jobOrder);
+        query.executeUpdate();
+
         jobOrder.delete();
     }
 }
